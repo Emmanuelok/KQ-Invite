@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "color": {
+    "cream": "#F7EFE4",
+    "paper": "#FFFAF2",
+    "orange": "#DE6427",
+    "orange_bright": "#F1843D",
+    "garnet": "#5F0C25",
+    "onyx": "#120A09",
+    "ink": "#17100E",
+    "muted": "#6F625D",
+    "champagne": "#D6AA67",
+    "champagne_light": "#EDD2A5",
+    "focus": "#0C667F",
+    "success": "#265B43",
+    "error": "#A2212D"
+  },
+  "contrast_pairs": [
+    {"name":"body","foreground":"ink","background":"cream","minimum_ratio":4.5},
+    {"name":"garnet action","foreground":"paper","background":"garnet","minimum_ratio":4.5},
+    {"name":"dark field","foreground":"paper","background":"onyx","minimum_ratio":4.5},
+    {"name":"orange field","foreground":"onyx","background":"orange_bright","minimum_ratio":4.5}
+  ],
+  "typography": {
+    "display": {"family":"KPDisplay","source":"/fonts/kp-display-regular.otf and /fonts/kp-display-italic.otf","original_family":"URW Base35 P052","fallback":"Palatino Linotype, Palatino, Baskerville, Times New Roman, serif","weight":400,"line_height":0.88},
+    "body": {"family":"KPSans","source":"/fonts/kp-sans-regular.otf and /fonts/kp-sans-bold.otf","original_family":"URW Base35 Nimbus Sans","fallback":"Helvetica Neue, Helvetica, Arial, sans-serif","weight":400,"bold_weight":700,"base_size_px":18,"line_height":1.6},
+    "minimum_ui_size_px": 15,
+    "minimum_input_size_px": 16
+  },
+  "motion": {
+    "fast_ms": 180,
+    "standard_ms": 360,
+    "reveal_ms": 760,
+    "hero_frame_ms": 6800,
+    "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reduced_motion": "show the already-united real engagement photograph immediately; stop the automatic photo reel and invitation film; remove Union Cut, vow-thread, pointer-light and reveal transforms; preserve manual controls and all guest content"
+  }
+}

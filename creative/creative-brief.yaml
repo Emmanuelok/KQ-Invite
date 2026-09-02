@@ -1,0 +1,65 @@
+project:
+  id: kingsford-perla-wedding
+  name: Kingsford & Perla — Our Wedding
+  owner: Emmanuel Kingsford Owusu and Perla
+  version: 9
+  status: production
+
+objective:
+  primary_goal: Create a cinematic, highly readable private wedding home with a dedicated engagement archive and complete guest utility.
+  audience_change:
+    know: The confirmed date, Ramada venue, route, travel guidance, gift options and RSVP process.
+    feel: Personally welcomed into a joyful, faith-rooted celebration.
+    remember: One strong moving invitation and a gallery worthy of the couple's real engagement photographs.
+    do: Explore the gallery, get directions, save the date, submit or update an RSVP and privately request a gift option.
+  success_metrics:
+    - A real engagement photograph, both names, 19 September 2026, Ramada St. John's and RSVP are clear in the first viewport.
+    - The landing page remains editorially focused while all nine authorised photographs have a dedicated gallery.
+    - Guest copy and controls remain readable at mobile and desktop sizes.
+    - Every motion system has a pause or reduced-motion equivalent.
+    - RSVP and gift requests persist privately to D1 and organiser data is protected.
+  failure_conditions:
+    - Broken or hidden uploaded photographs.
+    - Tiny type, low-contrast controls or hover-only essential information.
+    - Payment destinations published before the couple verifies them.
+    - Guest data exposed outside the protected organiser dashboard.
+
+message:
+  governing_idea: The Vow Edition
+  single_minded_proposition: The wedding day is now real, legible and alive—and the engagement memories have their own cinematic room.
+  required_copy: [Kingsford & Perla, Saturday 19 September 2026, Ramada by Wyndham St. John's]
+  primary_call_to_action: Guest RSVP
+  secondary_call_to_action: Enter the Gallery
+
+creative_direction:
+  visual_thesis: Saturated engagement orange, cinematic onyx, champagne metal and garnet frame the couple at editorial scale against warm paper.
+  palette: [engagement orange, onyx, champagne, deep garnet, warm paper, soft ivory]
+  composition: Single-photo hero, invitation portrait, three-frame gallery doorway, wedding-day timeline, invitation film, venue guide, gift collection and photo-backed RSVP.
+  motion: Joined-frame hero settle, purposeful reveals, layered gallery doorway, pausable film and gallery-specific chapter, mosaic and film-strip transitions.
+  typography: Local P052 display roman and italic with Nimbus Sans regular and bold, deliberately sized for legibility.
+  anti_goals: [generic luxury, tiny text, excessive landing-page photography, glitter, invented facts, hidden RSVP, altered likenesses]
+
+functional_scope:
+  - Dedicated /gallery route with nine photographs and three thematic chapters.
+  - Story, mosaic and film-strip gallery modes.
+  - Deep-linkable fullscreen lightbox with keyboard, swipe, thumbnails and copy-link.
+  - Confirmed wedding date and Ramada venue with map, phone, parking, hotel, airport taxi, Metrobus and accessibility information.
+  - Downloadable calendar event.
+  - Household RSVP create, lookup and secure update with consent, rate limiting and idempotency.
+  - Live gift reservations and private contribution-instruction requests.
+  - Owner-identity plus organiser-passcode dashboard with separate safe CSV exports.
+  - Gmail change-alert automation reads RSVP and gift D1 records without emailing sensitive detail.
+
+rights_and_compliance:
+  privacy_constraints:
+    - RSVP and gift contact information is used only for private celebration planning.
+    - Do not expose the guest list or private notes publicly.
+    - Do not email phone numbers, individual guest names, meal choices, allergies, accessibility needs, song requests or notes.
+  asset_rules:
+    - The nine user photographs use responsive crops only; likenesses remain unaltered.
+    - The retired synthetic reception asset remains recorded for provenance but is not published in the active experience.
+
+unresolved_items:
+  - Confirm the exact ceremony arrival time.
+  - Confirm whether a room block or shuttle will be offered.
+  - Confirm any direct Interac, PayPal or registry destination before publishing a payment link.

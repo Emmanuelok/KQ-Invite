@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "kingsford-perla-wedding",
+    "name": "Kingsford & Perla — Our Wedding",
+    "mode": "screen-production",
+    "objective": "Deliver a cinematic wedding-day guest home with a dedicated engagement archive, verified travel guidance, private RSVP and live gift requests.",
+    "audience": "Invited family and friends, primarily on mobile.",
+    "governing_idea": "The Vow Edition",
+    "status": "approved"
+  },
+  "creative_system": {
+    "visual_thesis": "Saturated engagement orange, cinematic onyx, champagne metal and deep garnet frame Kingsford and Perla's real photography at editorial scale against warm paper.",
+    "anti_goals": ["faceless film-first opening", "generic luxury", "tiny text", "endless chapters", "invented facts", "hidden RSVP", "uncontrolled motion", "altered likenesses"],
+    "composition": "A single full-viewport engagement hero opens into an editorial invitation, a compact three-frame portal to the dedicated gallery, confirmed wedding-day rhythm, invitation-film interlude, verified Ramada travel guide, live gift centre and decisive photo-backed RSVP stage.",
+    "motion": "A one-time joined-frame hero settle, restrained scroll reveals, layered gallery doorway, pausable six-second Higgsfield film and a dedicated gallery with chapter, mosaic and film-strip modes plus keyboard, swipe and reduced-motion equivalents.",
+    "sound": "Silent web master with no audio track.",
+    "interface": "Persistent RSVP access, large mobile menu, deep-linkable nine-image gallery lightbox, verified travel actions, calendar download, FAQ accordion, live gift reservations and owner-protected RSVP and gift operations.",
+    "invariants": [
+      "Kingsford and Perla remain exact.",
+      "29 August 2026 is always labelled as the engagement date.",
+      "Saturday, 19 September 2026 and Ramada by Wyndham St. John's are presented as confirmed.",
+      "A real engagement photograph is visible immediately and all nine are accessible on the dedicated gallery route.",
+      "The opening motion uses duplicate crops of the same authorised photograph and never synthesises or alters either likeness.",
+      "The supplied photographs are cropped and optimised only; likenesses are not altered.",
+      "All motion has a pause or reduced-motion equivalent."
+    ]
+  },
+  "assets": [
+    {
+      "id": "ast-editorial-film",
+      "type": "video",
+      "source": "public/wedding-editorial.mp4",
+      "role": "later-page invitation-film interlude",
+      "rights_status": "approved",
+      "description": "Original synthetic pearl, garnet and gold wedding still-life film with ranunculus, crystal, silk and two rings.",
+      "notes": "Higgsfield Seedance 2.5 job a4e4df2e-273a-4f6e-8f98-6323df5b3fdd; 6.042s; 1280x720; H.264; audio removed; SHA-256 73a0762d3e61963023937479e63bd8fba2d4a2f4a0f4dedb3ab6620615005ba4."
+    },
+    {
+      "id": "ast-editorial-poster",
+      "type": "image",
+      "source": "public/wedding-editorial-poster.jpg",
+      "role": "film poster and reduced-motion fallback",
+      "rights_status": "approved",
+      "description": "Poster-frame derivative of the Higgsfield editorial film.",
+      "notes": "1600x900 JPEG; SHA-256 73bdcd9cff7be8f6cca954ca20a15eae0646c56362ce5191649e10241a8cbf1e."
+    },
+    {
+      "id": "ast-kp-crest",
+      "type": "image",
+      "source": "public/kp-crest-mark.webp",
+      "role": "legacy identity asset retained but not rendered in version 6",
+      "rights_status": "approved",
+      "description": "Cropped and optimised derivative of the user's existing K&P gold foil crest.",
+      "notes": "720x556 WebP with alpha; SHA-256 cbd1bfe053114871f98c23b3319ed4c5fd9e1d29898b25a9e12e7a7834579bcb."
+    },
+    {
+      "id": "ast-kp-garnet-seal",
+      "type": "image",
+      "source": "public/kp-garnet-seal.webp",
+      "role": "legacy identity asset retained but not rendered in version 6",
+      "rights_status": "approved",
+      "description": "Optimised derivative of the user's existing garnet and gold K&P engagement seal.",
+      "notes": "900x1350 WebP; SHA-256 f96a6683764905febad4db2c70b841c2b843bc59bd8405f7ec7bf16da9fd8baa."
+    },
+    {
+      "id": "ast-kp-pearl",
+      "type": "image",
+      "source": "public/kp-pearl-monogram.webp",
+      "role": "legacy identity asset retained but not rendered in version 6",
+      "rights_status": "approved",
+      "description": "Optimised derivative of the user's existing pearl and blush K&P monogram.",
+      "notes": "960x1152 WebP; SHA-256 ca966cf370fc017767d3d10da98d3b1ad0c8c6bdfbf691334a8451b390afc9ab."
+    },
+    {
+      "id": "ast-covenant-rings",
+      "type": "image",
+      "source": "public/covenant-rings.webp",
+      "role": "legacy synthetic asset retained but not rendered in version 6",
+      "rights_status": "approved",
+      "description": "Original synthetic still life of two rings connected by garnet ribbon on deckled paper.",
+      "notes": "SHA-256 a15a18c7f7c9d8ad292ec5b4c77332d7bfb4ccc24ba74290dece87bc53ab3327."
+    },
+    {
+      "id": "ast-reception-horizon",
+      "type": "image",
+      "source": "public/reception-horizon.webp",
+      "role": "legacy synthetic asset retained but not rendered in version 6",
+      "rights_status": "approved",
+      "description": "Original synthetic candlelit reception environment; not a confirmed venue.",
+      "notes": "SHA-256 43bd996bf0ced9e77316a463373a9b4dd2d94d27e939558bc1edd6a8f863bc14."
+    },
+    {
+      "id": "ast-font-display-regular",
+      "type": "font",
+      "source": "public/fonts/kp-display-regular.otf",
+      "role": "editorial display roman",
+      "rights_status": "approved",
+      "description": "Unmodified local copy of URW Base35 P052 Roman.",
+      "notes": "AGPL-3 with font exception; Debian fonts-urw-base35 20200910-8; renamed only; SHA-256 f054a7389d8d0e9f4c5f7b4c21feb7e2b14bec8004a1e92778a78d149524eea9."
+    },
+    {
+      "id": "ast-font-display-italic",
+      "type": "font",
+      "source": "public/fonts/kp-display-italic.otf",
+      "role": "editorial display italic",
+      "rights_status": "approved",
+      "description": "Unmodified local copy of URW Base35 P052 Italic.",
+      "notes": "AGPL-3 with font exception; Debian fonts-urw-base35 20200910-8; renamed only; SHA-256 1feac6055211cf5c6c812c026e398195070f174064cc4d390f0db01647443b0e."
+    },
+    {
+      "id": "ast-font-sans-regular",
+      "type": "font",
+      "source": "public/fonts/kp-sans-regular.otf",
+      "role": "readable body and interface regular",
+      "rights_status": "approved",
+      "description": "Unmodified local copy of URW Base35 Nimbus Sans Regular.",
+      "notes": "AGPL-3 with font exception; Debian fonts-urw-base35 20200910-8; renamed only; SHA-256 7c25be4d78155523080ab85b10277150657ff7dabbcad7037bdd536c9b6d0d08."
+    },
+    {
+      "id": "ast-font-sans-bold",
+      "type": "font",
+      "source": "public/fonts/kp-sans-bold.otf",
+      "role": "readable body and interface bold",
+      "rights_status": "approved",
+      "description": "Unmodified local copy of URW Base35 Nimbus Sans Bold.",
+      "notes": "AGPL-3 with font exception; Debian fonts-urw-base35 20200910-8; renamed only; SHA-256 7f33328e6b4d4cd21b45fa625791928c9407dc702db6780e56b09ca9a3ecaa67."
+    },
+    {
+      "id": "ast-engagement-perla",
+      "type": "image",
+      "source": "public/engagement-perla.webp",
+      "role": "hero reel, all-nine gallery and engagement-story portrait",
+      "rights_status": "approved",
+      "description": "User-supplied engagement portrait of Perla.",
+      "notes": "Web-optimised 1066x1600 WebP derivative of IMG_1662.JPG; metadata stripped; SHA-256 00b2e76543b216a102a2d452521b450f9ec7909342de243a83758741250399a3."
+    },
+    {
+      "id": "ast-engagement-candid",
+      "type": "image",
+      "source": "public/engagement-candid.webp",
+      "role": "hero reel and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied candid engagement portrait of Perla.",
+      "notes": "Web-optimised 1066x1600 WebP derivative of IMG_1797(1).JPG; metadata stripped; SHA-256 aa263766a9c8e9a6c266cf0cddf3d1190af39fbe633e5ed15bb8eab0a4196bb1."
+    },
+    {
+      "id": "ast-engagement-laughter",
+      "type": "image",
+      "source": "public/engagement-laughter.webp",
+      "role": "initial hero frame and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied wide engagement photograph of Kingsford and Perla laughing together.",
+      "notes": "Web-optimised 1800x1200 WebP derivative of IMG_1808(1).JPG; metadata stripped; SHA-256 1a36afacd9d08662e04c460a9deedbcdea30f60a74203557f81038c5a3614afe."
+    },
+    {
+      "id": "ast-engagement-quiet",
+      "type": "image",
+      "source": "public/engagement-quiet-moment.webp",
+      "role": "hero reel, all-nine gallery and engagement-story overlay",
+      "rights_status": "approved",
+      "description": "User-supplied photograph of Kingsford and Perla sharing a quiet engagement moment.",
+      "notes": "Web-optimised 1066x1600 WebP derivative of IMG_1969(1).JPG; metadata stripped; SHA-256 a7c42bff011a8a6fc077adb7fb0c9ab3c18696fa236e258b4ef2ea21fe7d27d1."
+    },
+    {
+      "id": "ast-engagement-joy",
+      "type": "image",
+      "source": "public/engagement-joy.webp",
+      "role": "hero reel and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied engagement photograph of Perla clapping and smiling.",
+      "notes": "Web-optimised 1066x1600 WebP derivative of IMG_2014(1).JPG; metadata stripped; SHA-256 c58341eb14b39fffd138cdc1b58a5aa48be4c492578184e854e373657d1e6d40."
+    },
+    {
+      "id": "ast-engagement-together",
+      "type": "image",
+      "source": "public/engagement-together.webp",
+      "role": "hero reel and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied wide engagement portrait of Kingsford and Perla.",
+      "notes": "Web-optimised 1800x1200 WebP derivative of IMG_2044(1).JPG; metadata stripped; SHA-256 756426ebdb946337dbf7e5a82f1f42ae40aeb7575297a5a5a506d2075edc22d6."
+    },
+    {
+      "id": "ast-engagement-radiance",
+      "type": "image",
+      "source": "public/engagement-radiance.webp",
+      "role": "hero reel and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied engagement photograph of Perla laughing.",
+      "notes": "Web-optimised 1066x1600 WebP derivative of IMG_2107(1).JPG; metadata stripped; SHA-256 289470f826fba46292c1c3a6e4a9dc080d90aa822e4c4186fc2c83f4f47f7ad6."
+    },
+    {
+      "id": "ast-engagement-couple",
+      "type": "image",
+      "source": "public/engagement-couple.webp",
+      "role": "hero reel and all-nine gallery",
+      "rights_status": "approved",
+      "description": "User-supplied engagement portrait of Kingsford and Perla smiling and holding hands.",
+      "notes": "Web-optimised 1200x1800 WebP derivative of IMG_2117(1).JPG; metadata stripped; SHA-256 74d1f2bd6897ffd537020a3d22baa8c38bbf48ebc51c9759c254efcab0d6827f."
+    },
+    {
+      "id": "ast-engagement-celebration",
+      "type": "image",
+      "source": "public/engagement-celebration.webp",
+      "role": "hero reel, all-nine gallery and photo-backed RSVP stage",
+      "rights_status": "approved",
+      "description": "User-supplied wide candid engagement photograph of Kingsford and Perla.",
+      "notes": "Web-optimised 1800x1200 WebP derivative of IMG_2188(1).JPG; metadata stripped; SHA-256 c3f6292c0d9a8a53367122394a1709aac0e391f7b72f26ffc5a94345a3e388af."
+    }
+  ],
+  "screens": [
+    {"id":"scr-home","title":"The Vow Edition cinematic invitation","route":"/","purpose":"Introduce the confirmed wedding day through one immediate real photograph, readable guest actions and an editorial invitation flow.","status":"approved"},
+    {"id":"scr-gallery","title":"The engagement archive","route":"/gallery","purpose":"Present all nine authorised photographs through chapters, mosaic, film strip and a deep-linkable full-screen cinema lightbox.","status":"approved"},
+    {"id":"scr-guide","title":"Verified guest journey","route":"/#guest-guide","purpose":"Give guests the venue address, map, parking, airport taxi, Metrobus, stay and accessibility guidance.","status":"approved"},
+    {"id":"scr-gifts","title":"Private gift centre","route":"/#gifts","purpose":"Let guests reserve keepsakes or privately request verified contribution instructions without publishing payment destinations.","status":"approved"},
+    {"id":"scr-rsvp","title":"RSVP dialog","route":"/#rsvp","purpose":"Capture or update one household response with a private reference.","status":"approved"},
+    {"id":"scr-manage","title":"Protected organiser operations","route":"/manage","purpose":"Privately review and separately export RSVP and gift information behind owner identity and organiser passcode.","status":"approved"}
+  ],
+  "deliverables": [
+    {
+      "id": "del-wedding-site",
+      "type": "frontend",
+      "title": "Responsive cinematic wedding guest home and engagement archive",
+      "channel": "web",
+      "source_ids": ["scr-home", "scr-gallery", "scr-guide", "scr-concierge", "scr-rsvp", "scr-manage", "ast-editorial-film", "ast-editorial-poster", "ast-font-display-regular", "ast-font-display-italic", "ast-font-sans-regular", "ast-font-sans-bold", "ast-engagement-perla", "ast-engagement-candid", "ast-engagement-laughter", "ast-engagement-quiet", "ast-engagement-joy", "ast-engagement-together", "ast-engagement-radiance", "ast-engagement-couple", "ast-engagement-celebration"],
+      "dimensions": "responsive, 320px minimum width",
+      "duration_s": 6.042,
+      "format": "tsx-css-mp4-webp-otf",
+      "language": "en",
+      "alt_text": "Cinematic private wedding home for Kingsford and Perla with a single-photo hero, confirmed wedding day, dedicated all-nine engagement archive, invitation film, verified travel guide, private gift centre, household RSVP and protected organiser operations.",
+      "version": 9,
+      "status": "approved"
+    }
+  ]
+}

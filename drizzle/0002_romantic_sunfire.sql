@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `gift_reservations_active_keepsake_unique` ON `gift_reservations` (`gift_key`) WHERE "gift_reservations"."request_type" = 'reserve-gift' AND "gift_reservations"."status" <> 'released';

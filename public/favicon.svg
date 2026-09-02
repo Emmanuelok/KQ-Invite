@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="22%" r="88%">
+      <stop offset="0" stop-color="#842a32"/>
+      <stop offset="1" stop-color="#350b12"/>
+    </radialGradient>
+    <radialGradient id="pearl" cx="32%" cy="22%" r="78%">
+      <stop offset="0" stop-color="#fffdf4"/>
+      <stop offset=".56" stop-color="#f2d79f"/>
+      <stop offset="1" stop-color="#9f682e"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="32" fill="url(#bg)"/>
+  <path d="M13 35c2-11 8-19 18-22M51 35c-2-11-8-19-18-22" fill="none" stroke="#e9bd72" stroke-width="1.35" stroke-linecap="round"/>
+  <ellipse cx="32" cy="9.5" rx="4" ry="5.2" fill="url(#pearl)" stroke="#fff3d1" stroke-width=".8"/>
+  <circle cx="32" cy="33" r="23" fill="none" stroke="#e9bd72" stroke-width="1" opacity=".84"/>
+  <text x="32" y="40" text-anchor="middle" fill="#fff7e8" font-family="Georgia, serif" font-size="20" letter-spacing="-.8">K&amp;P</text>
+</svg>

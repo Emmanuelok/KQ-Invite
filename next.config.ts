@@ -27,6 +27,11 @@ const nextConfig: NextConfig = {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
   webpack(config) {
+    // Resolve the project alias explicitly during hosted builds. Vercel can
+    // inject a build root before Next reads tsconfig paths, so relying only on
+    // the TypeScript `@/*` mapping can make valid source files look missing.
+    config.resolve.alias["@"] = process.cwd();
+
     if (process.env.VERCEL) {
       config.resolve.alias["wedding-runtime-env"] = path.resolve(
         process.cwd(),

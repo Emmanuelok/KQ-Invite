@@ -16,8 +16,10 @@ export const weddingContent = {
     locationDisplay: "Ramada by Wyndham St. John’s",
     address: "102 Kenmount Road, St. John’s, NL A1B 3R2",
     phone: "+1 709 722 9330",
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=47.555100%2C-52.767399",
+    mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Ramada+by+Wyndham+St.+John%27s%2C+102+Kenmount+Road%2C+St.+John%27s%2C+NL+A1B+3R2&travelmode=driving",
     venueUrl: "https://www.wyndhamhotels.com/ramada/st-john-newfoundland/ramada-st-johns/overview",
+    venueImageUrl: "/ramada-st-johns-exterior.jpg",
+    venueImageCredit: "Wyndham Hotels",
     rsvpDeadline: null as string | null,
   },
   navigation: [

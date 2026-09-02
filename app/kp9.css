@@ -244,8 +244,14 @@
 .kp9-guide-heading h2 em { color: var(--kp9-gold); }
 .kp9-guide-heading > p { margin: 0; color: rgb(255 247 232 / 65%); }
 .kp9-venue-card { display: grid; width: min(100%, 1480px); min-height: 570px; grid-template-columns: 1.1fr .9fr; margin-inline: auto; overflow: hidden; border: 1px solid rgb(233 189 114 / 28%); }
-.kp9-venue-photo { position: relative; min-height: 520px; }
-.kp9-venue-photo img { object-fit: cover; }
+.kp9-venue-photo { position: relative; display: block; min-height: 520px; overflow: hidden; background: radial-gradient(circle at 25% 20%, rgb(233 189 114 / 22%), transparent 42%), linear-gradient(145deg, #42211b, #120a08); color: var(--kp9-cream); }
+.kp9-venue-photo::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, transparent 48%, rgb(12 6 5 / 82%) 100%); content: ""; pointer-events: none; }
+.kp9-venue-photo img { object-fit: cover; object-position: 50% 52%; transition: filter .7s ease, transform 1.1s cubic-bezier(.22, 1, .36, 1); }
+.kp9-venue-photo:hover img { filter: saturate(1.05) contrast(1.03); transform: scale(1.025); }
+.kp9-venue-photo:focus-visible { outline: 3px solid var(--kp9-gold); outline-offset: -3px; }
+.kp9-venue-photo-credit { position: absolute; z-index: 2; right: 26px; bottom: 24px; left: 26px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 3px 14px; color: rgb(255 247 232 / 86%); font-size: 12px; font-weight: 750; letter-spacing: .04em; text-decoration: none; }
+.kp9-venue-photo-credit small { grid-column: 1 / -1; color: var(--kp9-gold); font-size: 10px; font-weight: 850; letter-spacing: .17em; text-transform: uppercase; }
+.kp9-venue-photo-credit svg { width: 17px; }
 .kp9-venue-copy { display: grid; align-content: center; padding: clamp(35px, 6vw, 90px); background: radial-gradient(circle at 90% 10%, rgb(116 29 37 / 60%), transparent 45%), #1b0d0a; }
 .kp9-venue-copy > p { margin: 0 0 12px; color: var(--kp9-gold); font-size: 12px; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; }
 .kp9-venue-copy h3 { margin: 0; font-family: var(--kp-display, Didot, serif); font-size: clamp(45px, 5vw, 78px); font-weight: 400; letter-spacing: -.04em; line-height: .92; }
@@ -462,6 +468,8 @@
   .kp9-guide-heading { margin-bottom: 50px; }
   .kp9-venue-card { grid-template-columns: 1fr; }
   .kp9-venue-photo { min-height: 340px; }
+  .kp9-venue-photo img { object-position: 50% 55%; }
+  .kp9-venue-photo-credit { right: 18px; bottom: 18px; left: 18px; }
   .kp9-venue-copy { padding: 38px 24px; }
   .kp9-venue-copy h3 { font-size: 48px; }
   .kp9-venue-copy > div { display: grid; }

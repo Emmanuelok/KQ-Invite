@@ -73,6 +73,21 @@ test("art-directs the landing hero for narrow phone screens", async () => {
   assert.match(styles, /\.kp9-hero-split \{ display: none; \}/);
 });
 
+test("pairs the ceremony venue with verified Ramada imagery", async () => {
+  const [experience, content] = await Promise.all([
+    readFile(new URL("../components/wedding-experience-v9.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/wedding-content.ts", import.meta.url), "utf8"),
+  ]);
+
+  const venueCard = experience.match(/<div className="kp9-venue-card"[\s\S]*?<div className="kp9-venue-copy">/)?.[0] ?? "";
+  assert.match(venueCard, /weddingContent\.event\.venueImageUrl/);
+  assert.match(venueCard, /Exterior entrance of Ramada by Wyndham St\. John/);
+  assert.doesNotMatch(venueCard, /engagement-[^"']+\.webp/);
+  assert.match(content, /venueImageUrl: "\/ramada-st-johns-exterior\.jpg"/);
+  assert.match(content, /venueImageCredit: "Wyndham Hotels"/);
+  assert.match(venueCard, /Photo: \{weddingContent\.event\.venueImageCredit\}/);
+});
+
 test("ships a native Git-connected Vercel build path", async () => {
   const [manifest, vercel] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8").then(JSON.parse),

@@ -306,7 +306,26 @@ export function WeddingExperienceV9() {
         </div>
 
         <div className="kp9-venue-card" data-kp9-reveal>
-          <div className="kp9-venue-photo"><Image src="/engagement-candid.webp" alt="Kingsford and Perla sharing a joyful moment together." fill unoptimized sizes="(max-width: 850px) 100vw, 48vw" style={{ objectPosition: "50% 30%" }} /></div>
+          <a
+            className="kp9-venue-photo"
+            href={weddingContent.event.venueUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View the official Ramada by Wyndham St. John’s hotel page"
+          >
+            <Image
+              src={weddingContent.event.venueImageUrl}
+              alt="Exterior entrance of Ramada by Wyndham St. John’s at 102 Kenmount Road."
+              fill
+              unoptimized
+              sizes="(max-width: 850px) 100vw, 56vw"
+            />
+            <span className="kp9-venue-photo-credit">
+              <small>Confirmed ceremony venue</small>
+              Official exterior · Photo: {weddingContent.event.venueImageCredit}
+              <ExternalLink aria-hidden="true" />
+            </span>
+          </a>
           <div className="kp9-venue-copy">
             <p>Our ceremony venue</p>
             <h3>Ramada by Wyndham<br />St. John’s</h3>

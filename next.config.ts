@@ -32,12 +32,10 @@ const nextConfig: NextConfig = {
     // the TypeScript `@/*` mapping can make valid source files look missing.
     config.resolve.alias["@"] = process.cwd();
 
-    if (process.env.VERCEL) {
-      config.resolve.alias["wedding-runtime-env"] = path.resolve(
-        process.cwd(),
-        "lib/vercel-runtime-env.ts",
-      );
-    }
+    config.resolve.alias["wedding-runtime-env"] = path.resolve(
+      process.cwd(),
+      "lib/vercel-runtime-env.ts",
+    );
     return config;
   },
 };

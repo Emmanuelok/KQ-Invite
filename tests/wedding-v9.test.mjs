@@ -28,7 +28,9 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.match(html, /No reception/);
   assert.doesNotMatch(html, /The feast/);
   assert.match(html, /href="\/gallery"/);
-  assert.match(html, /Gift centre/);
+  assert.match(html, /Interac e-Transfer/);
+  assert.match(html, /perlaazametim@gmail\.com/);
+  assert.doesNotMatch(html, /Request private details/);
   assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
   assert.equal(response.headers.get("x-frame-options"), "DENY");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");

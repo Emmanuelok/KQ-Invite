@@ -575,8 +575,8 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
               <p className="eyebrow">Respond to our invitation</p>
               <DialogTitle>Will you celebrate with us?</DialogTitle>
               <DialogDescription>
-                One response per household for the wedding ceremony. No reception will follow.
-                Every field marked with * is required.
+                One response per household for the wedding ceremony. Every field marked
+                with * is required.
               </DialogDescription>
             </DialogHeader>
             <Tabs

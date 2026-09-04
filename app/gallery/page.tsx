@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { GalleryExperience } from "@/components/gallery-experience";
 
 export const metadata: Metadata = {
-  title: "The Engagement Gallery — Kingsford & Perla",
-  description: "Nine moments from the day Kingsford and Perla said yes, presented as an immersive three-chapter engagement archive.",
+  title: "Our Story in Photographs — Kingsford & Perla",
+  description: "Twenty-one portraits of Kingsford and Perla presented as an immersive six-chapter gallery, from studio warmth and heritage to coastal joy.",
   robots: { index: false, follow: false },
 };
 

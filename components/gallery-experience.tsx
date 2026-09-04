@@ -32,10 +32,30 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { galleryClusters, galleryFrames, type GalleryClusterId } from "@/lib/gallery";
+import {
+  galleryClusters,
+  galleryFrames,
+  getGalleryFrame,
+  type GalleryClusterId,
+  type GalleryFrame,
+} from "@/lib/gallery";
 
 type ViewMode = "chapters" | "mosaic" | "film";
 type Filter = "all" | GalleryClusterId;
+
+const galleryHeroFrames = [
+  "coastal-layered",
+  "mist-holding-hands",
+  "coastal-joy",
+  "coastal-hand-in-hand",
+  "coastal-walk",
+  "coastal-stairs",
+  "the-day-we-said-yes",
+  "one-promise",
+  "love-in-motion",
+]
+  .map(getGalleryFrame)
+  .filter((frame): frame is GalleryFrame => Boolean(frame));
 
 function GalleryLogo() {
   return (
@@ -73,7 +93,7 @@ export function GalleryExperience() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!playing || reduced) return;
     const timer = window.setInterval(() => {
-      setHeroIndex((current) => (current + 1) % galleryFrames.length);
+      setHeroIndex((current) => (current + 1) % galleryHeroFrames.length);
     }, 5400);
     return () => window.clearInterval(timer);
   }, [playing]);
@@ -157,7 +177,7 @@ export function GalleryExperience() {
       <header className="kp-gallery-header">
         <Link href="/" className="kp-gallery-brand" aria-label="Kingsford and Perla wedding home">
           <GalleryLogo />
-          <span><strong>Kingsford &amp; Perla</strong><small>The engagement archive</small></span>
+          <span><strong>Kingsford &amp; Perla</strong><small>Our story in photographs</small></span>
         </Link>
         <nav aria-label="Gallery navigation">
           <a href="#gallery-collection">The collection</a>
@@ -169,7 +189,7 @@ export function GalleryExperience() {
 
       <section className="kp-gallery-hero" aria-labelledby="gallery-title">
         <div className="kp-gallery-hero-media">
-          {galleryFrames.map((frame, index) => (
+          {galleryHeroFrames.map((frame, index) => (
             <div key={frame.id} className={`kp-gallery-hero-frame ${index === heroIndex ? "is-active" : ""}`} aria-hidden={index !== heroIndex}>
               <Image
                 src={frame.src}
@@ -187,12 +207,12 @@ export function GalleryExperience() {
         </div>
 
         <div className="kp-gallery-hero-copy">
-          <p>Volume I · 29 August 2026</p>
-          <h1 id="gallery-title"><span>The day</span><em>we said yes.</em></h1>
+          <p>Portraits · Promises · 2026</p>
+          <h1 id="gallery-title"><span>Our story</span><em>in frames.</em></h1>
           <div>
             <span>{String(galleryFrames.length).padStart(2, "0")} photographs</span>
             <i />
-            <span>Three chapters</span>
+            <span>{galleryClusters.length} chapters</span>
           </div>
         </div>
 
@@ -200,8 +220,8 @@ export function GalleryExperience() {
           <button type="button" onClick={() => setPlaying((current) => !current)} aria-label={playing ? "Pause gallery introduction" : "Play gallery introduction"}>
             {playing ? <CirclePause aria-hidden="true" /> : <CirclePlay aria-hidden="true" />}
           </button>
-          <span>{String(heroIndex + 1).padStart(2, "0")} / {String(galleryFrames.length).padStart(2, "0")}</span>
-          <div aria-hidden="true"><i style={{ transform: `scaleX(${(heroIndex + 1) / galleryFrames.length})` }} /></div>
+          <span>{String(heroIndex + 1).padStart(2, "0")} / {String(galleryHeroFrames.length).padStart(2, "0")}</span>
+          <div aria-hidden="true"><i style={{ transform: `scaleX(${(heroIndex + 1) / galleryHeroFrames.length})` }} /></div>
         </div>
 
         <div className="kp-gallery-orbit" aria-hidden="true">
@@ -215,8 +235,8 @@ export function GalleryExperience() {
 
       <section className="kp-gallery-prologue" data-gallery-reveal>
         <p>Not simply photographs.</p>
-        <h2>Nine pieces of a feeling<br /><em>we never want to forget.</em></h2>
-        <span>Every image is from our engagement celebration—real moments, lovingly kept.</span>
+        <h2>Twenty-one pieces of a feeling<br /><em>we never want to forget.</em></h2>
+        <span>From studio warmth and heritage in the mist to the Newfoundland coast and our engagement celebration, every frame holds a piece of us.</span>
       </section>
 
       <section id="gallery-collection" className="kp-gallery-collection" aria-labelledby="collection-title">
@@ -312,7 +332,7 @@ export function GalleryExperience() {
       </section>
 
       <footer className="kp-gallery-footer">
-        <span>Kingsford &amp; Perla · Engagement archive</span>
+        <span>Kingsford &amp; Perla · Portrait &amp; engagement gallery</span>
         <span>29 · 08 · 26 → 19 · 09 · 26</span>
       </footer>
 

@@ -58,6 +58,18 @@ test("renders every uploaded image in the dedicated gallery", async () => {
   const html = await response.text();
   assert.equal(response.status, 200);
   for (const asset of [
+    "kp-studio-intimate.webp",
+    "kp-studio-classic.webp",
+    "kp-studio-full-length.webp",
+    "kp-traditional-mist-walk.webp",
+    "kp-traditional-mist-close.webp",
+    "kp-traditional-holding-hands.webp",
+    "kp-traditional-side-portrait.webp",
+    "kp-coastal-walk.webp",
+    "kp-coastal-stairs.webp",
+    "kp-coastal-joy.webp",
+    "kp-coastal-hand-in-hand.webp",
+    "kp-coastal-layered.webp",
     "engagement-perla.webp",
     "engagement-candid.webp",
     "engagement-laughter.webp",
@@ -71,8 +83,12 @@ test("renders every uploaded image in the dedicated gallery", async () => {
     assert.match(html, new RegExp(asset.replace(".", "\\.")));
   }
   assert.match(html, /The Promise/);
+  assert.match(html, /Warm Light/);
+  assert.match(html, /Heritage in the Mist/);
+  assert.match(html, /Along the Coast/);
   assert.match(html, /Her Radiance/);
   assert.match(html, /Joy in Motion/);
+  assert.match(html, /Twenty-one pieces/);
   assert.match(html, /Film strip/);
 });
 
@@ -82,7 +98,7 @@ test("art-directs the landing hero for narrow phone screens", async () => {
     readFile(new URL("../app/kp9.css", import.meta.url), "utf8"),
   ]);
 
-  assert.match(experience, /<source media="\(max-width: 780px\)" srcSet="\/engagement-couple\.webp"/);
+  assert.match(experience, /<source media="\(max-width: 780px\)" srcSet="\/kp-studio-intimate\.webp"/);
   assert.match(styles, /\.kp9-hero-picture > img \{ object-position: 50% 26% !important; \}/);
   assert.match(styles, /\.kp9-hero-split \{ display: none; \}/);
 });

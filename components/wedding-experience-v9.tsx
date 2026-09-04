@@ -35,10 +35,18 @@ import {
 } from "@/components/ui/accordion";
 import { GiftCenter } from "@/components/gift-center";
 import { RsvpDialog } from "@/components/wedding-experience";
-import { galleryFrames } from "@/lib/gallery";
+import { getGalleryFrame, type GalleryFrame } from "@/lib/gallery";
 import { weddingContent } from "@/lib/wedding-content";
 
 const WEDDING_MOMENT = new Date("2026-09-19T12:00:00-02:30").getTime();
+
+const featuredGalleryFrames = [
+  "coastal-joy",
+  "mist-holding-hands",
+  "studio-full-length",
+]
+  .map(getGalleryFrame)
+  .filter((frame): frame is GalleryFrame => Boolean(frame));
 
 function WeddingMark() {
   return (
@@ -184,10 +192,10 @@ export function WeddingExperienceV9() {
       <section id="top" className="kp9-hero" aria-labelledby="kp9-hero-title">
         <div className="kp9-hero-photo">
           <picture className="kp9-hero-picture">
-            <source media="(max-width: 780px)" srcSet="/engagement-couple.webp" />
+            <source media="(max-width: 780px)" srcSet="/kp-studio-intimate.webp" />
             <Image
-              src="/engagement-laughter.webp"
-              alt="Kingsford and Perla laughing together at their engagement celebration."
+              src="/kp-coastal-layered.webp"
+              alt="Kingsford and Perla standing together above a misty Newfoundland coastline."
               fill
               priority
               unoptimized
@@ -195,7 +203,7 @@ export function WeddingExperienceV9() {
             />
           </picture>
           <div className="kp9-hero-split" aria-hidden="true">
-            <Image src="/engagement-laughter.webp" alt="" fill priority unoptimized sizes="100vw" />
+            <Image src="/kp-coastal-layered.webp" alt="" fill priority unoptimized sizes="100vw" />
           </div>
           <div className="kp9-hero-grade" />
           <div className="kp9-grain" />
@@ -238,7 +246,7 @@ export function WeddingExperienceV9() {
           <blockquote>“Two are better than one, because they have a good return for their labour.”<cite>Ecclesiastes 4:9</cite></blockquote>
         </div>
         <figure className="kp9-invitation-portrait" data-kp9-reveal>
-          <Image src="/engagement-couple.webp" alt="Kingsford and Perla holding hands and smiling together." fill unoptimized sizes="(max-width: 780px) 100vw, 44vw" style={{ objectPosition: "50% 30%" }} />
+          <Image src="/kp-studio-classic.webp" alt="Kingsford and Perla smiling together in a classic studio portrait." fill unoptimized sizes="(max-width: 780px) 100vw, 44vw" style={{ objectPosition: "50% 30%" }} />
           <figcaption><span>K + P</span><small>From yes to always</small></figcaption>
         </figure>
         <div className="kp9-invitation-seal" aria-hidden="true"><WeddingMark /><span>By grace · For life</span></div>
@@ -246,17 +254,17 @@ export function WeddingExperienceV9() {
 
       <section className="kp9-gallery-doorway" aria-labelledby="kp9-gallery-title">
         <div className="kp9-gallery-doorway-copy" data-kp9-reveal>
-          <p className="kp9-kicker kp9-kicker-light">The engagement archive</p>
+          <p className="kp9-kicker kp9-kicker-light">Our story in photographs</p>
           <h2 id="kp9-gallery-title">Every feeling<br /><em>has a frame.</em></h2>
           <p>
-            We moved the complete collection into its own cinematic memory room—three
-            chapters, nine real moments, and several ways to experience the story.
+            The complete collection now brings together six chapters and twenty-one
+            portraits—from studio warmth and heritage in the mist to coastal joy and engagement memories.
           </p>
           <Link href="/gallery">Enter the full gallery <ArrowRight aria-hidden="true" /></Link>
           <span><Images aria-hidden="true" /> Story · Mosaic · Film strip · Fullscreen cinema</span>
         </div>
         <div className="kp9-gallery-stack" data-kp9-reveal aria-hidden="true">
-          {[galleryFrames[3], galleryFrames[2], galleryFrames[0]].map((frame, index) => (
+          {featuredGalleryFrames.map((frame, index) => (
             <figure key={frame.id} className={`kp9-gallery-stack-${index + 1}`}>
               <Image src={frame.src} alt="" fill unoptimized sizes="(max-width: 780px) 70vw, 30vw" style={{ objectPosition: frame.focalPoint }} />
               <span>{frame.title}</span>
@@ -389,7 +397,7 @@ export function WeddingExperienceV9() {
       </section>
 
       <section id="rsvp" className="kp9-rsvp" aria-labelledby="kp9-rsvp-title">
-        <div className="kp9-rsvp-image"><Image src="/engagement-together.webp" alt="Kingsford and Perla standing together at their engagement celebration." fill unoptimized sizes="100vw" style={{ objectPosition: "50% 30%" }} /><div /></div>
+        <div className="kp9-rsvp-image"><Image src="/kp-coastal-hand-in-hand.webp" alt="Kingsford and Perla smiling and holding hands at a misty coastal lookout." fill unoptimized sizes="100vw" style={{ objectPosition: "55% 40%" }} /><div /></div>
         <div className="kp9-rsvp-copy" data-kp9-reveal>
           <p className="kp9-kicker kp9-kicker-light">Your place in our story</p>
           <h2 id="kp9-rsvp-title">Will you celebrate<br /><em>with us?</em></h2>

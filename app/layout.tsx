@@ -6,11 +6,36 @@ import "./kp9.css";
 import "./gallery.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kq-invite-one.vercel.app"),
   title: "Kingsford & Perla — Our Wedding",
   description:
     "Kingsford and Perla invite you to their wedding ceremony on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s—with gallery, guest guide, gifts and private RSVP.",
   applicationName: "Kingsford & Perla — Our Wedding",
   category: "wedding",
+  openGraph: {
+    type: "website",
+    locale: "en_CA",
+    url: "/",
+    siteName: "Kingsford & Perla — Our Wedding",
+    title: "Kingsford & Perla — Our Wedding",
+    description:
+      "Join Kingsford and Perla for their wedding ceremony on Saturday, 19 September 2026 in St. John’s, Newfoundland.",
+    images: [
+      {
+        url: "/og-image",
+        width: 1200,
+        height: 630,
+        alt: "Kingsford and Perla smiling together in coordinated traditional attire.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kingsford & Perla — Our Wedding",
+    description:
+      "Join Kingsford and Perla for their wedding ceremony on Saturday, 19 September 2026 in St. John’s, Newfoundland.",
+    images: ["/og-image"],
+  },
   other: {
     "codex-preview": "development",
   },

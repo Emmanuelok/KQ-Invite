@@ -280,59 +280,20 @@
 .kp9-guide-notice strong { color: var(--kp9-cream); }
 
 .kp9-gifts { padding: 135px clamp(24px, 6vw, 110px); background: var(--kp9-paper); }
-.kp9-gifts-intro { display: grid; width: min(100%, 1480px); grid-template-columns: 1fr .55fr; align-items: end; gap: 70px; margin-inline: auto; }
+.kp9-gifts-intro { display: grid; width: min(100%, 1180px); grid-template-columns: minmax(0, 1.15fr) minmax(300px, .55fr); align-items: end; gap: 70px; margin-inline: auto; }
 .kp9-gifts-intro > .kp9-kicker { grid-column: 1 / -1; margin-bottom: -40px; }
-.kp9-gifts-intro > div > p { margin: 0; color: rgb(18 9 7 / 64%); }
-.kp9-gifts-intro > div > span { display: flex; align-items: flex-start; gap: 10px; margin-top: 22px; color: var(--kp9-garnet); font-size: 13px; font-weight: 750; }
-.kp9-gifts-intro > div svg { width: 19px; flex: 0 0 auto; }
-.kp9-gift-grid { display: grid; width: min(100%, 1480px); grid-template-columns: repeat(3, 1fr); margin: 85px auto 0; border-top: 1px solid rgb(18 9 7 / 18%); border-left: 1px solid rgb(18 9 7 / 18%); }
-.kp9-gift-card { display: flex; min-height: 430px; flex-direction: column; border-right: 1px solid rgb(18 9 7 / 18%); border-bottom: 1px solid rgb(18 9 7 / 18%); padding: 34px; background: rgb(255 247 232 / 34%); transition: background .35s ease, transform .35s ease; }
-.kp9-gift-card:hover { z-index: 2; background: var(--kp9-cream); box-shadow: 0 24px 70px rgb(72 29 15 / 13%); transform: translateY(-5px); }
-.kp9-gift-card-top { display: flex; align-items: center; justify-content: space-between; }
-.kp9-gift-card-top span { color: var(--kp9-copper); font-size: 11px; font-weight: 850; letter-spacing: .15em; }
-.kp9-gift-card-top svg { width: 28px; color: var(--kp9-garnet); }
-.kp9-gift-card > p { margin: 52px 0 10px; color: var(--kp9-garnet); font-size: 11px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
-.kp9-gift-card h3 { margin: 0; font-family: var(--kp-display, Didot, serif); font-size: 35px; font-weight: 400; line-height: 1.05; }
-.kp9-gift-card > span { margin-top: 16px; color: rgb(18 9 7 / 60%); font-size: 15px; }
-.kp9-gift-card > button { display: flex; width: 100%; min-height: 52px; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; border: 0; border-top: 1px solid rgb(18 9 7 / 17%); background: transparent; color: var(--kp9-ink); padding: 16px 0 0; cursor: pointer; font-size: 12px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
-.kp9-gift-card > button:disabled { color: var(--kp9-sage); cursor: default; }
-.kp9-gift-card > button svg { width: 17px; }
-.kp9-gift-assurance { display: flex; width: min(100%, 1480px); align-items: center; gap: 18px; margin: 28px auto 0; border: 1px solid rgb(18 9 7 / 16%); padding: 22px 26px; }
-.kp9-gift-assurance svg { width: 25px; flex: 0 0 auto; color: var(--kp9-garnet); }
-.kp9-gift-assurance p { margin: 0; color: rgb(18 9 7 / 63%); font-size: 14px; }
-.kp9-gift-assurance strong { color: var(--kp9-ink); }
-
-.kp9-gift-dialog { width: min(92vw, 720px) !important; max-width: 720px !important; max-height: 92svh !important; overflow-y: auto !important; border: 1px solid rgb(233 189 114 / 34%) !important; border-radius: 0 !important; background: var(--kp9-cream) !important; color: var(--kp9-ink) !important; padding: clamp(28px, 5vw, 58px) !important; }
-.kp9-gift-close { position: absolute; z-index: 2; top: 18px; right: 18px; display: grid; width: 46px; height: 46px; place-items: center; border: 1px solid rgb(18 9 7 / 20%); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
-.kp9-gift-close svg { width: 20px; }
-.kp9-gift-form-shell [data-slot="dialog-title"],
-.kp9-gift-success [data-slot="dialog-title"] { max-width: 570px; font-family: var(--kp-display, Didot, serif); font-size: clamp(40px, 6vw, 65px); font-weight: 400; letter-spacing: -.04em; line-height: .95; }
-.kp9-gift-form-shell [data-slot="dialog-description"],
-.kp9-gift-success [data-slot="dialog-description"] { margin-top: 16px; color: rgb(18 9 7 / 62%); font-size: 16px; }
-.kp9-gift-form-shell form { display: grid; gap: 18px; margin-top: 30px; }
-.kp9-gift-form-shell form > label { display: grid; gap: 8px; }
-.kp9-gift-form-shell form > label > span,
-.kp9-gift-form-shell legend { color: rgb(18 9 7 / 72%); font-size: 12px; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
-.kp9-gift-form-shell label small { color: rgb(18 9 7 / 40%); }
-.kp9-gift-form-shell input:not([type="radio"]):not([type="checkbox"]),
-.kp9-gift-form-shell textarea { width: 100%; border: 1px solid rgb(18 9 7 / 24%); border-radius: 0; background: rgb(255 255 255 / 48%); color: inherit; padding: 13px 14px; }
-.kp9-gift-form-shell fieldset { margin: 0; border: 0; padding: 0; }
-.kp9-gift-form-shell fieldset > div { display: flex; gap: 8px; margin-top: 8px; }
-.kp9-gift-form-shell fieldset label { display: flex; min-height: 48px; flex: 1; align-items: center; gap: 9px; border: 1px solid rgb(18 9 7 / 20%); padding: 0 14px; }
-.kp9-gift-consent { display: flex !important; grid-template-columns: auto 1fr; align-items: flex-start; gap: 10px !important; }
-.kp9-gift-consent input { width: 18px; height: 18px; margin-top: 3px; }
-.kp9-gift-consent span { letter-spacing: 0 !important; text-transform: none !important; }
-.kp9-gift-error { margin: 0; color: #a3262f; font-size: 14px; font-weight: 750; }
-.kp9-gift-form-shell form > button,
-.kp9-gift-success > button { display: inline-flex; min-height: 58px; align-items: center; justify-content: center; gap: 12px; border: 0; border-radius: 999px; background: var(--kp9-garnet); color: var(--kp9-cream); padding: 0 24px; cursor: pointer; font-size: 13px; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
-.kp9-gift-form-shell form > button svg { width: 18px; }
-.kp9-gift-success { display: grid; justify-items: center; padding-block: 30px 10px; text-align: center; }
-.kp9-gift-success > span { display: grid; width: 70px; height: 70px; place-items: center; margin-bottom: 24px; border-radius: 50%; background: var(--kp9-sage); color: white; }
-.kp9-gift-success > div { display: grid; justify-items: center; width: 100%; margin: 28px 0; border: 1px solid rgb(18 9 7 / 18%); padding: 22px; }
-.kp9-gift-success > div small { color: rgb(18 9 7 / 50%); font-size: 11px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
-.kp9-gift-success > div strong { margin-top: 5px; font-family: ui-monospace, monospace; font-size: clamp(16px, 3vw, 23px); letter-spacing: .08em; }
-.kp9-gift-success > div button { display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; border: 0; background: transparent; color: var(--kp9-garnet); cursor: pointer; font-size: 12px; font-weight: 850; }
-.kp9-gift-success > div button svg { width: 17px; }
+.kp9-gifts-intro > p:last-child { max-width: 520px; margin: 0 0 10px; color: rgb(18 9 7 / 64%); font-size: 18px; line-height: 1.65; }
+.kp9-interac-card { display: grid; width: min(100%, 1180px); grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 30px; margin: 72px auto 0; border: 1px solid rgb(18 9 7 / 18%); background: rgb(255 247 232 / 54%); padding: clamp(28px, 4vw, 48px); box-shadow: 0 24px 70px rgb(72 29 15 / 7%); }
+.kp9-interac-icon { display: grid; width: 74px; height: 74px; place-items: center; border-radius: 50%; background: var(--kp9-garnet); color: var(--kp9-cream); }
+.kp9-interac-icon svg { width: 30px; }
+.kp9-interac-details { min-width: 0; }
+.kp9-interac-details > span { color: var(--kp9-copper); font-size: 12px; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+.kp9-interac-details > strong { display: block; overflow-wrap: anywhere; margin-top: 8px; font-family: var(--kp-display, Didot, serif); font-size: clamp(30px, 4vw, 52px); font-weight: 400; letter-spacing: -.025em; line-height: 1.05; }
+.kp9-interac-details > p { margin: 12px 0 0; color: rgb(18 9 7 / 58%); font-size: 15px; }
+.kp9-interac-card > button { display: inline-flex; min-height: 54px; align-items: center; justify-content: center; gap: 9px; border: 1px solid var(--kp9-garnet); border-radius: 999px; background: var(--kp9-garnet); color: var(--kp9-cream); padding: 0 22px; cursor: pointer; font-size: 12px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; transition: background .25s ease, color .25s ease; }
+.kp9-interac-card > button:hover { background: transparent; color: var(--kp9-garnet); }
+.kp9-interac-card > button:focus-visible { outline: 3px solid var(--kp9-gold); outline-offset: 4px; }
+.kp9-interac-card > button svg { width: 17px; }
 
 .kp9-faq { display: grid; grid-template-columns: .7fr 1fr; gap: clamp(50px, 8vw, 130px); padding: 135px clamp(24px, 7vw, 130px); background: var(--kp9-cream); }
 .kp9-faq-heading { align-self: start; }
@@ -401,15 +362,14 @@
   .kp9-gifts-intro { grid-template-columns: 1fr; }
   .kp9-day-heading > p:last-child,
   .kp9-guide-heading > p,
-  .kp9-gifts-intro > div { max-width: 720px; }
+  .kp9-gifts-intro > p:last-child { max-width: 720px; }
   .kp9-gifts-intro > .kp9-kicker { margin-bottom: 0; }
   .kp9-day-timeline article { grid-template-columns: 60px 1fr; }
   .kp9-day-timeline article > em { grid-column: 2; justify-self: start; text-align: left; }
   .kp9-film { grid-template-columns: 1fr; }
   .kp9-film-media { min-height: 620px; }
   .kp9-film-copy { max-width: 820px; }
-  .kp9-travel-grid,
-  .kp9-gift-grid { grid-template-columns: repeat(2, 1fr); }
+  .kp9-travel-grid { grid-template-columns: repeat(2, 1fr); }
   .kp9-faq { grid-template-columns: 1fr; }
   .kp9-faq-heading { max-width: 720px; }
 }
@@ -475,14 +435,13 @@
   .kp9-venue-copy > div { display: grid; }
   .kp9-venue-copy > div a,
   .kp9-venue-copy > div button { justify-content: center; }
-  .kp9-travel-grid,
-  .kp9-gift-grid { grid-template-columns: 1fr; }
+  .kp9-travel-grid { grid-template-columns: 1fr; }
   .kp9-travel-grid article { min-height: 340px; padding: 28px; }
   .kp9-travel-grid a,
   .kp9-travel-grid button { bottom: 26px; left: 28px; }
-  .kp9-gift-grid { margin-top: 55px; }
-  .kp9-gift-card { min-height: 390px; }
-  .kp9-gift-assurance,
+  .kp9-interac-card { grid-template-columns: 1fr; gap: 22px; margin-top: 48px; }
+  .kp9-interac-icon { width: 64px; height: 64px; }
+  .kp9-interac-card > button { width: 100%; }
   .kp9-guide-notice { align-items: flex-start; }
   .kp9-faq { gap: 55px; padding: 90px 20px; }
   .kp9-faq-list [data-slot="accordion-trigger"] { min-height: 88px; grid-template-columns: 35px 1fr auto; }

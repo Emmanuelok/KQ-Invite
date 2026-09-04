@@ -31,9 +31,21 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.match(html, /Interac e-Transfer/);
   assert.match(html, /perlaazametim@gmail\.com/);
   assert.doesNotMatch(html, /Request private details/);
+  assert.match(html, /og-image/);
+  assert.match(html, /summary_large_image/);
   assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
   assert.equal(response.headers.get("x-frame-options"), "DENY");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+});
+
+test("serves the supplied couple portrait as the social sharing image", async () => {
+  const worker = await loadWorker();
+  const response = await worker.fetch(new Request("http://localhost/og-image"), environment, context);
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/jpeg");
+  assert.equal(response.headers.get("cache-control"), "public, max-age=31536000, immutable");
+  assert.ok((await response.arrayBuffer()).byteLength > 100_000);
 });
 
 test("renders every uploaded image in the dedicated gallery", async () => {

@@ -111,7 +111,7 @@ export function WeddingExperienceV9() {
       "DTEND;VALUE=DATE:20260920",
       "SUMMARY:Kingsford & Perla — Wedding Ceremony",
       "LOCATION:Ramada by Wyndham St. John's\\, 102 Kenmount Road\\, St. John's\\, NL A1B 3R2",
-      "DESCRIPTION:Wedding ceremony only; no reception will follow. Confirmed arrival time will appear on your invitation.",
+      "DESCRIPTION:Wedding ceremony at Ramada by Wyndham St. John's. Confirmed arrival time will appear on your invitation.",
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
@@ -222,7 +222,7 @@ export function WeddingExperienceV9() {
 
       <section className="kp9-confirmed" aria-label="Confirmed wedding details">
         <article><CalendarHeart aria-hidden="true" /><span><small>Wedding day</small><strong>Saturday, 19 September 2026</strong></span></article>
-        <article><MapPin aria-hidden="true" /><span><small>Ceremony venue · No reception following</small><strong>Ramada by Wyndham St. John’s</strong></span></article>
+        <article><MapPin aria-hidden="true" /><span><small>Ceremony venue</small><strong>Ramada by Wyndham St. John’s</strong></span></article>
         <a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Open directions <ArrowRight aria-hidden="true" /></a>
       </section>
 
@@ -269,7 +269,7 @@ export function WeddingExperienceV9() {
         <div className="kp9-day-heading" data-kp9-reveal>
           <p className="kp9-kicker">The wedding day</p>
           <h2 id="kp9-day-title">One sacred gathering.<br /><em>One lasting promise.</em></h2>
-          <p>The wedding programme is the ceremony only. No reception or formal meal will follow. Your invitation carries the confirmed arrival time.</p>
+          <p>Your invitation carries the confirmed arrival time and wedding-day details.</p>
         </div>
         <div className="kp9-day-date" aria-hidden="true"><span>19</span><i>09</i><strong>26</strong></div>
         <div className="kp9-day-timeline" data-kp9-reveal>
@@ -393,7 +393,7 @@ export function WeddingExperienceV9() {
         <div className="kp9-rsvp-copy" data-kp9-reveal>
           <p className="kp9-kicker kp9-kicker-light">Your place in our story</p>
           <h2 id="kp9-rsvp-title">Will you celebrate<br /><em>with us?</em></h2>
-          <p>Respond once for your household for the wedding ceremony. There will be no reception afterward. Add accessibility needs privately, then use your confirmation reference if plans change.</p>
+          <p>Respond once for your household. Add accessibility needs privately, then use your confirmation reference if plans change.</p>
           <button type="button" onClick={openRsvp}>Open guest RSVP <ArrowRight aria-hidden="true" /></button>
           <span><ShieldCheck aria-hidden="true" /> Private household response · Secure update reference</span>
         </div>

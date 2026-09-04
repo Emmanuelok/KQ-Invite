@@ -25,7 +25,7 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.equal(response.status, 200);
   assert.match(html, /19 September 2026/);
   assert.match(html, /Ramada by Wyndham St\. John/);
-  assert.match(html, /No reception/);
+  assert.doesNotMatch(html, /No reception/i);
   assert.doesNotMatch(html, /The feast/);
   assert.match(html, /href="\/gallery"/);
   assert.match(html, /Interac e-Transfer/);

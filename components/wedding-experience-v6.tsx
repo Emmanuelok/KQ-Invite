@@ -1137,7 +1137,7 @@ export function WeddingExperienceV6() {
           <h2>Your yes belongs<br />in the story.</h2>
           <p>
             Respond once for your household for the wedding ceremony, share any
-            accessibility needs and return later if plans change. No reception will follow.
+            accessibility needs and return later if plans change.
           </p>
           <ul>
             <li><Check aria-hidden="true" /><span><strong>One household response</strong>Names and attendance together</span></li>

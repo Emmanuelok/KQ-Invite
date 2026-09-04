@@ -89,9 +89,9 @@ export const weddingContent = {
         "Yes. The venue offers free parking. St. John’s International Airport publishes a fixed taxi fare to the Ramada, and Metrobus can connect the airport area to Kenmount Road; use the live travel links on this page because schedules can change.",
     },
     {
-      question: "Is there a gift registry?",
+      question: "How can I send a gift?",
       answer:
-        "Your presence and prayers come first. Our secure gift centre lets you reserve a keepsake or privately request verified contribution instructions. We will never change payment details through a forwarded message.",
+        "Your presence and prayers come first. If you would like to send a gift, you may use Interac e-Transfer to perlaazametim@gmail.com.",
     },
   ],
 } as const;

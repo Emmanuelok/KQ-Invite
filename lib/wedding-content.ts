@@ -54,7 +54,7 @@ export const weddingContent = {
       label: "Wedding ceremony",
       sequence: "01",
       detail: "Saturday, 19 September 2026 at Ramada by Wyndham St. John’s. Your invitation will carry the confirmed arrival time.",
-      note: "Ceremony only · No reception will follow",
+      note: "Wedding ceremony",
     },
   ],
   faqs: [
@@ -62,11 +62,6 @@ export const weddingContent = {
       question: "When and where is the wedding?",
       answer:
         "The wedding ceremony is on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s, 102 Kenmount Road. Your invitation will carry the confirmed arrival time; this website will always hold the verified directions.",
-    },
-    {
-      question: "Will there be a reception?",
-      answer:
-        "No. This invitation is for the wedding ceremony only. There will be no reception or formal meal after the ceremony.",
     },
     {
       question: "Can I bring a guest or children?",

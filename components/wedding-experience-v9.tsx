@@ -38,7 +38,7 @@ import { RsvpDialog } from "@/components/wedding-experience";
 import { getGalleryFrame, type GalleryFrame } from "@/lib/gallery";
 import { weddingContent } from "@/lib/wedding-content";
 
-const WEDDING_MOMENT = new Date("2026-09-19T12:00:00-02:30").getTime();
+const WEDDING_MOMENT = new Date("2026-09-19T10:00:00-02:30").getTime();
 
 const featuredGalleryFrames = [
   "coastal-joy",
@@ -112,14 +112,14 @@ export function WeddingExperienceV9() {
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
       "PRODID:-//Kingsford and Perla//Wedding//EN",
+      "X-WR-TIMEZONE:America/St_Johns",
       "BEGIN:VEVENT",
       "UID:kingsford-perla-20260919@wedding",
       "DTSTAMP:20260831T000000Z",
-      "DTSTART;VALUE=DATE:20260919",
-      "DTEND;VALUE=DATE:20260920",
+      "DTSTART;TZID=America/St_Johns:20260919T100000",
       "SUMMARY:Kingsford & Perla — Wedding Ceremony",
-      "LOCATION:Ramada by Wyndham St. John's\\, 102 Kenmount Road\\, St. John's\\, NL A1B 3R2",
-      "DESCRIPTION:Wedding ceremony at Ramada by Wyndham St. John's. Ceremony details and the confirmed arrival time will be published on the wedding website.",
+      "LOCATION:Ramada Hotel\\, 102 Kenmount Road\\, St. John's\\, NL A1B 3R2",
+      "DESCRIPTION:Kingsford and Perla's wedding ceremony begins at 10:00 AM in St. John's.",
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
@@ -212,7 +212,7 @@ export function WeddingExperienceV9() {
           <p>With joy, we invite you to witness</p>
           <h1 id="kp9-hero-title"><span>Kingsford</span><i>&amp;</i><span>Perla</span></h1>
           <div className="kp9-hero-date"><strong>19</strong><span><small>September</small><b>2026</b></span></div>
-          <p className="kp9-hero-place"><MapPin aria-hidden="true" /> Ramada by Wyndham St. John’s · Newfoundland</p>
+          <p className="kp9-hero-place"><MapPin aria-hidden="true" /> Ramada Hotel · St. John’s</p>
           <div className="kp9-hero-buttons">
             <button type="button" onClick={openRsvp}>I’m planning to attend <ArrowRight aria-hidden="true" /></button>
             <Link href="/gallery"><Images aria-hidden="true" /> Enter the gallery</Link>
@@ -229,8 +229,8 @@ export function WeddingExperienceV9() {
       </section>
 
       <section className="kp9-confirmed" aria-label="Confirmed wedding details">
-        <article><CalendarHeart aria-hidden="true" /><span><small>Wedding day</small><strong>Saturday, 19 September 2026</strong></span></article>
-        <article><MapPin aria-hidden="true" /><span><small>Ceremony venue</small><strong>Ramada by Wyndham St. John’s</strong></span></article>
+        <article><CalendarHeart aria-hidden="true" /><span><small>Wedding day · 10:00 AM</small><strong>Saturday, 19 September 2026</strong></span></article>
+        <article><MapPin aria-hidden="true" /><span><small>Ceremony venue</small><strong>Ramada Hotel</strong></span></article>
         <a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Open directions <ArrowRight aria-hidden="true" /></a>
       </section>
 
@@ -257,8 +257,8 @@ export function WeddingExperienceV9() {
           <p className="kp9-kicker kp9-kicker-light">Our story in photographs</p>
           <h2 id="kp9-gallery-title">Every feeling<br /><em>has a frame.</em></h2>
           <p>
-            The complete collection now brings together six chapters and twenty-one
-            portraits—from studio warmth and heritage in the mist to coastal joy and engagement memories.
+            The complete collection brings together chapters of studio warmth, heritage in
+            the mist, coastal joy and engagement memories.
           </p>
           <Link href="/gallery">Enter the full gallery <ArrowRight aria-hidden="true" /></Link>
           <span><Images aria-hidden="true" /> Story · Mosaic · Film strip · Fullscreen cinema</span>
@@ -277,7 +277,7 @@ export function WeddingExperienceV9() {
         <div className="kp9-day-heading" data-kp9-reveal>
           <p className="kp9-kicker">The wedding day</p>
           <h2 id="kp9-day-title">One sacred gathering.<br /><em>One lasting promise.</em></h2>
-          <p>Ceremony details and the confirmed arrival time will be published here.</p>
+          <p>The ceremony begins at 10:00 AM, St. John’s time.</p>
         </div>
         <div className="kp9-day-date" aria-hidden="true"><span>19</span><i>09</i><strong>26</strong></div>
         <div className="kp9-day-timeline" data-kp9-reveal>
@@ -291,26 +291,20 @@ export function WeddingExperienceV9() {
         </div>
       </section>
 
-      <section className="kp9-film" aria-labelledby="kp9-film-title">
+      <section className="kp9-film" aria-label="Kingsford and Perla wedding film">
         <div className="kp9-film-media" data-kp9-reveal>
-          <video ref={videoRef} autoPlay muted loop playsInline preload="metadata" poster="/wedding-editorial-poster.jpg" onPlay={() => setVideoPlaying(true)} onPause={() => setVideoPlaying(false)}>
+          <video ref={videoRef} autoPlay muted loop playsInline preload="metadata" poster="/wedding-editorial-poster.jpg" aria-label="Kingsford and Perla wedding film" onPlay={() => setVideoPlaying(true)} onPause={() => setVideoPlaying(false)}>
             <source src="/wedding-editorial.mp4" type="video/mp4" />
           </video>
-          <div />
+          <div aria-hidden="true" />
           <button type="button" onClick={toggleVideo}>{videoPlaying ? <CirclePause aria-hidden="true" /> : <CirclePlay aria-hidden="true" />} {videoPlaying ? "Pause film" : "Play film"}</button>
-        </div>
-        <div className="kp9-film-copy" data-kp9-reveal>
-          <p className="kp9-kicker">The living invitation</p>
-          <h2 id="kp9-film-title">A little cinema.<br /><em>A lot of us.</em></h2>
-          <p>Motion, light and the warmth of Newfoundland frame a wedding home that feels alive before the day even begins.</p>
-          <ul><li><Check aria-hidden="true" /> Pause control</li><li><Check aria-hidden="true" /> Reduced-motion alternative</li><li><Check aria-hidden="true" /> Mobile-ready film</li></ul>
         </div>
       </section>
 
       <section id="guest-guide" className="kp9-guide" aria-labelledby="kp9-guide-title">
         <div className="kp9-guide-heading" data-kp9-reveal>
           <div><p className="kp9-kicker">Your complete guest guide</p><h2 id="kp9-guide-title">Arrive with ease.<br /><em>Celebrate fully.</em></h2></div>
-          <p>Everything currently confirmed for Ramada by Wyndham St. John’s, gathered in one place. Use the live links before travelling because transport schedules can change.</p>
+          <p>Everything currently confirmed for Ramada Hotel, gathered in one place. Use the live links before travelling because transport schedules can change.</p>
         </div>
 
         <div className="kp9-venue-card" data-kp9-reveal>
@@ -319,11 +313,11 @@ export function WeddingExperienceV9() {
             href={weddingContent.event.venueUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label="View the official Ramada by Wyndham St. John’s hotel page"
+            aria-label="View the official Ramada Hotel page"
           >
             <Image
               src={weddingContent.event.venueImageUrl}
-              alt="Exterior entrance of Ramada by Wyndham St. John’s at 102 Kenmount Road."
+              alt="Exterior entrance of Ramada Hotel at 102 Kenmount Road."
               fill
               unoptimized
               sizes="(max-width: 850px) 100vw, 56vw"
@@ -336,13 +330,13 @@ export function WeddingExperienceV9() {
           </a>
           <div className="kp9-venue-copy">
             <p>Our ceremony venue</p>
-            <h3>Ramada by Wyndham<br />St. John’s</h3>
+            <h3>Ramada Hotel</h3>
             <address>{weddingContent.event.address}</address>
             <div>
               <a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer"><MapPin aria-hidden="true" /> Open in Google Maps</a>
               <button type="button" onClick={copyAddress}>{copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied ? "Address copied" : "Copy address"}</button>
             </div>
-            <span><Phone aria-hidden="true" /><a href="tel:+17097229330">+1 709 722 9330</a></span>
+            <span><Phone aria-hidden="true" /><small>Wedding enquiries</small><a href={`tel:${weddingContent.event.phoneHref}`}>{weddingContent.event.phone}</a></span>
           </div>
         </div>
 
@@ -354,7 +348,7 @@ export function WeddingExperienceV9() {
           </article>
           <article data-kp9-reveal>
             <span>02</span><Plane aria-hidden="true" /><h3>From YYT airport</h3>
-            <p>St. John’s International Airport currently publishes a C$42 fixed taxi fare to the Ramada. Confirm the current fare before departure.</p>
+            <p>St. John’s International Airport currently publishes a C$42 fixed taxi fare to Ramada Hotel. Confirm the current fare before departure.</p>
             <a href="https://stjohnsairport.com/to-from-airport/ground-transportation/taxis/" target="_blank" rel="noreferrer">Airport taxi guide <ExternalLink aria-hidden="true" /></a>
           </article>
           <article data-kp9-reveal>
@@ -374,7 +368,7 @@ export function WeddingExperienceV9() {
           </article>
           <article data-kp9-reveal>
             <span>06</span><CalendarHeart aria-hidden="true" /><h3>Keep the day close</h3>
-            <p>Save the wedding date now. This website will remain the source for confirmed ceremony timing.</p>
+            <p>Save the wedding date and 10:00 AM ceremony time now. This website will remain the source for confirmed details.</p>
             <a href={calendarHref} download="kingsford-perla-wedding.ics">Add to calendar <ExternalLink aria-hidden="true" /></a>
           </article>
         </div>

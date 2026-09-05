@@ -235,7 +235,7 @@ export function GalleryExperience() {
 
       <section className="kp-gallery-prologue" data-gallery-reveal>
         <p>Not simply photographs.</p>
-        <h2>Twenty-one pieces of a feeling<br /><em>we never want to forget.</em></h2>
+        <h2>Pieces of a feeling<br /><em>we never want to forget.</em></h2>
         <span>From studio warmth and heritage in the mist to the Newfoundland coast and our engagement celebration, every frame holds a piece of us.</span>
       </section>
 

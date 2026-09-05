@@ -11,6 +11,7 @@ import {
   validateJsonRequest,
 } from "../../../lib/api-security";
 import { proxyWeddingBackend } from "../../../lib/backend-proxy";
+import { isOrganiserRequest } from "../../../lib/access";
 import { getRuntimeEnv } from "../../../lib/runtime-env";
 
 const rsvpSchema = z.object({
@@ -30,7 +31,7 @@ const rsvpSchema = z.object({
   consentAccepted: z.literal(true),
 });
 
-function cleanRow(row: typeof rsvps.$inferSelect) {
+function cleanAdminRow(row: typeof rsvps.$inferSelect) {
   const attending = row.attendance === "joyfully-attending";
   return {
     ...row,
@@ -38,6 +39,16 @@ function cleanRow(row: typeof rsvps.$inferSelect) {
     mealPreference: "",
     allergies: "",
     songRequest: "",
+  };
+}
+
+function cleanPublicRow(row: typeof rsvps.$inferSelect) {
+  return {
+    referenceCode: row.referenceCode,
+    fullName: row.fullName,
+    email: row.email,
+    householdSize: row.householdSize,
+    accessibilityNeeds: row.accessibilityNeeds,
   };
 }
 
@@ -50,13 +61,12 @@ export async function GET(request: Request) {
   const db = getDb(runtime.DB);
 
   try {
-    if (await secretsMatch(request.headers.get("x-admin-key"), runtime.WEDDING_ADMIN_KEY)) {
+    if (
+      isOrganiserRequest(request) &&
+      await secretsMatch(request.headers.get("x-admin-key"), runtime.WEDDING_ADMIN_KEY)
+    ) {
       const rows = await db.select().from(rsvps).orderBy(desc(rsvps.updatedAt), desc(rsvps.id));
-      return jsonResponse({ rsvps: rows.map(cleanRow) });
-    }
-
-    if (!(await checkRateLimit(runtime.DB, request, "rsvp-lookup", 20, 600))) {
-      return jsonResponse({ error: "Please wait before trying another lookup." }, { status: 429 });
+      return jsonResponse({ rsvps: rows.map(cleanAdminRow) });
     }
 
     const requestUrl = new URL(request.url);
@@ -67,6 +77,9 @@ export async function GET(request: Request) {
     }
     if (reference.length === 10 && !email) {
       return jsonResponse({ error: "Please also enter the email used with this older reference." }, { status: 400 });
+    }
+    if (!(await checkRateLimit(runtime.DB, request, "rsvp-lookup", 20, 600, reference))) {
+      return jsonResponse({ error: "Please wait before trying another lookup." }, { status: 429 });
     }
 
     const [row] = await db
@@ -84,7 +97,7 @@ export async function GET(request: Request) {
         { status: 404 },
       );
     }
-    return jsonResponse({ rsvp: cleanRow(row) });
+    return jsonResponse({ rsvp: cleanPublicRow(row) });
   } catch {
     return jsonResponse({ error: "Attendance notices are temporarily unavailable." }, { status: 500 });
   }
@@ -101,10 +114,6 @@ export async function POST(request: Request) {
   if (!runtime.DB) return jsonResponse({ error: "Attendance notices are temporarily unavailable." }, { status: 503 });
 
   try {
-    if (!(await checkRateLimit(runtime.DB, request, "rsvp-submit", 8, 600))) {
-      return jsonResponse({ error: "Please wait a few minutes before trying again." }, { status: 429 });
-    }
-
     let body: unknown;
     try {
       body = await request.json();
@@ -120,6 +129,9 @@ export async function POST(request: Request) {
     }
 
     const payload = parsed.data;
+    if (!(await checkRateLimit(runtime.DB, request, "rsvp-submit", 8, 600, payload.submissionId))) {
+      return jsonResponse({ error: "Please wait a few minutes before trying again." }, { status: 429 });
+    }
     const email = payload.email.toLowerCase();
     const db = getDb(runtime.DB);
     const now = new Date().toISOString();

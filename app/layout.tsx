@@ -6,10 +6,10 @@ import "./kp9.css";
 import "./gallery.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kq-invite-one.vercel.app"),
+  metadataBase: new URL("https://kingsperl.com"),
   title: "Kingsford & Perla — Our Wedding",
   description:
-    "Kingsford and Perla invite you to their wedding ceremony on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s—with gallery, guest guide, gifts and an optional attendance notice.",
+    "Kingsford and Perla invite you to their wedding ceremony at 10:00 AM on Saturday, 19 September 2026 at Ramada Hotel in St. John’s—with gallery, guest guide, gifts and an optional attendance notice.",
   applicationName: "Kingsford & Perla — Our Wedding",
   category: "wedding",
   openGraph: {

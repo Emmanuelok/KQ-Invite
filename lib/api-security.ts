@@ -49,14 +49,14 @@ export async function secretsMatch(left: string | null, right?: string) {
   return difference === 0;
 }
 
-async function rateLimitKey(request: Request, bucket: string) {
+async function rateLimitKey(request: Request, bucket: string, discriminator = "") {
   const address =
     request.headers.get("cf-connecting-ip") ??
     request.headers.get("x-forwarded-for")?.split(",", 1)[0]?.trim() ??
     "unknown";
   const digest = await crypto.subtle.digest(
     "SHA-256",
-    new TextEncoder().encode(`${bucket}:${address}`),
+    new TextEncoder().encode(`${bucket}:${address}:${discriminator}`),
   );
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
@@ -67,8 +67,9 @@ export async function checkRateLimit(
   bucket: string,
   limit = 8,
   windowSeconds = 600,
+  discriminator = "",
 ) {
-  const key = await rateLimitKey(request, bucket);
+  const key = await rateLimitKey(request, bucket, discriminator);
   const db = getDb(database);
   const now = Date.now();
   const [record] = await db

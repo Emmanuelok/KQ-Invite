@@ -11,6 +11,7 @@ import {
   validateJsonRequest,
 } from "../../../lib/api-security";
 import { proxyWeddingBackend } from "../../../lib/backend-proxy";
+import { isOrganiserRequest } from "../../../lib/access";
 import { giftMap } from "../../../lib/gifts";
 import { getRuntimeEnv } from "../../../lib/runtime-env";
 
@@ -33,7 +34,10 @@ export async function GET(request: Request) {
   const db = getDb(runtime.DB);
 
   try {
-    if (await secretsMatch(request.headers.get("x-admin-key"), runtime.WEDDING_ADMIN_KEY)) {
+    if (
+      isOrganiserRequest(request) &&
+      await secretsMatch(request.headers.get("x-admin-key"), runtime.WEDDING_ADMIN_KEY)
+    ) {
       const rows = await db
         .select()
         .from(giftReservations)
@@ -67,9 +71,6 @@ export async function POST(request: Request) {
   if (!runtime.DB) return jsonResponse({ error: "The gift centre is temporarily unavailable." }, { status: 503 });
 
   try {
-    if (!(await checkRateLimit(runtime.DB, request, "gift-submit", 6, 600))) {
-      return jsonResponse({ error: "Please wait a few minutes before trying again." }, { status: 429 });
-    }
     let body: unknown;
     try {
       body = await request.json();
@@ -85,6 +86,18 @@ export async function POST(request: Request) {
     }
 
     const payload = parsed.data;
+    if (
+      !(await checkRateLimit(
+        runtime.DB,
+        request,
+        "gift-submit",
+        6,
+        600,
+        `${payload.contactDetail.toLowerCase()}:${payload.giftKey}`,
+      ))
+    ) {
+      return jsonResponse({ error: "Please wait a few minutes before trying again." }, { status: 429 });
+    }
     const gift = giftMap.get(payload.giftKey);
     if (!gift) return jsonResponse({ error: "That gift option is not available." }, { status: 400 });
     if (payload.requestType === "contribution-details" && gift.kind === "keepsake") {

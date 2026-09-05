@@ -13,9 +13,12 @@ export const weddingContent = {
     dateISO: "2026-09-19",
     dateDisplay: "Saturday, 19 September 2026",
     dateShort: "19 · 09 · 26",
-    locationDisplay: "Ramada by Wyndham St. John’s",
+    timeDisplay: "10:00 AM",
+    timeZoneDisplay: "St. John’s time",
+    locationDisplay: "Ramada Hotel",
     address: "102 Kenmount Road, St. John’s, NL A1B 3R2",
-    phone: "+1 709 722 9330",
+    phone: "+1 (587) 837-4472",
+    phoneHref: "+15878374472",
     mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Ramada+by+Wyndham+St.+John%27s%2C+102+Kenmount+Road%2C+St.+John%27s%2C+NL+A1B+3R2&travelmode=driving",
     venueUrl: "https://www.wyndhamhotels.com/ramada/st-john-newfoundland/ramada-st-johns/overview",
     venueImageUrl: "/ramada-st-johns-exterior.jpg",
@@ -53,15 +56,15 @@ export const weddingContent = {
     {
       label: "Wedding ceremony",
       sequence: "01",
-      detail: "Saturday, 19 September 2026 at Ramada by Wyndham St. John’s. Ceremony details and the confirmed arrival time will be published here.",
-      note: "Wedding ceremony",
+      detail: "Saturday, 19 September 2026 at 10:00 AM (St. John’s time), at Ramada Hotel.",
+      note: "10:00 AM",
     },
   ],
   faqs: [
     {
       question: "When and where is the wedding?",
       answer:
-        "The wedding ceremony is on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s, 102 Kenmount Road. The confirmed arrival time will be published on this website, which will always hold the verified directions.",
+        "The wedding ceremony begins at 10:00 AM (St. John’s time) on Saturday, 19 September 2026 at Ramada Hotel, 102 Kenmount Road. This website will always hold the verified directions.",
     },
     {
       question: "Do I need a formal invitation or RSVP?",

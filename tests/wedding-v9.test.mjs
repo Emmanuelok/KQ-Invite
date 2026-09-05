@@ -24,7 +24,10 @@ test("renders the confirmed wedding day and production security headers", async 
 
   assert.equal(response.status, 200);
   assert.match(html, /19 September 2026/);
-  assert.match(html, /Ramada by Wyndham St\. John/);
+  assert.match(html, /10:00 AM/);
+  assert.match(html, /Ramada Hotel/);
+  assert.doesNotMatch(html, /Ramada by Wyndham/);
+  assert.match(html, /\+1 \(587\) 837-4472/);
   assert.doesNotMatch(html, /No reception/i);
   assert.doesNotMatch(html, /The feast/);
   assert.match(html, /Planning to join/);
@@ -37,6 +40,10 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.match(html, /Interac e-Transfer/);
   assert.match(html, /perlaazametim@gmail\.com/);
   assert.doesNotMatch(html, /Request private details/);
+  assert.match(html, /Kingsford and Perla wedding film/);
+  assert.doesNotMatch(html, /A little cinema/);
+  assert.doesNotMatch(html, /The living invitation/);
+  assert.doesNotMatch(html, /Mobile-ready film/);
   assert.match(html, /og-image/);
   assert.match(html, /summary_large_image/);
   assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
@@ -94,7 +101,8 @@ test("renders every uploaded image in the dedicated gallery", async () => {
   assert.match(html, /Along the Coast/);
   assert.match(html, /Her Radiance/);
   assert.match(html, /Joy in Motion/);
-  assert.match(html, /Twenty-one pieces/);
+  assert.match(html, /Pieces of a feeling/);
+  assert.doesNotMatch(html, /Twenty-one pieces/);
   assert.match(html, /Film strip/);
 });
 
@@ -117,7 +125,7 @@ test("pairs the ceremony venue with verified Ramada imagery", async () => {
 
   const venueCard = experience.match(/<div className="kp9-venue-card"[\s\S]*?<div className="kp9-venue-copy">/)?.[0] ?? "";
   assert.match(venueCard, /weddingContent\.event\.venueImageUrl/);
-  assert.match(venueCard, /Exterior entrance of Ramada by Wyndham St\. John/);
+  assert.match(venueCard, /Exterior entrance of Ramada Hotel/);
   assert.doesNotMatch(venueCard, /engagement-[^"']+\.webp/);
   assert.match(content, /venueImageUrl: "\/ramada-st-johns-exterior\.jpg"/);
   assert.match(content, /venueImageCredit: "Wyndham Hotels"/);
@@ -178,4 +186,28 @@ test("uses a light attendance notice instead of a formal RSVP form", async () =>
   assert.match(content, /No formal invitation or RSVP is required to attend/);
   assert.match(gallery, /Let us know you’re coming/);
   assert.match(gallery, /\/#attendance/);
+});
+
+test("keeps public attendance lookups minimal and organiser exports double-locked", async () => {
+  const [rsvpRoute, giftRoute, access, security, managePage] = await Promise.all([
+    readFile(new URL("../app/api/rsvp/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/gifts/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/access.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/api-security.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/manage/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  const publicShape = rsvpRoute.match(/function cleanPublicRow[\s\S]*?\n}/)?.[0] ?? "";
+  assert.match(publicShape, /referenceCode: row\.referenceCode/);
+  assert.match(publicShape, /fullName: row\.fullName/);
+  assert.match(publicShape, /householdSize: row\.householdSize/);
+  assert.doesNotMatch(publicShape, /\.\.\.row/);
+  assert.doesNotMatch(publicShape, /phone|guestNames|note|consent/);
+
+  assert.match(access, /oai-authenticated-user-email/);
+  assert.match(rsvpRoute, /isOrganiserRequest\(request\)[\s\S]*?secretsMatch/);
+  assert.match(giftRoute, /isOrganiserRequest\(request\)[\s\S]*?secretsMatch/);
+  assert.match(security, /discriminator/);
+  assert.match(rsvpRoute, /"rsvp-submit", 8, 600, payload\.submissionId/);
+  assert.match(managePage, /export const dynamic = "force-dynamic"/);
 });

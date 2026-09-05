@@ -125,14 +125,18 @@ test("pairs the ceremony venue with verified Ramada imagery", async () => {
 });
 
 test("ships a native Git-connected Vercel build path", async () => {
-  const [manifest, vercel] = await Promise.all([
+  const [manifest, vercel, backendProxy] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../vercel.json", import.meta.url), "utf8").then(JSON.parse),
+    readFile(new URL("../lib/backend-proxy.ts", import.meta.url), "utf8"),
   ]);
 
   assert.equal(manifest.scripts["build:vercel"], "next build --webpack");
   assert.equal(vercel.framework, "nextjs");
   assert.equal(vercel.buildCommand, "npm run build:vercel");
+  assert.match(backendProxy, /process\.env\.OAI_SITES_BYPASS_TOKEN/);
+  assert.match(backendProxy, /OAI-Sites-Authorization/);
+  assert.doesNotMatch(backendProxy, /NEXT_PUBLIC_OAI_SITES_BYPASS_TOKEN/);
 });
 
 test("ships durable RSVP, gift and rate-limit migrations", async () => {

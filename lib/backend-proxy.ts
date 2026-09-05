@@ -32,6 +32,10 @@ export async function proxyWeddingBackend(
     const value = request.headers.get(name);
     if (value) headers.set(name, value);
   }
+  const sitesBypassToken = process.env.OAI_SITES_BYPASS_TOKEN?.trim();
+  if (sitesBypassToken) {
+    headers.set("OAI-Sites-Authorization", `Bearer ${sitesBypassToken}`);
+  }
   headers.set("origin", backendOrigin);
   headers.set("referer", `${backendOrigin}/`);
   headers.set("user-agent", "Kingsford-Perla-Wedding-Vercel/1.0");

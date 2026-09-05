@@ -17,9 +17,12 @@ const rsvpSchema = z.object({
   referenceCode: z.string().trim().max(24).optional().default(""),
   submissionId: z.string().trim().min(12).max(80),
   fullName: z.string().trim().min(2, "Please enter your household name.").max(120),
-  email: z.string().trim().email("Please enter a valid email address.").max(200),
+  email: z.string().trim().max(200).refine(
+    (value) => value === "" || z.string().email().safeParse(value).success,
+    "Please enter a valid email address.",
+  ).optional().default(""),
   phone: z.string().trim().max(40).optional().default(""),
-  attendance: z.enum(["joyfully-attending", "regretfully-declining"]),
+  attendance: z.enum(["joyfully-attending", "regretfully-declining"]).optional().default("joyfully-attending"),
   householdSize: z.coerce.number().int().min(1).max(8).default(1),
   guestNames: z.string().trim().max(500).optional().default(""),
   accessibilityNeeds: z.string().trim().max(500).optional().default(""),
@@ -43,7 +46,7 @@ export async function GET(request: Request) {
   if (proxied) return proxied;
 
   const runtime = await getRuntimeEnv();
-  if (!runtime.DB) return jsonResponse({ error: "Guest responses are temporarily unavailable." }, { status: 503 });
+  if (!runtime.DB) return jsonResponse({ error: "Attendance notices are temporarily unavailable." }, { status: 503 });
   const db = getDb(runtime.DB);
 
   try {
@@ -59,24 +62,31 @@ export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const email = requestUrl.searchParams.get("email")?.trim().toLowerCase();
     const reference = requestUrl.searchParams.get("reference")?.trim().toUpperCase();
-    if (!email || !reference || !/^(?:[A-F0-9]{10}|[A-F0-9]{24})$/.test(reference)) {
-      return jsonResponse({ error: "Email and a valid confirmation reference are required." }, { status: 400 });
+    if (!reference || !/^(?:[A-F0-9]{10}|[A-F0-9]{24})$/.test(reference)) {
+      return jsonResponse({ error: "A valid private update reference is required." }, { status: 400 });
+    }
+    if (reference.length === 10 && !email) {
+      return jsonResponse({ error: "Please also enter the email used with this older reference." }, { status: 400 });
     }
 
     const [row] = await db
       .select()
       .from(rsvps)
-      .where(and(eq(rsvps.email, email), eq(rsvps.referenceCode, reference)))
+      .where(
+        reference.length === 10
+          ? and(eq(rsvps.email, email ?? ""), eq(rsvps.referenceCode, reference))
+          : eq(rsvps.referenceCode, reference),
+      )
       .limit(1);
     if (!row) {
       return jsonResponse(
-        { error: "We could not find that response. Check the email and reference." },
+        { error: "We could not find that attendance notice. Check the private reference." },
         { status: 404 },
       );
     }
     return jsonResponse({ rsvp: cleanRow(row) });
   } catch {
-    return jsonResponse({ error: "Guest responses are temporarily unavailable." }, { status: 500 });
+    return jsonResponse({ error: "Attendance notices are temporarily unavailable." }, { status: 500 });
   }
 }
 
@@ -88,7 +98,7 @@ export async function POST(request: Request) {
   if (validationError) return jsonResponse({ error: validationError }, { status: 400 });
 
   const runtime = await getRuntimeEnv();
-  if (!runtime.DB) return jsonResponse({ error: "RSVP is temporarily unavailable." }, { status: 503 });
+  if (!runtime.DB) return jsonResponse({ error: "Attendance notices are temporarily unavailable." }, { status: 503 });
 
   try {
     if (!(await checkRateLimit(runtime.DB, request, "rsvp-submit", 8, 600))) {
@@ -99,12 +109,12 @@ export async function POST(request: Request) {
     try {
       body = await request.json();
     } catch {
-      return jsonResponse({ error: "We could not read that response." }, { status: 400 });
+      return jsonResponse({ error: "We could not read that attendance notice." }, { status: 400 });
     }
     const parsed = rsvpSchema.safeParse(body);
     if (!parsed.success) {
       return jsonResponse(
-        { error: parsed.error.issues[0]?.message ?? "Please check your response." },
+        { error: parsed.error.issues[0]?.message ?? "Please check your attendance notice." },
         { status: 400 },
       );
     }
@@ -127,7 +137,7 @@ export async function POST(request: Request) {
       accessibilityNeeds: payload.accessibilityNeeds,
       songRequest: "",
       note: payload.note,
-      consentVersion: "wedding-privacy-v1",
+      consentVersion: "wedding-attendance-v1",
       consentedAt: now,
       updatedAt: now,
     };
@@ -135,15 +145,22 @@ export async function POST(request: Request) {
     if (payload.referenceCode) {
       const reference = payload.referenceCode.toUpperCase();
       if (!/^(?:[A-F0-9]{10}|[A-F0-9]{24})$/.test(reference)) {
-        return jsonResponse({ error: "That confirmation reference is not valid." }, { status: 400 });
+        return jsonResponse({ error: "That private update reference is not valid." }, { status: 400 });
+      }
+      if (reference.length === 10 && !email) {
+        return jsonResponse({ error: "Please also enter the email used with this older reference." }, { status: 400 });
       }
       const [existing] = await db
         .select()
         .from(rsvps)
-        .where(and(eq(rsvps.referenceCode, reference), eq(rsvps.email, email)))
+        .where(
+          reference.length === 10
+            ? and(eq(rsvps.referenceCode, reference), eq(rsvps.email, email))
+            : eq(rsvps.referenceCode, reference),
+        )
         .limit(1);
       if (!existing) {
-        return jsonResponse({ error: "We could not verify that response for updating." }, { status: 404 });
+        return jsonResponse({ error: "We could not verify that attendance notice for updating." }, { status: 404 });
       }
       await db.update(rsvps).set(values).where(eq(rsvps.id, existing.id));
       return jsonResponse({ referenceCode: existing.referenceCode, updated: true });
@@ -158,16 +175,18 @@ export async function POST(request: Request) {
       return jsonResponse({ referenceCode: duplicateSubmission.referenceCode, updated: false });
     }
 
-    const [existingEmail] = await db
-      .select({ id: rsvps.id })
-      .from(rsvps)
-      .where(eq(rsvps.email, email))
-      .limit(1);
-    if (existingEmail) {
-      return jsonResponse(
-        { error: "A response already exists for this email. Use your private reference to update it." },
-        { status: 409 },
-      );
+    if (email) {
+      const [existingEmail] = await db
+        .select({ id: rsvps.id })
+        .from(rsvps)
+        .where(eq(rsvps.email, email))
+        .limit(1);
+      if (existingEmail) {
+        return jsonResponse(
+          { error: "An attendance notice already exists for this email. Use your private reference to update it." },
+          { status: 409 },
+        );
+      }
     }
 
     const referenceCode = createPrivateReference();
@@ -180,21 +199,23 @@ export async function POST(request: Request) {
         .where(eq(rsvps.submissionId, payload.submissionId))
         .limit(1);
       if (duplicate) return jsonResponse({ referenceCode: duplicate.referenceCode, updated: false });
-      const [emailConflict] = await db
-        .select({ id: rsvps.id })
-        .from(rsvps)
-        .where(eq(rsvps.email, email))
-        .limit(1);
-      if (emailConflict) {
-        return jsonResponse(
-          { error: "A response already exists for this email. Use your private reference to update it." },
-          { status: 409 },
-        );
+      if (email) {
+        const [emailConflict] = await db
+          .select({ id: rsvps.id })
+          .from(rsvps)
+          .where(eq(rsvps.email, email))
+          .limit(1);
+        if (emailConflict) {
+          return jsonResponse(
+            { error: "An attendance notice already exists for this email. Use your private reference to update it." },
+            { status: 409 },
+          );
+        }
       }
       throw insertError;
     }
     return jsonResponse({ referenceCode, updated: false }, { status: 201 });
   } catch {
-    return jsonResponse({ error: "We could not save your RSVP right now. Please try again." }, { status: 500 });
+    return jsonResponse({ error: "We could not save your attendance notice right now. Please try again." }, { status: 500 });
   }
 }

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kq-invite-one.vercel.app"),
   title: "Kingsford & Perla — Our Wedding",
   description:
-    "Kingsford and Perla invite you to their wedding ceremony on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s—with gallery, guest guide, gifts and private RSVP.",
+    "Kingsford and Perla invite you to their wedding ceremony on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s—with gallery, guest guide, gifts and an optional attendance notice.",
   applicationName: "Kingsford & Perla — Our Wedding",
   category: "wedding",
   openGraph: {

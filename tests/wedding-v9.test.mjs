@@ -27,6 +27,12 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.match(html, /Ramada by Wyndham St\. John/);
   assert.doesNotMatch(html, /No reception/i);
   assert.doesNotMatch(html, /The feast/);
+  assert.match(html, /Planning to join/);
+  assert.match(html, /No formal invitation is required to attend/);
+  assert.match(html, /Optional attendance notice/);
+  assert.doesNotMatch(html, /Respond to our invitation/);
+  assert.doesNotMatch(html, /Will you celebrate/);
+  assert.doesNotMatch(html, /seats reserved/i);
   assert.match(html, /href="\/gallery"/);
   assert.match(html, /Interac e-Transfer/);
   assert.match(html, /perlaazametim@gmail\.com/);
@@ -138,8 +144,34 @@ test("ships durable RSVP, gift and rate-limit migrations", async () => {
     new URL("../drizzle/0002_romantic_sunfire.sql", import.meta.url),
     "utf8",
   );
+  const optionalEmailIndex = await readFile(
+    new URL("../drizzle/0003_boring_rogue.sql", import.meta.url),
+    "utf8",
+  );
   assert.match(migration, /CREATE TABLE `gift_reservations`/);
   assert.match(migration, /CREATE TABLE `submission_rate_limits`/);
   assert.match(migration, /ADD `submission_id`/);
   assert.match(reservationIndex, /gift_reservations_active_keepsake_unique/);
+  assert.match(optionalEmailIndex, /DROP INDEX `rsvps_email_unique`/);
+  assert.match(optionalEmailIndex, /WHERE .*email.* <> ''/);
+});
+
+test("uses a light attendance notice instead of a formal RSVP form", async () => {
+  const [experience, content, gallery] = await Promise.all([
+    readFile(new URL("../components/wedding-experience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/wedding-content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../components/gallery-experience.tsx", import.meta.url), "utf8"),
+  ]);
+  const dialog = experience.slice(experience.indexOf("export function RsvpDialog"));
+
+  assert.match(dialog, /Optional attendance notice/);
+  assert.match(dialog, /Name or household name/);
+  assert.match(dialog, /Number attending/);
+  assert.match(dialog, /Email for important updates \(optional\)/);
+  assert.doesNotMatch(dialog, /name="phone"/);
+  assert.doesNotMatch(dialog, /name="guestNames"/);
+  assert.doesNotMatch(dialog, /Can you attend/);
+  assert.match(content, /No formal invitation or RSVP is required to attend/);
+  assert.match(gallery, /Let us know you’re coming/);
+  assert.match(gallery, /\/#attendance/);
 });

@@ -119,7 +119,7 @@ export function WeddingExperienceV9() {
       "DTEND;VALUE=DATE:20260920",
       "SUMMARY:Kingsford & Perla — Wedding Ceremony",
       "LOCATION:Ramada by Wyndham St. John's\\, 102 Kenmount Road\\, St. John's\\, NL A1B 3R2",
-      "DESCRIPTION:Wedding ceremony at Ramada by Wyndham St. John's. Confirmed arrival time will appear on your invitation.",
+      "DESCRIPTION:Wedding ceremony at Ramada by Wyndham St. John's. Ceremony details and the confirmed arrival time will be published on the wedding website.",
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
@@ -170,7 +170,7 @@ export function WeddingExperienceV9() {
           ))}
         </nav>
         <div className="kp9-header-actions">
-          <button type="button" onClick={openRsvp}>RSVP <ArrowRight aria-hidden="true" /></button>
+          <button type="button" onClick={openRsvp}>Planning to attend? <ArrowRight aria-hidden="true" /></button>
           <button className="kp9-menu" type="button" onClick={() => setMenuOpen(true)} aria-label="Open wedding menu"><Menu aria-hidden="true" /></button>
         </div>
       </header>
@@ -185,7 +185,7 @@ export function WeddingExperienceV9() {
               <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}><small>0{index + 1}</small><span>{item.label}</span><ArrowRight aria-hidden="true" /></a>
             ))}
           </nav>
-          <button type="button" onClick={openRsvp}>Respond to our invitation <Heart aria-hidden="true" /></button>
+          <button type="button" onClick={openRsvp}>Let us know you’re coming <Heart aria-hidden="true" /></button>
         </div>
       )}
 
@@ -214,7 +214,7 @@ export function WeddingExperienceV9() {
           <div className="kp9-hero-date"><strong>19</strong><span><small>September</small><b>2026</b></span></div>
           <p className="kp9-hero-place"><MapPin aria-hidden="true" /> Ramada by Wyndham St. John’s · Newfoundland</p>
           <div className="kp9-hero-buttons">
-            <button type="button" onClick={openRsvp}>Respond to our invitation <ArrowRight aria-hidden="true" /></button>
+            <button type="button" onClick={openRsvp}>I’m planning to attend <ArrowRight aria-hidden="true" /></button>
             <Link href="/gallery"><Images aria-hidden="true" /> Enter the gallery</Link>
           </div>
         </div>
@@ -277,7 +277,7 @@ export function WeddingExperienceV9() {
         <div className="kp9-day-heading" data-kp9-reveal>
           <p className="kp9-kicker">The wedding day</p>
           <h2 id="kp9-day-title">One sacred gathering.<br /><em>One lasting promise.</em></h2>
-          <p>Your invitation carries the confirmed arrival time and wedding-day details.</p>
+          <p>Ceremony details and the confirmed arrival time will be published here.</p>
         </div>
         <div className="kp9-day-date" aria-hidden="true"><span>19</span><i>09</i><strong>26</strong></div>
         <div className="kp9-day-timeline" data-kp9-reveal>
@@ -369,12 +369,12 @@ export function WeddingExperienceV9() {
           </article>
           <article data-kp9-reveal>
             <span>05</span><Accessibility aria-hidden="true" /><h3>Accessible arrival</h3>
-            <p>The property lists wheelchair-accessible elevators and accessible facilities. Add specific needs privately to your RSVP so we can coordinate with the venue.</p>
+            <p>The property lists wheelchair-accessible elevators and accessible facilities. Add specific needs privately to your attendance notice so we can coordinate with the venue.</p>
             <button type="button" onClick={openRsvp}>Add access needs <ChevronRight aria-hidden="true" /></button>
           </article>
           <article data-kp9-reveal>
             <span>06</span><CalendarHeart aria-hidden="true" /><h3>Keep the day close</h3>
-            <p>Save the wedding date now. Your invitation and this private website remain the source for confirmed timing.</p>
+            <p>Save the wedding date now. This website will remain the source for confirmed ceremony timing.</p>
             <a href={calendarHref} download="kingsford-perla-wedding.ics">Add to calendar <ExternalLink aria-hidden="true" /></a>
           </article>
         </div>
@@ -396,14 +396,15 @@ export function WeddingExperienceV9() {
         </Accordion>
       </section>
 
-      <section id="rsvp" className="kp9-rsvp" aria-labelledby="kp9-rsvp-title">
+      <section id="attendance" className="kp9-rsvp" aria-labelledby="kp9-rsvp-title">
+        <span id="rsvp" className="sr-only" aria-hidden="true" />
         <div className="kp9-rsvp-image"><Image src="/kp-coastal-hand-in-hand.webp" alt="Kingsford and Perla smiling and holding hands at a misty coastal lookout." fill unoptimized sizes="100vw" style={{ objectPosition: "55% 40%" }} /><div /></div>
         <div className="kp9-rsvp-copy" data-kp9-reveal>
-          <p className="kp9-kicker kp9-kicker-light">Your place in our story</p>
-          <h2 id="kp9-rsvp-title">Will you celebrate<br /><em>with us?</em></h2>
-          <p>Respond once for your household. Add accessibility needs privately, then use your confirmation reference if plans change.</p>
-          <button type="button" onClick={openRsvp}>Open guest RSVP <ArrowRight aria-hidden="true" /></button>
-          <span><ShieldCheck aria-hidden="true" /> Private household response · Secure update reference</span>
+          <p className="kp9-kicker kp9-kicker-light">An open invitation</p>
+          <h2 id="kp9-rsvp-title">Planning to join<br /><em>us?</em></h2>
+          <p>Our wedding ceremony will be a joyful service of worship, covenant and celebration. No formal invitation is required to attend. If you plan to join us, kindly let us know so we can prepare the space and welcome everyone comfortably.</p>
+          <button type="button" onClick={openRsvp}>I’m planning to attend <ArrowRight aria-hidden="true" /></button>
+          <span><ShieldCheck aria-hidden="true" /> Optional attendance notice · Private and secure</span>
         </div>
       </section>
 
@@ -413,7 +414,7 @@ export function WeddingExperienceV9() {
         <nav><Link href="/gallery">Gallery</Link><a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Directions</a><a href="/manage">Organiser access</a></nav>
       </footer>
 
-      <button className="kp9-floating-rsvp" type="button" onClick={openRsvp}><Heart aria-hidden="true" /><span>RSVP</span></button>
+      <button className="kp9-floating-rsvp" type="button" onClick={openRsvp}><Heart aria-hidden="true" /><span>Attend</span></button>
       <RsvpDialog open={rsvpOpen} onOpenChange={setRsvpOpen} />
     </main>
   );

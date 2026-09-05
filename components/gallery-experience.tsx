@@ -184,7 +184,7 @@ export function GalleryExperience() {
           <a href="#gallery-chapters">Chapters</a>
           <Link href="/#guest-guide">Wedding details</Link>
         </nav>
-        <Link href="/#rsvp" className="kp-gallery-rsvp">RSVP <ArrowRight aria-hidden="true" /></Link>
+        <Link href="/#attendance" className="kp-gallery-rsvp">Planning to attend? <ArrowRight aria-hidden="true" /></Link>
       </header>
 
       <section className="kp-gallery-hero" aria-labelledby="gallery-title">
@@ -327,7 +327,7 @@ export function GalleryExperience() {
         <h2>The next chapter<br /><em>begins 19 September.</em></h2>
         <div>
           <Link href="/"><ArrowLeft aria-hidden="true" /> Wedding details</Link>
-          <Link href="/#rsvp">Respond to our invitation <Heart aria-hidden="true" /></Link>
+          <Link href="/#attendance">Let us know you’re coming <Heart aria-hidden="true" /></Link>
         </div>
       </section>
 

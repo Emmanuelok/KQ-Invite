@@ -38,13 +38,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { weddingContent } from "@/lib/wedding-content";
 
@@ -422,18 +415,13 @@ type SavedRsvp = {
   referenceCode: string;
   fullName: string;
   email: string;
-  phone: string;
-  attendance: "joyfully-attending" | "regretfully-declining";
   householdSize: number;
-  guestNames: string;
   accessibilityNeeds: string;
-  note: string;
 };
 
 export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
   const [activeTab, setActiveTab] = useState("respond");
   const [loadedRsvp, setLoadedRsvp] = useState<SavedRsvp | null>(null);
-  const [attendance, setAttendance] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -441,11 +429,9 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
   const [copied, setCopied] = useState(false);
   const [submissionId, setSubmissionId] = useState(() => crypto.randomUUID());
 
-  const attending = attendance === "joyfully-attending";
   const reset = () => {
     setActiveTab("respond");
     setLoadedRsvp(null);
-    setAttendance("");
     setPrivacyAccepted(false);
     setError("");
     setReferenceCode("");
@@ -458,26 +444,27 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
     setError("");
     setSubmitting(true);
     const form = new FormData(event.currentTarget);
-    const email = encodeURIComponent(String(form.get("lookupEmail") ?? ""));
-    const reference = encodeURIComponent(String(form.get("lookupReference") ?? ""));
+    const email = String(form.get("lookupEmail") ?? "").trim();
+    const reference = String(form.get("lookupReference") ?? "").trim();
+    const search = new URLSearchParams({ reference });
+    if (email) search.set("email", email);
 
     try {
-      const response = await fetch(`/api/rsvp?email=${email}&reference=${reference}`, {
+      const response = await fetch(`/api/rsvp?${search.toString()}`, {
         cache: "no-store",
       });
       const result = (await response.json()) as { rsvp?: SavedRsvp; error?: string };
       if (!response.ok || !result.rsvp) {
-        throw new Error(result.error ?? "We could not find that response.");
+        throw new Error(result.error ?? "We could not find that attendance notice.");
       }
       setLoadedRsvp(result.rsvp);
-      setAttendance(result.rsvp.attendance);
       setPrivacyAccepted(false);
       setActiveTab("respond");
     } catch (lookupError) {
       setError(
         lookupError instanceof Error
           ? lookupError.message
-          : "We could not find that response.",
+          : "We could not find that attendance notice.",
       );
     } finally {
       setSubmitting(false);
@@ -487,12 +474,8 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
   const submitRsvp = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
-    if (!attendance) {
-      setError("Please tell us whether you will be able to attend.");
-      return;
-    }
     if (!privacyAccepted) {
-      setError("Please confirm that we may use these details for wedding planning.");
+      setError("Please confirm that we may use these details to prepare for the ceremony.");
       return;
     }
 
@@ -502,12 +485,12 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
       submissionId,
       fullName: String(form.get("fullName") ?? ""),
       email: String(form.get("email") ?? ""),
-      phone: String(form.get("phone") ?? ""),
-      attendance,
+      phone: "",
+      attendance: "joyfully-attending",
       householdSize: Number(form.get("householdSize") ?? 1),
-      guestNames: String(form.get("guestNames") ?? ""),
+      guestNames: "",
       accessibilityNeeds: String(form.get("accessibilityNeeds") ?? ""),
-      note: String(form.get("note") ?? ""),
+      note: "",
       consentAccepted: privacyAccepted,
     };
 
@@ -523,14 +506,14 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
         error?: string;
       };
       if (!response.ok || !result.referenceCode) {
-        throw new Error(result.error ?? "We could not save your response.");
+        throw new Error(result.error ?? "We could not save your attendance notice.");
       }
       setReferenceCode(result.referenceCode);
     } catch (submitError) {
       setError(
         submitError instanceof Error
           ? submitError.message
-          : "We could not save your response. Please try again.",
+          : "We could not save your attendance notice. Please try again.",
       );
     } finally {
       setSubmitting(false);
@@ -554,11 +537,11 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
         {referenceCode ? (
           <div className="rsvp-success" role="status">
             <span className="success-mark"><Check aria-hidden="true" /></span>
-            <p className="eyebrow">Your response is safely with us</p>
-            <DialogTitle>Thank you.</DialogTitle>
+            <p className="eyebrow">Your attendance notice is safely with us</p>
+            <DialogTitle>We look forward to welcoming you.</DialogTitle>
             <DialogDescription>
-              Keep this private confirmation reference. You will need it if you
-              return to update your response.
+              Keep this private update reference. You will need it if your plans
+              or household count change.
             </DialogDescription>
             <button className="reference-code" type="button" onClick={copyReference}>
               <span>{referenceCode}</span>
@@ -566,17 +549,17 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
               <small>{copied ? "Copied" : "Copy reference"}</small>
             </button>
             <button className="primary-button" type="button" onClick={() => onOpenChange(false)}>
-              Return to the celebration
+              Return to the wedding website
             </button>
           </div>
         ) : (
           <>
             <DialogHeader className="rsvp-header">
-              <p className="eyebrow">Respond to our invitation</p>
-              <DialogTitle>Will you celebrate with us?</DialogTitle>
+              <p className="eyebrow">Optional attendance notice</p>
+              <DialogTitle>Planning to join us?</DialogTitle>
               <DialogDescription>
-                One response per household for the wedding ceremony. Every field marked
-                with * is required.
+                No formal invitation is required. Letting us know simply helps us prepare
+                the space; only your household name and number attending are required.
               </DialogDescription>
             </DialogHeader>
             <Tabs
@@ -587,17 +570,17 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
                 setError("");
               }}
             >
-              <TabsList variant="line" aria-label="RSVP options">
-                <TabsTrigger value="respond">Respond or update</TabsTrigger>
-                <TabsTrigger value="find">Find my response</TabsTrigger>
+              <TabsList variant="line" aria-label="Attendance notice options">
+                <TabsTrigger value="respond">Let us know</TabsTrigger>
+                <TabsTrigger value="find">Update my notice</TabsTrigger>
               </TabsList>
               <TabsContent value="respond">
                 {loadedRsvp && (
                   <div className="loaded-rsvp" role="status">
                     <Check aria-hidden="true" />
                     <span>
-                      <strong>Your saved response is ready to edit.</strong>
-                      Review the fields, reconfirm privacy consent and submit your changes.
+                      <strong>Your attendance notice is ready to edit.</strong>
+                      Review the details, reconfirm privacy consent and save your changes.
                     </span>
                   </div>
                 )}
@@ -606,9 +589,14 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
               className="rsvp-form"
               onSubmit={submitRsvp}
             >
+              <input
+                name="referenceCode"
+                type="hidden"
+                value={loadedRsvp?.referenceCode ?? ""}
+              />
               <div className="form-grid two-columns">
                 <label>
-                  <span>Full name *</span>
+                  <span>Name or household name *</span>
                   <input
                     name="fullName"
                     autoComplete="name"
@@ -618,109 +606,55 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
                   />
                 </label>
                 <label>
-                  <span>Email *</span>
+                  <span>Number attending *</span>
                   <input
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    name="householdSize"
+                    type="number"
+                    min={1}
+                    max={8}
                     required
-                    maxLength={200}
-                    defaultValue={loadedRsvp?.email}
-                  />
-                </label>
-              </div>
-
-              <div className="form-grid two-columns">
-                <label>
-                  <span>Phone</span>
-                  <input
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    maxLength={40}
-                    defaultValue={loadedRsvp?.phone}
-                  />
-                </label>
-                <label>
-                  <span>Confirmation reference</span>
-                  <input
-                    name="referenceCode"
-                    autoCapitalize="characters"
-                    maxLength={24}
-                    placeholder="Only when updating"
-                    defaultValue={loadedRsvp?.referenceCode}
+                    defaultValue={loadedRsvp?.householdSize ?? 1}
                   />
                 </label>
               </div>
 
               <label>
-                <span>Can you attend? *</span>
-                <Select value={attendance} onValueChange={setAttendance}>
-                  <SelectTrigger className="form-select" aria-label="Can you attend?">
-                    <SelectValue placeholder="Choose your response" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="joyfully-attending">Joyfully attending</SelectItem>
-                    <SelectItem value="regretfully-declining">Regretfully declining</SelectItem>
-                  </SelectContent>
-                </Select>
+                <span>Email for important updates (optional)</span>
+                <input
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  maxLength={200}
+                  defaultValue={loadedRsvp?.email}
+                />
               </label>
 
-              {attending && (
-                <div className="attending-fields">
-                  <label>
-                    <span>Household size *</span>
-                    <input
-                      name="householdSize"
-                      type="number"
-                      min={1}
-                      max={8}
-                      defaultValue={loadedRsvp?.householdSize ?? 1}
-                    />
-                  </label>
-                  <label>
-                    <span>Names of everyone in your household</span>
-                    <textarea
-                      name="guestNames"
-                      rows={2}
-                      maxLength={500}
-                      defaultValue={loadedRsvp?.guestNames}
-                    />
-                  </label>
-                  <label>
-                    <span>Accessibility or support needs</span>
-                    <textarea
-                      name="accessibilityNeeds"
-                      rows={2}
-                      maxLength={500}
-                      defaultValue={loadedRsvp?.accessibilityNeeds}
-                    />
-                  </label>
-                </div>
-              )}
-
               <label>
-                <span>A note for Kingsford &amp; Perla</span>
+                <span>Accessibility or support needs (optional)</span>
                 <textarea
-                  name="note"
-                  rows={3}
-                  maxLength={1200}
-                  defaultValue={loadedRsvp?.note}
+                  name="accessibilityNeeds"
+                  rows={2}
+                  maxLength={500}
+                  defaultValue={loadedRsvp?.accessibilityNeeds}
                 />
               </label>
 
               <label className="privacy-check">
                 <Checkbox checked={privacyAccepted} onCheckedChange={(value) => setPrivacyAccepted(value === true)} />
                 <span>
-                  I agree that these details may be used privately for wedding planning,
-                  guest communication and accessibility arrangements. *
+                  I agree that these details may be used privately to prepare the ceremony,
+                  share important updates and arrange accessibility support. *
                 </span>
               </label>
 
               {error && <p className="form-error" role="alert">{error}</p>}
 
               <button className="primary-button" type="submit" disabled={submitting}>
-                {submitting ? "Saving your response…" : "Send our response"}
+                {submitting
+                  ? "Saving your attendance notice…"
+                  : loadedRsvp
+                    ? "Update attendance notice"
+                    : "Send attendance notice"}
                 {!submitting && <ArrowRight aria-hidden="true" />}
               </button>
             </form>
@@ -729,18 +663,14 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
                 <form className="lookup-form" onSubmit={loadExistingRsvp}>
                   <div className="lookup-intro">
                     <p className="eyebrow">Welcome back</p>
-                    <h3>Find your saved response.</h3>
+                    <h3>Find your attendance notice.</h3>
                     <p>
-                      Use the email and private confirmation reference from your
-                      original RSVP. We will load your details for review.
+                      Enter your private update reference. If your reference has only
+                      10 characters, also enter the email used with the original response.
                     </p>
                   </div>
                   <label>
-                    <span>Email *</span>
-                    <input name="lookupEmail" type="email" autoComplete="email" required />
-                  </label>
-                  <label>
-                    <span>Confirmation reference *</span>
+                    <span>Private update reference *</span>
                     <input
                       name="lookupReference"
                       autoCapitalize="characters"
@@ -749,9 +679,13 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
                       maxLength={24}
                     />
                   </label>
+                  <label>
+                    <span>Email for an older reference (optional)</span>
+                    <input name="lookupEmail" type="email" autoComplete="email" />
+                  </label>
                   {error && <p className="form-error" role="alert">{error}</p>}
                   <button className="primary-button" type="submit" disabled={submitting}>
-                    {submitting ? "Finding your response…" : "Find my response"}
+                    {submitting ? "Finding your notice…" : "Find my attendance notice"}
                     {!submitting && <ArrowRight aria-hidden="true" />}
                   </button>
                 </form>

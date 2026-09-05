@@ -53,7 +53,7 @@ export const weddingContent = {
     {
       label: "Wedding ceremony",
       sequence: "01",
-      detail: "Saturday, 19 September 2026 at Ramada by Wyndham St. John’s. Your invitation will carry the confirmed arrival time.",
+      detail: "Saturday, 19 September 2026 at Ramada by Wyndham St. John’s. Ceremony details and the confirmed arrival time will be published here.",
       note: "Wedding ceremony",
     },
   ],
@@ -61,12 +61,12 @@ export const weddingContent = {
     {
       question: "When and where is the wedding?",
       answer:
-        "The wedding ceremony is on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s, 102 Kenmount Road. Your invitation will carry the confirmed arrival time; this website will always hold the verified directions.",
+        "The wedding ceremony is on Saturday, 19 September 2026 at Ramada by Wyndham St. John’s, 102 Kenmount Road. The confirmed arrival time will be published on this website, which will always hold the verified directions.",
     },
     {
-      question: "Can I bring a guest or children?",
+      question: "Do I need a formal invitation or RSVP?",
       answer:
-        "Your invitation and RSVP confirmation will show the number of seats reserved for your household. If anything looks incorrect, please contact the couple before submitting a second response.",
+        "No formal invitation or RSVP is required to attend. The ceremony will be a joyful service of worship, covenant and celebration. An optional attendance notice simply helps us prepare the room and welcome everyone comfortably.",
     },
     {
       question: "What should I wear?",
@@ -76,7 +76,7 @@ export const weddingContent = {
     {
       question: "What if I have accessibility or support needs?",
       answer:
-        "Please include them in your RSVP. We will treat the information privately and coordinate with the venue to make the ceremony welcoming.",
+        "Please include them in your optional attendance notice. We will treat the information privately and coordinate with the venue to make the ceremony welcoming.",
     },
     {
       question: "Will travel and accommodation guidance be available?",

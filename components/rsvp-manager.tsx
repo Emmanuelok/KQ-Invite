@@ -109,11 +109,11 @@ export function RsvpManager({ organiserName }: { organiserName?: string }) {
 
   const exportRsvps = () => {
     const fields: (keyof Rsvp)[] = [
-      "fullName", "email", "phone", "attendance", "householdSize", "guestNames",
-      "accessibilityNeeds", "note", "referenceCode", "createdAt", "updatedAt",
+      "fullName", "email", "attendance", "householdSize", "accessibilityNeeds",
+      "referenceCode", "createdAt", "updatedAt",
     ];
     downloadCsv(
-      `kingsford-perla-rsvps-${new Date().toISOString().slice(0, 10)}.csv`,
+      `kingsford-perla-attendance-${new Date().toISOString().slice(0, 10)}.csv`,
       fields,
       rsvps as unknown as Record<string, unknown>[],
     );
@@ -145,7 +145,7 @@ export function RsvpManager({ organiserName }: { organiserName?: string }) {
           <h1 id="manage-title">The ceremony,<br />kept close.</h1>
           <p>
             {organiserName ? `${organiserName}, your ChatGPT identity is verified. ` : ""}
-            Enter the separate organiser passcode to open private RSVP and gift details.
+            Enter the separate organiser passcode to open private attendance and gift details.
           </p>
           <form onSubmit={loadDashboard}>
             <label htmlFor="organiser-key">Organiser passcode</label>
@@ -163,32 +163,32 @@ export function RsvpManager({ organiserName }: { organiserName?: string }) {
           </div>
 
           <div className="stat-grid" aria-label="Wedding response summary">
-            <article><span>RSVP responses</span><strong>{stats.responses}</strong></article>
-            <article><span>Attending households</span><strong>{stats.attendingHouseholds}</strong></article>
-            <article><span>Expected guests</span><strong>{stats.guests}</strong></article>
+            <article><span>Attendance notices</span><strong>{stats.responses}</strong></article>
+            <article><span>Households joining</span><strong>{stats.attendingHouseholds}</strong></article>
+            <article><span>Expected attendees</span><strong>{stats.guests}</strong></article>
             <article><span>Gift requests</span><strong>{stats.giftRequests}</strong></article>
           </div>
           {error && <p className="manage-error" role="alert">{error}</p>}
 
           <section className="manage-data-section" aria-labelledby="rsvp-table-title">
-            <div className="manage-section-heading"><div><Users aria-hidden="true" /><span><small>Household responses</small><h2 id="rsvp-table-title">RSVP list</h2></span></div><button type="button" onClick={exportRsvps} disabled={!rsvps.length}><Download aria-hidden="true" /> Export RSVP CSV</button></div>
+            <div className="manage-section-heading"><div><Users aria-hidden="true" /><span><small>Optional household notices</small><h2 id="rsvp-table-title">Attendance list</h2></span></div><button type="button" onClick={exportRsvps} disabled={!rsvps.length}><Download aria-hidden="true" /> Export attendance CSV</button></div>
             {rsvps.length ? (
               <div className="response-table-wrap">
                 <table className="response-table">
-                  <caption>Submitted household responses</caption>
-                  <thead><tr><th>Household</th><th>Response</th><th>Party</th><th>Needs &amp; notes</th><th>Updated</th></tr></thead>
+                  <caption>Submitted household attendance notices</caption>
+                  <thead><tr><th>Household</th><th>Status</th><th>Attending</th><th>Accessibility</th><th>Updated</th></tr></thead>
                   <tbody>{rsvps.map((rsvp) => (
                     <tr key={rsvp.id}>
-                      <td><strong>{rsvp.fullName}</strong><a href={`mailto:${rsvp.email}`}>{rsvp.email}</a>{rsvp.phone && <span>{rsvp.phone}</span>}<small>Ref. {rsvp.referenceCode}</small></td>
-                      <td><span className={`status-pill ${rsvp.attendance}`}>{rsvp.attendance === "joyfully-attending" ? "Attending ceremony" : "Declined"}</span></td>
-                      <td><strong>{rsvp.householdSize} {rsvp.householdSize === 1 ? "guest" : "guests"}</strong><span>{rsvp.guestNames || "—"}</span></td>
-                      <td><span>{rsvp.accessibilityNeeds && `Access: ${rsvp.accessibilityNeeds}`}</span><span>{rsvp.note || "—"}</span></td>
+                      <td><strong>{rsvp.fullName}</strong>{rsvp.email && <a href={`mailto:${rsvp.email}`}>{rsvp.email}</a>}<small>Ref. {rsvp.referenceCode}</small></td>
+                      <td><span className={`status-pill ${rsvp.attendance}`}>{rsvp.attendance === "joyfully-attending" ? "Planning to attend" : "Previous decline"}</span></td>
+                      <td><strong>{rsvp.householdSize} {rsvp.householdSize === 1 ? "person" : "people"}</strong></td>
+                      <td><span>{rsvp.accessibilityNeeds || "—"}</span></td>
                       <td><time>{new Date(rsvp.updatedAt).toLocaleString()}</time></td>
                     </tr>
                   ))}</tbody>
                 </table>
               </div>
-            ) : <div className="empty-responses"><Users aria-hidden="true" /><h2>No responses yet.</h2><p>New household submissions will appear here automatically.</p></div>}
+            ) : <div className="empty-responses"><Users aria-hidden="true" /><h2>No attendance notices yet.</h2><p>Optional household notices will appear here automatically.</p></div>}
           </section>
 
           <section className="manage-data-section" aria-labelledby="gift-table-title">

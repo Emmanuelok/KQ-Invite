@@ -25,7 +25,9 @@ export const rsvps = sqliteTable(
     updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [
-    uniqueIndex("rsvps_email_unique").on(table.email),
+    uniqueIndex("rsvps_email_unique")
+      .on(table.email)
+      .where(sql`${table.email} <> ''`),
     uniqueIndex("rsvps_reference_code_unique").on(table.referenceCode),
     uniqueIndex("rsvps_submission_id_unique").on(table.submissionId),
   ],

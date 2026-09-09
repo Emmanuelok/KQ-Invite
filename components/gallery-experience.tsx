@@ -336,7 +336,7 @@ export function GalleryExperience() {
         <span className="kp-gallery-credit">
           Designed and developed by{" "}
           <a
-            href="https://www.avaloncreative.group/"
+            href="https://avaloncreative.group"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Avalon Creative Group (opens in a new tab)"

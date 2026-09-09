@@ -419,7 +419,7 @@ export function WeddingExperienceV9() {
             .
           </span>
         </p>
-        <nav><Link href="/gallery">Gallery</Link><a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Directions</a><a href="/manage">Organiser access</a></nav>
+        <nav><Link href="/gallery">Gallery</Link><a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Directions</a></nav>
       </footer>
 
       <button className="kp9-floating-rsvp" type="button" onClick={openRsvp}><Heart aria-hidden="true" /><span>Attend</span></button>

@@ -404,7 +404,21 @@ export function WeddingExperienceV9() {
 
       <footer className="kp9-footer">
         <div><WeddingMark /><span><strong>Kingsford &amp; Perla</strong><small>Saturday, 19 September 2026</small></span></div>
-        <p>Made with faith, joy and room for everyone we love.</p>
+        <p className="kp9-footer-message">
+          <span>Made with faith, joy and room for everyone we love.</span>
+          <span className="kp9-footer-credit">
+            Designed and developed by{" "}
+            <a
+              href="https://www.avaloncreative.group/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Avalon Creative Group (opens in a new tab)"
+            >
+              Avalon Creative Group
+            </a>
+            .
+          </span>
+        </p>
         <nav><Link href="/gallery">Gallery</Link><a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Directions</a><a href="/manage">Organiser access</a></nav>
       </footer>
 

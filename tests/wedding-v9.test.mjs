@@ -41,6 +41,9 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.match(html, /perlaazametim@gmail\.com/);
   assert.doesNotMatch(html, /Request private details/);
   assert.match(html, /Kingsford and Perla wedding film/);
+  assert.match(html, /Designed and developed by/);
+  assert.match(html, /href="https:\/\/www\.avaloncreative\.group\/"/);
+  assert.match(html, />Avalon Creative Group<\/a>/);
   assert.doesNotMatch(html, /A little cinema/);
   assert.doesNotMatch(html, /The living invitation/);
   assert.doesNotMatch(html, /Mobile-ready film/);
@@ -104,6 +107,9 @@ test("renders every uploaded image in the dedicated gallery", async () => {
   assert.match(html, /Pieces of a feeling/);
   assert.doesNotMatch(html, /Twenty-one pieces/);
   assert.match(html, /Film strip/);
+  assert.match(html, /Designed and developed by/);
+  assert.match(html, /href="https:\/\/www\.avaloncreative\.group\/"/);
+  assert.match(html, />Avalon Creative Group<\/a>/);
 });
 
 test("art-directs the landing hero for narrow phone screens", async () => {

@@ -325,7 +325,12 @@
 .kp-gallery-finale > div a:last-child { border-color: var(--kg-gold); background: var(--kg-gold); color: var(--kg-ink); }
 .kp-gallery-finale svg { width: 18px; }
 
-.kp-gallery-footer { display: flex; justify-content: space-between; gap: 20px; padding: 30px clamp(22px, 4.5vw, 84px); border-top: 1px solid rgb(255 248 234 / 16%); color: rgb(255 248 234 / 60%); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.kp-gallery-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; padding: 30px clamp(22px, 4.5vw, 84px); border-top: 1px solid rgb(255 248 234 / 16%); color: rgb(255 248 234 / 60%); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.kp-gallery-footer > span:last-child { justify-self: end; }
+.kp-gallery-credit { justify-self: center; font-size: 10px; text-align: center; }
+.kp-gallery-credit a { color: var(--kg-gold); font-weight: 850; text-decoration: underline; text-decoration-color: rgb(216 176 101 / 42%); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s ease, text-decoration-color .2s ease; }
+.kp-gallery-credit a:hover { color: var(--kg-ivory); text-decoration-color: currentColor; }
+.kp-gallery-credit a:focus-visible { border-radius: 2px; outline: 2px solid var(--kg-gold); outline-offset: 4px; }
 
 .kp-gallery-lightbox { width: 100vw !important; max-width: none !important; height: 100svh !important; max-height: none !important; overflow: hidden !important; border: 0 !important; border-radius: 0 !important; background: var(--kg-ink) !important; color: var(--kg-ivory) !important; padding: 0 !important; }
 .kp-gallery-lightbox-inner { position: relative; width: 100%; height: 100%; overflow: hidden; touch-action: pan-y; }
@@ -407,7 +412,8 @@
   .kp-gallery-finale { min-height: 650px; }
   .kp-gallery-finale > div { width: 100%; flex-direction: column; }
   .kp-gallery-finale > div a { justify-content: center; }
-  .kp-gallery-footer { align-items: center; flex-direction: column; text-align: center; }
+  .kp-gallery-footer { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .kp-gallery-footer > span:last-child { justify-self: center; }
   .kp-gallery-lightbox-top button span { display: none; }
   .kp-gallery-lightbox-caption { right: 20px; bottom: 108px; left: 20px; max-width: none; }
   .kp-gallery-lightbox-caption p { display: none; }

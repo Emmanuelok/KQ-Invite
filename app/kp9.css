@@ -317,7 +317,11 @@
 .kp9-footer > div > span { display: grid; }
 .kp9-footer strong { font-family: var(--kp-display, Didot, serif); font-size: 21px; font-weight: 400; }
 .kp9-footer small { color: rgb(255 247 232 / 52%); font-size: 11px; letter-spacing: .12em; }
-.kp9-footer > p { color: rgb(255 247 232 / 52%); font-size: 13px; text-align: center; }
+.kp9-footer-message { display: grid; justify-items: center; gap: 8px; margin: 0; color: rgb(255 247 232 / 52%); font-size: 13px; text-align: center; }
+.kp9-footer-credit { color: rgb(255 247 232 / 48%); font-size: 10px; font-weight: 750; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
+.kp9-footer-credit a { color: var(--kp9-gold); font-weight: 850; text-decoration: underline; text-decoration-color: rgb(213 164 78 / 42%); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s ease, text-decoration-color .2s ease; }
+.kp9-footer-credit a:hover { color: var(--kp9-cream); text-decoration-color: currentColor; }
+.kp9-footer-credit a:focus-visible { border-radius: 2px; outline: 2px solid var(--kp9-gold); outline-offset: 4px; }
 .kp9-footer nav { display: flex; justify-self: end; gap: 20px; }
 .kp9-footer nav a { color: rgb(255 247 232 / 68%); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
 .kp9-floating-rsvp { position: fixed; z-index: 70; right: 18px; bottom: 18px; display: none; min-height: 52px; align-items: center; gap: 9px; border: 0; border-radius: 999px; background: var(--kp9-gold); color: var(--kp9-ink); padding: 0 18px; box-shadow: 0 16px 40px rgb(18 9 7 / 32%); font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }

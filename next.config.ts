@@ -32,13 +32,19 @@ const nextConfig: NextConfig = {
     // the TypeScript `@/*` mapping can make valid source files look missing.
     config.resolve.alias["@"] = process.cwd();
 
-    // Native Next.js never exposes Cloudflare's virtual workers module. Keep
-    // this alias active for local verification as well as Vercel's build
-    // workers; Vinext uses its own Vite alias from vite.config.ts.
-    config.resolve.alias["wedding-runtime-env"] = path.resolve(
-      process.cwd(),
-      "lib/vercel-runtime-env.ts",
-    );
+    // Native Next.js never exposes Cloudflare's virtual workers module. Use
+    // the empty fallback only for the dedicated Vercel build; the Vinext/Sites
+    // build must keep vite.config.ts's alias to `cloudflare:workers` so runtime
+    // bindings such as DB and WEDDING_ADMIN_KEY remain available.
+    if (
+      process.env.VERCEL ||
+      process.env.npm_lifecycle_event === "build:vercel"
+    ) {
+      config.resolve.alias["wedding-runtime-env"] = path.resolve(
+        process.cwd(),
+        "lib/vercel-runtime-env.ts",
+      );
+    }
     return config;
   },
 };

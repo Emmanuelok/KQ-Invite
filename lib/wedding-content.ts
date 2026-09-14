@@ -1,3 +1,6 @@
+// Temporarily hide public gift information. Set to true to restore it.
+export const giftsEnabled = false;
+
 export const weddingContent = {
   couple: {
     first: "Kingsford",
@@ -86,10 +89,10 @@ export const weddingContent = {
       answer:
         "Yes. The venue offers free parking. St. John’s International Airport publishes a fixed taxi fare to the Ramada, and Metrobus can connect the airport area to Kenmount Road; use the live travel links on this page because schedules can change.",
     },
-    {
+    ...(giftsEnabled ? [{
       question: "How can I send a gift?",
       answer:
         "Your presence and prayers come first. If you would like to send a gift, you may use Interac e-Transfer to perlaazametim@gmail.com.",
-    },
+    }] : []),
   ],
 } as const;

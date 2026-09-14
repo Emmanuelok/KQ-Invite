@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { giftsEnabled } from "@/lib/wedding-content";
 import "./globals.css";
 import "./kp6.css";
 import "./kp8.css";
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kingsperl.com"),
   title: "Kingsford & Perla — Our Wedding",
   description:
-    "Kingsford and Perla invite you to their wedding ceremony at 10:00 AM on Saturday, 19 September 2026 at Ramada Hotel in St. John’s—with gallery, guest guide, gifts and an optional attendance notice.",
+    `Kingsford and Perla invite you to their wedding ceremony at 10:00 AM on Saturday, 19 September 2026 at Ramada Hotel in St. John’s—with gallery, guest guide, ${giftsEnabled ? "gifts and " : "and "}an optional attendance notice.`,
   applicationName: "Kingsford & Perla — Our Wedding",
   category: "wedding",
   openGraph: {

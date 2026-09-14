@@ -36,7 +36,7 @@ import {
 import { GiftCenter } from "@/components/gift-center";
 import { RsvpDialog } from "@/components/wedding-experience";
 import { getGalleryFrame, type GalleryFrame } from "@/lib/gallery";
-import { weddingContent } from "@/lib/wedding-content";
+import { giftsEnabled, weddingContent } from "@/lib/wedding-content";
 
 const WEDDING_MOMENT = new Date("2026-09-19T10:00:00-02:30").getTime();
 
@@ -76,7 +76,7 @@ const navigation = [
   { label: "Gallery", href: "/gallery" },
   { label: "The day", href: "#the-day" },
   { label: "Travel", href: "#guest-guide" },
-  { label: "Gifts", href: "#gifts" },
+  ...(giftsEnabled ? [{ label: "Gifts", href: "#gifts" }] : []),
 ] as const;
 
 export function WeddingExperienceV9() {
@@ -376,7 +376,7 @@ export function WeddingExperienceV9() {
         <div className="kp9-guide-notice" data-kp9-reveal><ShieldCheck aria-hidden="true" /><p><strong>Verified information only.</strong> We do not currently advertise a shuttle or room block. If one is confirmed, it will appear here first.</p></div>
       </section>
 
-      <GiftCenter />
+      {giftsEnabled ? <GiftCenter /> : null}
 
       <section className="kp9-faq" aria-labelledby="kp9-faq-title">
         <div className="kp9-faq-heading" data-kp9-reveal><p className="kp9-kicker">Good to know</p><h2 id="kp9-faq-title">Before you ask<br /><em>the group chat.</em></h2><p>Clear answers for the details guests ask most.</p></div>

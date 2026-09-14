@@ -37,8 +37,10 @@ test("renders the confirmed wedding day and production security headers", async 
   assert.doesNotMatch(html, /Will you celebrate/);
   assert.doesNotMatch(html, /seats reserved/i);
   assert.match(html, /href="\/gallery"/);
-  assert.match(html, /Interac e-Transfer/);
-  assert.match(html, /perlaazametim@gmail\.com/);
+  assert.doesNotMatch(html, /Interac e-Transfer/);
+  assert.doesNotMatch(html, /perlaazametim@gmail\.com/);
+  assert.doesNotMatch(html, /(?:id|href)="#?gifts"/);
+  assert.doesNotMatch(html, /How can I send a gift/);
   assert.doesNotMatch(html, /Request private details/);
   assert.match(html, /Kingsford and Perla wedding film/);
   assert.match(html, /Designed and developed by/);

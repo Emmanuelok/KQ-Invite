@@ -8,7 +8,7 @@ export function GiftCenter() {
       <div className="kp9-gifts-intro" data-kp9-reveal>
         <p className="kp9-kicker">With grateful hearts · Prayers &amp; gifts</p>
         <h2 id="kp9-gifts-title">
-          Your presence is
+          Your prayers and presence is
           <br />
           <em>our greatest gift.</em>
         </h2>

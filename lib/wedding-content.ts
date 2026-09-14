@@ -1,5 +1,7 @@
-// Temporarily hide public gift information. Set to true to restore it.
-export const giftsEnabled = false;
+// Controls the public prayers and gifts message and its navigation links.
+export const giftsEnabled = true;
+export const giftMessage =
+  "We would be grateful for your prayers. If you would like to give a gift, please contact the couple directly.";
 
 export const weddingContent = {
   couple: {
@@ -91,8 +93,7 @@ export const weddingContent = {
     },
     ...(giftsEnabled ? [{
       question: "How can I send a gift?",
-      answer:
-        "Your presence and prayers come first. If you would like to send a gift, you may use Interac e-Transfer to perlaazametim@gmail.com.",
+      answer: giftMessage,
     }] : []),
   ],
 } as const;

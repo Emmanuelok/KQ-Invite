@@ -12,7 +12,6 @@ import {
   CirclePlay,
   Copy,
   Grid2X2,
-  Heart,
   Rows3,
   Sparkles,
   X,
@@ -182,9 +181,8 @@ export function GalleryExperience() {
         <nav aria-label="Gallery navigation">
           <a href="#gallery-collection">The collection</a>
           <a href="#gallery-chapters">Chapters</a>
-          <Link href="/#guest-guide">Wedding details</Link>
+          <Link href="/">Home</Link>
         </nav>
-        <Link href="/#attendance" className="kp-gallery-rsvp">Planning to attend? <ArrowRight aria-hidden="true" /></Link>
       </header>
 
       <section className="kp-gallery-hero" aria-labelledby="gallery-title">
@@ -324,10 +322,9 @@ export function GalleryExperience() {
       <section className="kp-gallery-finale" data-gallery-reveal>
         <GalleryLogo />
         <p>From one beautiful yes to another.</p>
-        <h2>The next chapter<br /><em>begins 19 September.</em></h2>
+        <h2>With grateful<br /><em>hearts.</em></h2>
         <div>
-          <Link href="/"><ArrowLeft aria-hidden="true" /> Wedding details</Link>
-          <Link href="/#attendance">Let us know you’re coming <Heart aria-hidden="true" /></Link>
+          <Link href="/"><ArrowLeft aria-hidden="true" /> Our thank-you message</Link>
         </div>
       </section>
 

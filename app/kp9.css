@@ -149,6 +149,10 @@
 .kp9-hero-buttons svg { width: 18px; }
 
 /* A personal note of thanks, with room for the portrait and readable copy. */
+.kp9-thank-you-header { display: flex; border-bottom: 0; }
+.kp9-thank-you-header .kp9-brand > span:last-child { display: grid; }
+.kp9-thank-you-credit { position: absolute; z-index: 5; right: 24px; bottom: 22px; left: 24px; color: rgb(255 247 232 / 65%); font-size: 12px; text-align: center; }
+.kp9-thank-you-credit a { color: inherit; text-underline-offset: 3px; }
 .kp9-thank-you { display: flex; align-items: center; min-height: max(860px, 100svh); padding: 170px clamp(28px, 6.7vw, 122px) 130px; }
 .kp9-thank-you .kp9-hero-copy { position: relative; inset: auto; width: min(620px, 53vw); transform: none; }
 .kp9-thank-you .kp9-hero-copy > p:first-child { font-size: 14px; }

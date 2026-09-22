@@ -96,6 +96,11 @@
 .kp9-header-actions { display: flex; align-items: center; justify-self: end; gap: 10px; }
 .kp9-header-actions > button:first-child { display: inline-flex; min-height: 52px; align-items: center; gap: 11px; border: 1px solid var(--kp9-gold); border-radius: 999px; background: var(--kp9-gold); color: var(--kp9-ink); padding: 0 24px; cursor: pointer; font-size: 13px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .kp9-header-actions svg { width: 18px; }
+.kp9-header-gallery,
+.kp9-menu-gallery,
+.kp9-memory-link { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 12px; border: 1px solid var(--kp9-gold); border-radius: 999px; background: var(--kp9-gold); color: var(--kp9-ink); padding: 12px 24px; font-size: 14px; font-weight: 800; text-decoration: none; }
+.kp9-menu-gallery svg,
+.kp9-memory-link svg { width: 20px; }
 .kp9-menu { display: none; width: 50px; height: 50px; place-items: center; border: 1px solid rgb(255 247 232 / 40%); border-radius: 50%; background: rgb(18 9 7 / 24%); color: inherit; cursor: pointer; }
 
 .kp9-mobile-nav { position: fixed; z-index: 200; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: 22px; background: radial-gradient(circle at 85% 15%, rgb(116 29 37 / 62%), transparent 32%), var(--kp9-ink); color: var(--kp9-cream); animation: kp9-menu-in .45s cubic-bezier(.16,1,.3,1) both; }
@@ -142,6 +147,21 @@
 .kp9-hero-buttons a { display: inline-flex; min-height: 58px; align-items: center; gap: 12px; border: 1px solid rgb(255 247 232 / 45%); border-radius: 999px; background: rgb(18 9 7 / 28%); color: inherit; padding: 0 23px; cursor: pointer; font-size: 13px; font-weight: 850; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; backdrop-filter: blur(9px); }
 .kp9-hero-buttons button { border-color: var(--kp9-gold); background: var(--kp9-gold); color: var(--kp9-ink); }
 .kp9-hero-buttons svg { width: 18px; }
+
+/* A personal note of thanks, with room for the portrait and readable copy. */
+.kp9-thank-you { display: flex; align-items: center; min-height: max(860px, 100svh); padding: 170px clamp(28px, 6.7vw, 122px) 130px; }
+.kp9-thank-you .kp9-hero-copy { position: relative; inset: auto; width: min(620px, 53vw); transform: none; }
+.kp9-thank-you .kp9-hero-copy > p:first-child { font-size: 14px; }
+.kp9-thank-you .kp9-hero-copy h1 { display: block; font-size: clamp(62px, 6.5vw, 102px); letter-spacing: -.045em; line-height: 1.02; }
+.kp9-thank-you .kp9-hero-copy h1 em { display: block; color: var(--kp9-gold); font-weight: 400; }
+.kp9-thank-you-message { max-width: 550px; margin-top: 28px; color: var(--kp9-cream); font-size: clamp(18px, 1.4vw, 21px); line-height: 1.7; }
+.kp9-thank-you-message p { margin: 0; }
+.kp9-thank-you-message p + p { margin-top: 16px; }
+.kp9-thank-you-signature { display: grid; gap: 6px; margin: 28px 0 0; }
+.kp9-thank-you-signature > span { color: var(--kp9-gold); font-size: 15px; }
+.kp9-thank-you-signature strong { font-family: var(--kp-display, Didot, serif); font-size: 36px; font-weight: 400; line-height: 1.2; }
+.kp9-thank-you .kp9-hero-buttons a { border-color: var(--kp9-gold); background: var(--kp9-gold); color: var(--kp9-ink); font-size: 14px; }
+.kp9-thank-you .kp9-hero-grade { background: linear-gradient(90deg, rgb(18 9 7 / 94%) 0%, rgb(18 9 7 / 83%) 32%, rgb(18 9 7 / 35%) 62%, rgb(18 9 7 / 8%) 100%), linear-gradient(0deg, rgb(18 9 7 / 70%), transparent 45%); }
 
 .kp9-hero-countdown { position: absolute; z-index: 5; right: clamp(26px, 5vw, 88px); bottom: 48px; display: flex; align-items: center; gap: 12px; padding: 15px 20px; border: 1px solid rgb(255 247 232 / 28%); background: rgb(18 9 7 / 34%); backdrop-filter: blur(14px); }
 .kp9-hero-countdown > span { display: grid; justify-items: center; }
@@ -442,6 +462,21 @@
   .kp9-footer { grid-template-columns: 1fr; justify-items: center; padding: 48px 20px 90px; text-align: center; }
   .kp9-footer nav { justify-self: center; flex-wrap: wrap; justify-content: center; }
   .kp9-floating-rsvp { display: inline-flex; }
+}
+
+@media (max-width: 780px) {
+  .kp9-header-gallery { display: none; }
+  .kp9-thank-you { display: block; min-height: 100svh; padding: clamp(360px, 72vw, 480px) 24px 56px; }
+  .kp9-thank-you .kp9-hero-copy { width: 100%; }
+  .kp9-thank-you .kp9-hero-copy h1 { font-size: clamp(48px, 11.8vw, 82px); line-height: 1.04; }
+  .kp9-thank-you .kp9-hero-copy > p:first-child { font-size: 12px; letter-spacing: .14em; }
+  .kp9-thank-you .kp9-hero-picture { height: clamp(540px, 116vw, 780px); }
+  .kp9-thank-you .kp9-hero-picture > img { object-position: 50% 26% !important; }
+  .kp9-thank-you .kp9-hero-grade { background: linear-gradient(180deg, rgb(18 9 7 / 38%) 0%, transparent 150px, rgb(18 9 7 / 20%) 290px, rgb(18 9 7 / 92%) 440px, var(--kp9-ink) 570px); }
+  .kp9-thank-you-message { max-width: 100%; margin-top: 24px; font-size: 18px; line-height: 1.7; }
+  .kp9-thank-you-signature strong { font-size: 32px; }
+  .kp9-thank-you .kp9-hero-buttons { display: flex; flex-wrap: wrap; }
+  .kp9-thank-you .kp9-hero-buttons a { padding: 14px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

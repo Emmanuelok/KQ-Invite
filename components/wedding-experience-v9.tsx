@@ -34,11 +34,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { GiftCenter } from "@/components/gift-center";
-import { RsvpDialog } from "@/components/wedding-experience";
 import { getGalleryFrame, type GalleryFrame } from "@/lib/gallery";
 import { giftsEnabled, weddingContent } from "@/lib/wedding-content";
-
-const WEDDING_MOMENT = new Date("2026-09-19T10:00:00-02:30").getTime();
 
 const featuredGalleryFrames = [
   "coastal-joy",
@@ -57,22 +54,8 @@ function WeddingMark() {
   );
 }
 
-function useCountdown() {
-  const [now, setNow] = useState(() => Date.now());
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(Date.now()), 60_000);
-    return () => window.clearInterval(timer);
-  }, []);
-  const difference = Math.max(0, WEDDING_MOMENT - now);
-  return {
-    days: Math.floor(difference / 86_400_000),
-    hours: Math.floor((difference % 86_400_000) / 3_600_000),
-    minutes: Math.floor((difference % 3_600_000) / 60_000),
-  };
-}
-
 const navigation = [
-  { label: "Our invitation", href: "#invitation" },
+  { label: "Our story", href: "#invitation" },
   { label: "Gallery", href: "/gallery" },
   { label: "The day", href: "#the-day" },
   { label: "Travel", href: "#guest-guide" },
@@ -81,11 +64,9 @@ const navigation = [
 
 export function WeddingExperienceV9() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [rsvpOpen, setRsvpOpen] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(true);
   const [copied, setCopied] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const countdown = useCountdown();
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -148,14 +129,9 @@ export function WeddingExperienceV9() {
     }
   };
 
-  const openRsvp = () => {
-    setMenuOpen(false);
-    setRsvpOpen(true);
-  };
-
   return (
     <main className="kp9-site">
-      <a className="kp9-skip" href="#invitation">Skip to the invitation</a>
+      <a className="kp9-skip" href="#invitation">Skip to our story</a>
 
       <header className="kp9-header">
         <a href="#top" className="kp9-brand" aria-label="Kingsford and Perla wedding home">
@@ -170,7 +146,7 @@ export function WeddingExperienceV9() {
           ))}
         </nav>
         <div className="kp9-header-actions">
-          <button type="button" onClick={openRsvp}>Planning to attend? <ArrowRight aria-hidden="true" /></button>
+          <Link className="kp9-header-gallery" href="/gallery">Our gallery <ArrowRight aria-hidden="true" /></Link>
           <button className="kp9-menu" type="button" onClick={() => setMenuOpen(true)} aria-label="Open wedding menu"><Menu aria-hidden="true" /></button>
         </div>
       </header>
@@ -185,11 +161,11 @@ export function WeddingExperienceV9() {
               <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}><small>0{index + 1}</small><span>{item.label}</span><ArrowRight aria-hidden="true" /></a>
             ))}
           </nav>
-          <button type="button" onClick={openRsvp}>Let us know you’re coming <Heart aria-hidden="true" /></button>
+          <Link className="kp9-menu-gallery" href="/gallery" onClick={() => setMenuOpen(false)}>Explore our gallery <Images aria-hidden="true" /></Link>
         </div>
       )}
 
-      <section id="top" className="kp9-hero" aria-labelledby="kp9-hero-title">
+      <section id="top" className="kp9-hero kp9-thank-you" aria-labelledby="kp9-hero-title">
         <div className="kp9-hero-photo">
           <picture className="kp9-hero-picture">
             <source media="(max-width: 780px)" srcSet="/kp-studio-intimate.webp" />
@@ -209,23 +185,18 @@ export function WeddingExperienceV9() {
           <div className="kp9-grain" />
         </div>
         <div className="kp9-hero-copy">
-          <p>With joy, we invite you to witness</p>
-          <h1 id="kp9-hero-title"><span>Kingsford</span><i>&amp;</i><span>Perla</span></h1>
-          <div className="kp9-hero-date"><strong>19</strong><span><small>September</small><b>2026</b></span></div>
-          <p className="kp9-hero-place"><MapPin aria-hidden="true" /> Ramada Hotel · St. John’s</p>
+          <p>To our family &amp; friends</p>
+          <h1 id="kp9-hero-title"><span>With Grateful</span><em>Hearts.</em></h1>
+          <div className="kp9-thank-you-message">
+            <p>Thank you for making our wedding so special. Whether you celebrated with us in person or supported us from afar, your presence, prayers, love and kind wishes mean more than words can express.</p>
+            <p>As we begin married life, we thank God for each of you and will always cherish the love you have shown us.</p>
+          </div>
+          <p className="kp9-thank-you-signature"><span>With love and gratitude,</span><strong>Kingsford &amp; Perla</strong></p>
           <div className="kp9-hero-buttons">
-            <button type="button" onClick={openRsvp}>I’m planning to attend <ArrowRight aria-hidden="true" /></button>
-            <Link href="/gallery"><Images aria-hidden="true" /> Enter the gallery</Link>
+            <Link href="/gallery"><Images aria-hidden="true" /> Explore our gallery <ArrowRight aria-hidden="true" /></Link>
           </div>
         </div>
-        <div className="kp9-hero-countdown" aria-label={`${countdown.days} days, ${countdown.hours} hours and ${countdown.minutes} minutes until the wedding`}>
-          <span><strong>{String(countdown.days).padStart(2, "0")}</strong><small>Days</small></span>
-          <i>:</i>
-          <span><strong>{String(countdown.hours).padStart(2, "0")}</strong><small>Hours</small></span>
-          <i>:</i>
-          <span><strong>{String(countdown.minutes).padStart(2, "0")}</strong><small>Minutes</small></span>
-        </div>
-        <a className="kp9-scroll" href="#invitation"><span>Unfold the invitation</span><ArrowDown aria-hidden="true" /></a>
+        <a className="kp9-scroll" href="#invitation"><span>Our story continues</span><ArrowDown aria-hidden="true" /></a>
       </section>
 
       <section className="kp9-confirmed" aria-label="Confirmed wedding details">
@@ -239,9 +210,9 @@ export function WeddingExperienceV9() {
           <p className="kp9-kicker">A covenant · A celebration · A new beginning</p>
           <h2>One beautiful day.<br /><em>One forever after.</em></h2>
           <p>
-            By God’s grace, our story has led us here. We would be honoured to have
-            the people who have prayed, laughed, guided and grown with us gather around
-            the promise we are about to make.
+            By God’s grace, we have begun our life together. To everyone who has prayed,
+            laughed, guided and grown with us: thank you for being part of our story
+            and surrounding our marriage with so much love.
           </p>
           <blockquote>“Two are better than one, because they have a good return for their labour.”<cite>Ecclesiastes 4:9</cite></blockquote>
         </div>
@@ -363,8 +334,8 @@ export function WeddingExperienceV9() {
           </article>
           <article data-kp9-reveal>
             <span>05</span><Accessibility aria-hidden="true" /><h3>Accessible arrival</h3>
-            <p>The property lists wheelchair-accessible elevators and accessible facilities. Add specific needs privately to your attendance notice so we can coordinate with the venue.</p>
-            <button type="button" onClick={openRsvp}>Add access needs <ChevronRight aria-hidden="true" /></button>
+            <p>The property lists wheelchair-accessible elevators and accessible facilities. Contact the venue directly for information about specific accessibility needs.</p>
+            <a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Venue information <ChevronRight aria-hidden="true" /></a>
           </article>
           <article data-kp9-reveal>
             <span>06</span><CalendarHeart aria-hidden="true" /><h3>Keep the day close</h3>
@@ -394,11 +365,11 @@ export function WeddingExperienceV9() {
         <span id="rsvp" className="sr-only" aria-hidden="true" />
         <div className="kp9-rsvp-image"><Image src="/kp-coastal-hand-in-hand.webp" alt="Kingsford and Perla smiling and holding hands at a misty coastal lookout." fill unoptimized sizes="100vw" style={{ objectPosition: "55% 40%" }} /><div /></div>
         <div className="kp9-rsvp-copy" data-kp9-reveal>
-          <p className="kp9-kicker kp9-kicker-light">An open invitation</p>
-          <h2 id="kp9-rsvp-title">Planning to join<br /><em>us?</em></h2>
-          <p>Our wedding ceremony will be a joyful service of worship, covenant and celebration. No formal invitation is required to attend. If you plan to join us, kindly let us know so we can prepare the space and welcome everyone comfortably.</p>
-          <button type="button" onClick={openRsvp}>I’m planning to attend <ArrowRight aria-hidden="true" /></button>
-          <span><ShieldCheck aria-hidden="true" /> Optional attendance notice · Private and secure</span>
+          <p className="kp9-kicker kp9-kicker-light">Forever grateful</p>
+          <h2 id="kp9-rsvp-title">A day to cherish.<br /><em>A lifetime of love.</em></h2>
+          <p>Your love will stay with us long after the wedding day. Thank you for being part of this beautiful beginning.</p>
+          <Link className="kp9-memory-link" href="/gallery">Explore our gallery <ArrowRight aria-hidden="true" /></Link>
+          <span><Heart aria-hidden="true" /> With love, Kingsford &amp; Perla</span>
         </div>
       </section>
 
@@ -422,8 +393,6 @@ export function WeddingExperienceV9() {
         <nav><Link href="/gallery">Gallery</Link><a href={weddingContent.event.mapUrl} target="_blank" rel="noreferrer">Directions</a></nav>
       </footer>
 
-      <button className="kp9-floating-rsvp" type="button" onClick={openRsvp}><Heart aria-hidden="true" /><span>Attend</span></button>
-      <RsvpDialog open={rsvpOpen} onOpenChange={setRsvpOpen} />
     </main>
   );
 }

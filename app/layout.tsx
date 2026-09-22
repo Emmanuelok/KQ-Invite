@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { giftsEnabled } from "@/lib/wedding-content";
 import "./globals.css";
 import "./kp6.css";
 import "./kp8.css";
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kingsperl.com"),
   title: "Kingsford & Perla — Our Wedding",
   description:
-    `Kingsford and Perla invite you to their wedding ceremony at 10:00 AM on Saturday, 19 September 2026 at Ramada Hotel in St. John’s—with gallery, guest guide, ${giftsEnabled ? "gifts and " : "and "}an optional attendance notice.`,
+    "With grateful hearts, Kingsford and Perla thank you for celebrating their wedding and for your presence, prayers, love and kind wishes.",
   applicationName: "Kingsford & Perla — Our Wedding",
   category: "wedding",
   openGraph: {
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Kingsford & Perla — Our Wedding",
     title: "Kingsford & Perla — Our Wedding",
     description:
-      "Join Kingsford and Perla for their wedding ceremony on Saturday, 19 September 2026 in St. John’s, Newfoundland.",
+      "With grateful hearts, Kingsford and Perla thank you for your presence, prayers, love and kind wishes as they begin married life.",
     images: [
       {
         url: "/og-image",
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kingsford & Perla — Our Wedding",
     description:
-      "Join Kingsford and Perla for their wedding ceremony on Saturday, 19 September 2026 in St. John’s, Newfoundland.",
+      "With grateful hearts, Kingsford and Perla thank you for your presence, prayers, love and kind wishes as they begin married life.",
     images: ["/og-image"],
   },
   other: {

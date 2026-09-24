@@ -149,14 +149,17 @@
 .kp9-hero-buttons svg { width: 18px; }
 
 /* A personal note of thanks, with room for the portrait and readable copy. */
-.kp9-thank-you-header { display: flex; border-bottom: 0; }
+.kp9-thank-you-header { display: flex; border-bottom: 0; background: none; }
 .kp9-thank-you-header .kp9-brand > span:last-child { display: grid; }
 .kp9-thank-you-credit { position: absolute; z-index: 5; right: 24px; bottom: 22px; left: 24px; color: rgb(255 247 232 / 65%); font-size: 12px; text-align: center; }
 .kp9-thank-you-credit a { color: inherit; text-underline-offset: 3px; }
-.kp9-thank-you { display: flex; align-items: center; min-height: max(860px, 100svh); padding: 170px clamp(28px, 6.7vw, 122px) 130px; }
-.kp9-thank-you .kp9-hero-copy { position: relative; inset: auto; width: min(620px, 53vw); transform: none; }
+.kp9-thank-you { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-items: center; gap: clamp(36px, 5vw, 88px); min-height: 100svh; padding: 120px clamp(28px, 5.5vw, 100px) 84px; background: radial-gradient(ellipse at 20% 30%, #253127 0%, #18201a 44%, #101812 100%); }
+.kp9-thank-you::after { display: none; }
+.kp9-thank-you .kp9-hero-photo { position: relative; inset: auto; grid-column: 2; grid-row: 1; justify-self: end; width: 100%; max-width: 560px; aspect-ratio: 2 / 3; overflow: hidden; box-shadow: 0 24px 80px rgb(0 0 0 / 24%); }
+.kp9-thank-you .kp9-hero-picture > img { object-fit: contain; object-position: center; transform: none; animation: none; }
+.kp9-thank-you .kp9-hero-copy { position: relative; inset: auto; grid-column: 1; grid-row: 1; width: 100%; max-width: 620px; transform: none; }
 .kp9-thank-you .kp9-hero-copy > p:first-child { font-size: 14px; }
-.kp9-thank-you .kp9-hero-copy h1 { display: block; font-size: clamp(62px, 6.5vw, 102px); letter-spacing: -.045em; line-height: 1.02; }
+.kp9-thank-you .kp9-hero-copy h1 { display: block; font-size: clamp(54px, 5.7vw, 94px); letter-spacing: -.045em; line-height: 1.02; }
 .kp9-thank-you .kp9-hero-copy h1 em { display: block; color: var(--kp9-gold); font-weight: 400; }
 .kp9-thank-you-message { max-width: 550px; margin-top: 28px; color: var(--kp9-cream); font-size: clamp(18px, 1.4vw, 21px); line-height: 1.7; }
 .kp9-thank-you-message p { margin: 0; }
@@ -165,7 +168,6 @@
 .kp9-thank-you-signature > span { color: var(--kp9-gold); font-size: 15px; }
 .kp9-thank-you-signature strong { font-family: var(--kp-display, Didot, serif); font-size: 36px; font-weight: 400; line-height: 1.2; }
 .kp9-thank-you .kp9-hero-buttons a { border-color: var(--kp9-gold); background: var(--kp9-gold); color: var(--kp9-ink); font-size: 14px; }
-.kp9-thank-you .kp9-hero-grade { background: linear-gradient(90deg, rgb(18 9 7 / 94%) 0%, rgb(18 9 7 / 83%) 32%, rgb(18 9 7 / 35%) 62%, rgb(18 9 7 / 8%) 100%), linear-gradient(0deg, rgb(18 9 7 / 70%), transparent 45%); }
 
 .kp9-hero-countdown { position: absolute; z-index: 5; right: clamp(26px, 5vw, 88px); bottom: 48px; display: flex; align-items: center; gap: 12px; padding: 15px 20px; border: 1px solid rgb(255 247 232 / 28%); background: rgb(18 9 7 / 34%); backdrop-filter: blur(14px); }
 .kp9-hero-countdown > span { display: grid; justify-items: center; }
@@ -470,17 +472,18 @@
 
 @media (max-width: 780px) {
   .kp9-header-gallery { display: none; }
-  .kp9-thank-you { display: block; min-height: 100svh; padding: clamp(360px, 72vw, 480px) 24px 56px; }
-  .kp9-thank-you .kp9-hero-copy { width: 100%; }
+  .kp9-thank-you-header { background: #18201a; }
+  .kp9-thank-you { display: block; min-height: 100svh; padding: 80px 0 0; }
+  .kp9-thank-you .kp9-hero-photo { width: 100%; max-width: none; aspect-ratio: 2 / 3; box-shadow: none; }
+  .kp9-thank-you .kp9-hero-copy { width: 100%; max-width: 620px; margin: 0 auto; padding: 42px 24px 40px; }
   .kp9-thank-you .kp9-hero-copy h1 { font-size: clamp(48px, 11.8vw, 82px); line-height: 1.04; }
   .kp9-thank-you .kp9-hero-copy > p:first-child { font-size: 12px; letter-spacing: .14em; }
-  .kp9-thank-you .kp9-hero-picture { height: clamp(540px, 116vw, 780px); }
-  .kp9-thank-you .kp9-hero-picture > img { object-position: 50% 26% !important; }
-  .kp9-thank-you .kp9-hero-grade { background: linear-gradient(180deg, rgb(18 9 7 / 38%) 0%, transparent 150px, rgb(18 9 7 / 20%) 290px, rgb(18 9 7 / 92%) 440px, var(--kp9-ink) 570px); }
+  .kp9-thank-you .kp9-hero-picture > img { object-position: center !important; }
   .kp9-thank-you-message { max-width: 100%; margin-top: 24px; font-size: 18px; line-height: 1.7; }
   .kp9-thank-you-signature strong { font-size: 32px; }
   .kp9-thank-you .kp9-hero-buttons { display: flex; flex-wrap: wrap; }
   .kp9-thank-you .kp9-hero-buttons a { padding: 14px 20px; }
+  .kp9-thank-you-credit { position: relative; inset: auto; padding: 0 24px 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

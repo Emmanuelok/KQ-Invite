@@ -25,21 +25,15 @@ export function WeddingExperienceV9() {
       <section id="top" className="kp9-hero kp9-thank-you" aria-labelledby="kp9-hero-title">
         <div className="kp9-hero-photo">
           <picture className="kp9-hero-picture">
-            <source media="(max-width: 780px)" srcSet="/kp-studio-intimate.webp" />
             <Image
-              src="/kp-coastal-layered.webp"
-              alt="Kingsford and Perla standing together above a misty Newfoundland coastline."
+              src="/kp-wedding-garden.jpg"
+              alt="Kingsford and Perla on their wedding day, standing together among sunlit greenery."
               fill
               priority
               unoptimized
-              sizes="100vw"
+              sizes="(max-width: 780px) 100vw, 46vw"
             />
           </picture>
-          <div className="kp9-hero-split" aria-hidden="true">
-            <Image src="/kp-coastal-layered.webp" alt="" fill priority unoptimized sizes="100vw" />
-          </div>
-          <div className="kp9-hero-grade" />
-          <div className="kp9-grain" />
         </div>
         <div id="thank-you" className="kp9-hero-copy">
           <p>To our family &amp; friends</p>

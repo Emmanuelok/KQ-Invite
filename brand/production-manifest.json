@@ -4,13 +4,13 @@
     "id": "kingsperl-events",
     "name": "Kingsperl Events",
     "mode": "brand-and-web",
-    "objective": "Replace the completed wedding website on kingsperl.com with the rebranded event company and an installable app.",
+    "objective": "Modernize Kingsperl Events with legible typography, a vibrant editorial design and an operational customer planning workspace.",
     "audience": "Event hosts in St. John's and the Avalon Peninsula",
     "governing_idea": "An architectural K, an event arch and a pearl unify the identity.",
     "status": "implemented"
   },
   "creative_system": {
-    "visual_thesis": "Warm gold and pearl over deep Atlantic green, paired with cinematic event photography.",
+    "visual_thesis": "Warm ivory, Atlantic green, terracotta and soft botanical colours; clear typography and generous event photography.",
     "anti_goals": [
       "generic spectacle",
       "unmotivated visual effects"
@@ -138,9 +138,9 @@
     "acceptance_threshold": 85,
     "critical_failures": [],
     "review_notes": [
-      "Identity and social card visually inspected.",
-      "Application build passed. Eleven functional tests passed, including private-data cache exclusions.",
-      "Production deployment verification pending."
+      "Readable type system with a 14px minimum for supporting interface text and 16\u201319px controls and body text.",
+      "Local-only essential draft saving, secure project-link handoff, checklist, calendar reminder and print summary implemented.",
+      "Browser and production verification in progress."
     ]
   },
   "gates": [],

@@ -292,7 +292,7 @@ export const designTiers: DesignTier[] = [
 
 export const defaultBrief: StudioBrief = {
   eventType: "Wedding reception",
-  date: "2027-06-19",
+  date: "",
   guests: 120,
   budget: 10000,
   venueId: "coastal-glasshouse",

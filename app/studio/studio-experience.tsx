@@ -19,6 +19,7 @@ import {
   type StudioBrief,
 } from "../platform-data";
 import styles from "./studio.module.css";
+import { DRAFT_KEY, makePlanningDraft, parsePlanningDraft } from "../../lib/planning-draft";
 
 type SectionId = "brief" | "concepts" | "venue" | "build" | "proposal" | "readiness" | "portal";
 type SaveState = "idle" | "saving" | "saved" | "error";
@@ -43,11 +44,11 @@ type SavedPlanSnapshot = Pick<ResumeProject, "buildLines" | "quote" | "readiness
 const sections: Array<{ id: SectionId; label: string; number: string }> = [
   { id: "brief", label: "Event brief", number: "01" },
   { id: "concepts", label: "Design directions", number: "02" },
-  { id: "venue", label: "Venue twin", number: "03" },
-  { id: "build", label: "Exact build", number: "04" },
-  { id: "proposal", label: "Proposal", number: "05" },
+  { id: "venue", label: "Venue & layout", number: "03" },
+  { id: "build", label: "Itemized plan", number: "04" },
+  { id: "proposal", label: "Budget & proposal", number: "05" },
   { id: "readiness", label: "Readiness", number: "06" },
-  { id: "portal", label: "My event", number: "07" },
+  { id: "portal", label: "Saved project", number: "07" },
 ];
 
 const eventOptions = [
@@ -113,6 +114,8 @@ const statusClass = (status: string) => {
 
 export default function StudioExperience({ prefill }: { prefill?: StudioPrefill }) {
   const [section, setSection] = useState<SectionId>("brief");
+  const [draftReady, setDraftReady] = useState(false);
+  const [localSaveStatus, setLocalSaveStatus] = useState("");
   const [brief, setBrief] = useState<StudioBrief>(() => initialBriefFrom(prefill));
   const [tierId, setTierId] = useState<DesignTierId>("signature");
   const [contactName, setContactName] = useState("");
@@ -202,6 +205,32 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
     const frame = window.requestAnimationFrame(() => void restoreProject());
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const hasPrefill = Boolean(prefill?.event || prefill?.style || prefill?.looks?.length || prefill?.venue || prefill?.guests || prefill?.budget);
+      if (!window.location.hash.includes("project=") && !hasPrefill && new URLSearchParams(window.location.search).get("new") !== "1") {
+        try {
+          const saved = parsePlanningDraft(JSON.parse(localStorage.getItem(DRAFT_KEY) ?? "null"));
+          if (saved) {
+            setBrief({ ...saved.brief, atmosphere: defaultBrief.atmosphere, accessibility: defaultBrief.accessibility });
+            setTierId(saved.tierId);
+            setSection(saved.section as SectionId);
+          }
+        } catch { /* A restricted browser can still use the studio. */ }
+      }
+      setDraftReady(true);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [prefill]);
+
+  useEffect(() => {
+    if (!draftReady || (window.location.hash.includes("project=") && !projectReference)) return;
+    try {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(makePlanningDraft(brief, tierId, section, projectReference)));
+      setLocalSaveStatus("Essential details saved on this device");
+    } catch { setLocalSaveStatus("Local saving unavailable in this browser"); }
+  }, [brief, tierId, section, projectReference, draftReady]);
 
   const invalidateAcknowledgement = () => {
     setApproved(false);
@@ -379,17 +408,19 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
   };
 
   return (
-    <main className={styles.app}>
+    <main className={styles.app} id="main-content">
       <header className={styles.header}>
         <Link className={`brand ${styles.brand}`} href="/" aria-label="Kingsperl Events home"><BrandLockup /></Link>
         <nav aria-label="Studio navigation">
           <Link href="/events">Event World</Link>
-          <Link href="/">Public site</Link>
+          <Link href="/my-event">My event</Link>
+          <Link href="/">Home</Link>
         </nav>
         <div className={styles.headerActions}>
+          <button type="button" className={styles.printButton} onClick={() => window.print()}>Print plan</button>
           {projectReference && <span className={styles.reference}>{projectReference}</span>}
           <button className={styles.saveButton} type="button" onClick={() => void saveProject("draft")} disabled={saveState === "saving"}>
-            {saveState === "saving" ? "Saving…" : projectReference ? "Save another snapshot" : "Save project snapshot"}
+            {saveState === "saving" ? "Saving…" : projectReference ? "Save updated plan" : "Save project"}
           </button>
         </div>
       </header>
@@ -420,7 +451,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
           <p className={styles.srOnly} aria-live="polite">{sections.find((item) => item.id === section)?.label} section selected.</p>
           <div className={styles.contentHeader}>
             <div>
-              <p>Kingsperl Events intelligent planning workspace</p>
+              <p>KINGSPERL DESIGN STUDIO</p>
               <h1>{sections.find((item) => item.id === section)?.label}</h1>
             </div>
             <div className={styles.projectHealth}>
@@ -429,14 +460,16 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
             </div>
           </div>
 
+          <div className={styles.draftStatus} role="status"><span aria-hidden="true">✓</span>{localSaveStatus || "Preparing your planning space"}<a href="/my-event">My event workspace ↗</a></div>
+
           {saveMessage && <div className={`${styles.notice} ${saveState === "error" ? styles.noticeError : ""}`} role="status">{saveMessage}</div>}
 
           {section === "brief" && (
             <div className={styles.sectionStack}>
               <div className={styles.sectionLead}>
                 <p>01 · The gathering</p>
-                <h2>Give the intelligence layer constraints it can defend.</h2>
-                <span>Every later quantity, price and readiness flag recomputes from this brief.</span>
+                <h2>A few details. A world of possibilities.</h2>
+                <span>Tell us about your occasion. We’ll use these details to shape the scope, quantities and planning estimate.</span>
               </div>
               <div className={styles.formGrid}>
                 <label>Occasion<select value={brief.eventType} onChange={(event) => updateBrief("eventType", event.target.value)}>{visibleEventOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
@@ -451,15 +484,15 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
                 <label>Email<input type="email" value={contactEmail} onChange={(event) => updateContactEmail(event.target.value)} autoComplete="email" placeholder="you@example.com" /></label>
               </div>
               <label className={styles.checkLine}><input type="checkbox" checked={brief.outdoor} onChange={(event) => updateBrief("outdoor", event.target.checked)} /><span><strong>Outdoor or materially weather-exposed installation</strong><small>Activates wind, rain, ballast, power and fallback controls.</small></span></label>
-              <div className={styles.actionRow}><button type="button" className={styles.primaryAction} onClick={() => setSection("concepts")}>Generate three buildable scopes <span>→</span></button></div>
+              <div className={styles.actionRow}><button type="button" className={styles.primaryAction} onClick={() => setSection("concepts")}>Explore three design scopes <span>→</span></button></div>
             </div>
           )}
 
           {section === "concepts" && (
             <div className={styles.sectionStack}>
               <div className={styles.sectionLead}>
-                <p>02 · Catalogue-constrained concepts</p>
-                <h2>Three related scopes. Every visible promise is costed first.</h2>
+                <p>02 · Find your direction</p>
+                <h2>Choose the feeling. Understand the scope.</h2>
                 <span>These are planning concepts—not photographs of completed Kingsperl Events client work.</span>
               </div>
               <div className={styles.tierGrid}>
@@ -610,7 +643,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
           {section === "readiness" && (
             <div className={styles.sectionStack}>
               <div className={styles.sectionLead}>
-                <p>06 · St. John’s Event Readiness OS</p>
+                <p>06 · Ready for the real world</p>
                 <h2>Make every spectacular decision executable.</h2>
                 <span>Each risk has a status, owner, due point and evidence requirement.</span>
               </div>
@@ -657,7 +690,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
               </div>
               <div className={styles.portalColumns}>
                 <article className={styles.timelinePanel}><p>Project timeline</p>{[
-                  ["Brief received", "Complete", "Your constraints and priorities are recorded."],
+                  ["Event brief", projectReference ? "Saved" : "Draft", projectReference ? "Your essential brief has been saved for review." : "Your working plan has not yet been submitted to the team."],
                   ["Direction acknowledgement", approved ? "Complete" : "Waiting", approved ? `${approvalName || contactName} acknowledged the ${tier.name} direction for feasibility review.` : "Review the proposal and acknowledge the preferred direction."],
                   ["Feasibility review", "Next", "Kingsperl Events verifies venue, catalogue, crew and readiness assumptions."],
                   ["Agreement + deposit", "Locked", "Activates after review; no payment is collected from an unverified concept."],
@@ -678,6 +711,17 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
           )}
         </section>
       </div>
+
+
+      <section className={styles.printSummary}>
+        <p>KINGSPERL EVENTS · PLANNING SUMMARY</p><h1>{brief.eventType}</h1>
+        <p>{brief.date || "Date to be confirmed"} · {brief.guests} guests · {venue.name}</p>
+        <p>Design scope: {tier.name}. {projectReference ? `Saved reference: ${projectReference}` : "Working draft — not submitted."}</p>
+        <table><thead><tr><th>Item</th><th>Quantity</th><th>Dimensions</th><th>Estimate</th></tr></thead><tbody>{buildLinesForTier.map(line => <tr key={line.sku}><td>{line.name}</td><td>{line.quantity} {line.unit}</td><td>{line.dimensions}</td><td>{money(line.total)}</td></tr>)}</tbody></table>
+        <h2>Planning total: {money(quote.total)}</h2><p>Includes estimated HST. Final scope, availability and agreement require team confirmation.</p>
+        <h2>Readiness review</h2><ul>{readiness.map(task => <li key={task.id}>{task.label}: {task.status}. {task.detail}</li>)}</ul>
+        <p>kingsperl.com · This planning summary is not a reservation, contract or payment request.</p>
+      </section>
 
       <nav className={styles.mobileNav} aria-label="Mobile studio navigation">
         {sections.map((item) => (

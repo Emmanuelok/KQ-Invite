@@ -16,6 +16,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  distDir: isDevelopment ? ".next-dev" : ".next",
   poweredByHeader: false,
   images: { unoptimized: true },
   async headers() { return [

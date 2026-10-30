@@ -6,7 +6,7 @@ for (let index = 0; index < input.length; index++) {
   if (input[index] === "--strictPort") continue;
   args.push(input[index] === "--host" ? "--hostname" : input[index]);
 }
-const child = spawn(process.execPath, args, { stdio: "inherit" });
+const child = spawn(process.execPath, args, { stdio: "inherit", env: { ...process.env, NODE_ENV: "development" } });
 child.on("exit", (code) => process.exit(code ?? 1));
 process.on("SIGTERM", () => child.kill("SIGTERM"));
 process.on("SIGINT", () => child.kill("SIGINT"));

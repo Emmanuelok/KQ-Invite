@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Kingsperl Events Design Studio",
     description: "From atmosphere to executable event plan—venue, inventory, quote and readiness in one workspace.",
     url: "/studio",
-    images: [{ url: "/og/kingsperl-events.png", width: 1730, height: 909, alt: "Kingsperl Events" }],
+    images: [{ url: "/og/kingsperl-events.jpg", width: 1200, height: 630, alt: "Kingsperl Events" }],
   },
 };
 

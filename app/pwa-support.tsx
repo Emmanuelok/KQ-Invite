@@ -26,7 +26,7 @@ export function PwaSupport({ children }: { children: ReactNode }) {
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
     standalone.addEventListener("change", syncDisplay);
-    if ("serviceWorker" in navigator) {
+    if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" })
         .then(() => navigator.serviceWorker.ready)
         .then(() => setWorkerReady(true))

@@ -21,6 +21,7 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["lifestyle", "business"],
     lang: "en-CA",
     shortcuts: [
+      { name: "My event", short_name: "My event", url: "/my-event", icons: [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }] },
       { name: "Explore events", short_name: "Inspiration", url: "/events", icons: [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }] },
       { name: "Open Design Studio", short_name: "Studio", url: "/studio", icons: [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }] },
     ],

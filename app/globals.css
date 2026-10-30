@@ -71,9 +71,9 @@ img {
 .eyebrow {
   margin: 0 0 22px;
   color: #506268;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.19em;
+  letter-spacing: 0.1em;
   line-height: 1.3;
   text-transform: uppercase;
 }
@@ -97,9 +97,9 @@ p {
   padding: 7px 40px;
   background: var(--acid);
   color: #071a1f;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -149,9 +149,9 @@ p {
 }
 
 .brand small {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   opacity: 0.76;
 }
 
@@ -164,7 +164,7 @@ p {
 .site-header nav a {
   position: relative;
   padding-block: 9px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 550;
   white-space: nowrap;
 }
@@ -206,7 +206,7 @@ p {
   align-items: center;
   gap: 8px;
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .text-button span {
@@ -216,7 +216,7 @@ p {
   place-items: center;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.14);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .solid-button,
@@ -231,7 +231,7 @@ p {
   border: 1px solid transparent;
   border-radius: 0;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
@@ -252,7 +252,7 @@ p {
 .solid-button.compact {
   min-height: 40px;
   padding: 0 18px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .outline-button {
@@ -443,7 +443,7 @@ p {
 
 .hero-proof span {
   color: rgba(255, 255, 255, 0.62);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -462,9 +462,9 @@ p {
 
 .hero-aside > span {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -482,7 +482,7 @@ p {
   justify-content: space-between;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -494,9 +494,9 @@ p {
   align-items: center;
   gap: 11px;
   color: rgba(255, 255, 255, 0.55);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   writing-mode: vertical-rl;
 }
@@ -544,7 +544,7 @@ p {
 
 .editorial-copy span {
   color: #6c716a;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -579,7 +579,7 @@ p {
   border-radius: 999px;
   background: transparent;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 
@@ -657,7 +657,7 @@ p {
   padding: 7px 10px;
   background: rgba(255, 255, 255, 0.9);
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -673,7 +673,7 @@ p {
   align-items: center;
   gap: 15px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   opacity: 0;
   transform: translateY(8px);
@@ -697,9 +697,9 @@ p {
 
 .project-card-copy > div:first-child > span {
   color: #6e746c;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -715,7 +715,7 @@ p {
 .project-card-copy p {
   margin: 0;
   color: #6a7068;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .card-price {
@@ -727,12 +727,12 @@ p {
 
 .card-price span {
   color: #787d77;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
 }
 
 .card-price strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .palette-line {
@@ -759,7 +759,7 @@ p {
   border: 0;
   background: transparent;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 
@@ -821,9 +821,9 @@ p {
   gap: 9px;
   margin: 3px 8px 36px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -868,12 +868,12 @@ p {
 
 .planner-sidebar > button strong {
   color: inherit;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .planner-sidebar > button small {
   color: inherit;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .planner-sidebar > button.active {
@@ -895,7 +895,7 @@ p {
 
 .studio-note span {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -904,7 +904,7 @@ p {
 .studio-note p {
   margin: 10px 0 0;
   color: rgba(255, 255, 255, 0.54);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -918,9 +918,9 @@ p {
 .step-label {
   margin-bottom: 31px;
   color: #767b74;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -992,13 +992,13 @@ p {
 }
 
 .design-mode strong {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .design-mode small {
   overflow: hidden;
   color: #727871;
-  font-size: 12px;
+  font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1020,7 +1020,7 @@ p {
   flex-direction: column;
   gap: 9px;
   color: #545a54;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1072,7 +1072,7 @@ p {
   right: 5px;
   bottom: 15px;
   color: #747a73;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -1100,7 +1100,7 @@ p {
 }
 
 .range-labels small {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -1168,12 +1168,12 @@ p {
 }
 
 .upload-zone strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .upload-zone small {
   color: #777c76;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .palette-picker {
@@ -1216,14 +1216,14 @@ p {
 }
 
 .palette-picker strong {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .must-haves > span {
   display: block;
   margin-bottom: 12px;
   color: #545a54;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1242,7 +1242,7 @@ p {
   border-radius: 999px;
   background: transparent;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .must-haves button.active {
@@ -1325,7 +1325,7 @@ p {
   bottom: 24px;
   left: 25px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1357,7 +1357,7 @@ p {
 
 .result-score small {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1403,14 +1403,14 @@ p {
 .result-facts span,
 .allocation > span {
   color: #737872;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .result-facts strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .allocation {
@@ -1433,7 +1433,7 @@ p {
 
 .allocation small {
   color: #636962;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .allocation i {
@@ -1449,7 +1449,7 @@ p {
 }
 
 .allocation strong {
-  font-size: 12px;
+  font-size: 14px;
   text-align: right;
 }
 
@@ -1460,7 +1460,7 @@ p {
 }
 
 .result-alert b {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
@@ -1468,7 +1468,7 @@ p {
 .result-alert p {
   margin: 5px 0 0;
   color: #5e645d;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -1480,7 +1480,7 @@ p {
 .price-assumption {
   margin: 14px 0 0;
   color: #737971;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -1525,7 +1525,7 @@ p {
 
 .service-grid article > span {
   color: #7b8179;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
@@ -1541,7 +1541,7 @@ p {
 .service-grid p {
   max-width: 330px;
   color: #626860;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.65;
 }
 
@@ -1557,7 +1557,7 @@ p {
   display: flex;
   align-items: center;
   gap: 13px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -1617,7 +1617,7 @@ p {
 
 .timeline span {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -1631,7 +1631,7 @@ p {
 .timeline p {
   margin: 0;
   color: rgba(255, 255, 255, 0.58);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -1667,7 +1667,7 @@ p {
   bottom: 25px;
   left: 27px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1703,13 +1703,13 @@ p {
   gap: 18px;
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .local-copy li span {
   color: #858b83;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .proof-section {
@@ -1743,13 +1743,13 @@ p {
 }
 
 .proof-grid strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .proof-grid p {
   max-width: 330px;
   margin: 7px 0 0;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -1870,7 +1870,7 @@ p {
 
 .closing-content > div > a {
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 footer {
@@ -1913,7 +1913,7 @@ footer {
   gap: 23px;
   padding-bottom: 8px;
   border-bottom: 1px solid #fff;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .footer-columns {
@@ -1939,9 +1939,9 @@ footer {
 .footer-columns span {
   margin-bottom: 15px;
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1953,7 +1953,7 @@ footer {
   background: transparent;
   color: rgba(255, 255, 255, 0.63);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   text-align: left;
 }
@@ -1969,7 +1969,7 @@ footer {
   gap: 30px;
   padding-top: 23px;
   color: rgba(255, 255, 255, 0.4);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -2002,7 +2002,7 @@ footer {
   border: 0;
   background: var(--acid);
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -2065,7 +2065,7 @@ footer {
   bottom: 23px;
   left: 28px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -2099,9 +2099,9 @@ footer {
 .drawer-title > p {
   margin-bottom: 8px;
   color: #6a7168;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -2143,14 +2143,14 @@ footer {
 .drawer-facts span,
 .drawer-palette > span {
   color: #7a8078;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .drawer-facts strong {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -2170,7 +2170,7 @@ footer {
 
 .drawer-palette strong {
   margin-left: 8px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .inventory-heading {
@@ -2183,9 +2183,9 @@ footer {
 
 .inventory-heading span {
   color: #6d736c;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -2202,7 +2202,7 @@ footer {
   border-bottom: 1px solid var(--ink);
   background: transparent;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -2220,7 +2220,7 @@ footer {
 .inventory-row > span,
 .inventory-row > b {
   padding: 15px 12px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .inventory-row > * + * {
@@ -2234,7 +2234,7 @@ footer {
 
 .inventory-row small {
   color: #798078;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2242,12 +2242,12 @@ footer {
 
 .inventory-row strong {
   margin: 2px 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .inventory-row em {
   color: #7a7f79;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
 }
 
@@ -2262,7 +2262,7 @@ footer {
 
 .inventory-header span {
   color: #666c65;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2275,7 +2275,7 @@ footer {
 }
 
 .spec-note strong {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2283,7 +2283,7 @@ footer {
 .spec-note p {
   margin: 5px 0 0;
   color: #656b64;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -2309,9 +2309,9 @@ footer {
 
 .moodbook-head > div > span {
   color: #6f756e;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -2359,7 +2359,7 @@ footer {
 .moodbook-items span,
 .moodbook-items small {
   color: #777c76;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2391,7 +2391,7 @@ footer {
 
 .moodbook-footer p {
   color: #6b716a;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .moodbook-footer .solid-button {
@@ -2421,7 +2421,7 @@ footer {
 .empty-moodbook p {
   max-width: 390px;
   color: #697068;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.65;
 }
 
@@ -2482,7 +2482,7 @@ footer {
 
 .consent span {
   color: #666c64;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -2501,7 +2501,7 @@ footer {
   border-left: 3px solid #9f3d2f;
   background: #f0ddd5;
   color: #722f25;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -3183,12 +3183,12 @@ footer {
 }
 
 .top-ribbon {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.09em;
 }
 
 .brand small {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   opacity: 0.82;
 }
@@ -3201,7 +3201,7 @@ footer {
 
 .eyebrow {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.12em;
   line-height: 1.45;
 }
@@ -3214,7 +3214,7 @@ footer {
 .hero-aside > span,
 .scroll-cue {
   color: var(--text-on-dark-muted);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.09em;
 }
 
@@ -3223,7 +3223,7 @@ footer {
 .card-price span,
 .project-card-copy p {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .filter-row button,
@@ -3234,7 +3234,7 @@ footer {
 }
 
 .concept-label {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.08em;
 }
 
@@ -3270,7 +3270,7 @@ footer {
 .inventory-header span,
 .spec-note strong,
 .moodbook-head > div > span {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.08em;
 }
 
@@ -3289,7 +3289,7 @@ footer {
 .must-haves button,
 .inventory-row em {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -3323,7 +3323,7 @@ footer {
 .planner-form label,
 .consultation-modal label,
 .must-haves > span {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.055em;
 }
 
@@ -3334,7 +3334,7 @@ footer {
 .inventory-row small,
 .moodbook-items span,
 .moodbook-items small {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .result-alert p,
@@ -3369,7 +3369,7 @@ footer {
 
 .footer-bottom {
   color: rgba(255, 255, 255, 0.72);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .inventory-row small,
@@ -3494,7 +3494,7 @@ footer {
 .event-world-stats span {
   margin-top: 7px;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -3535,7 +3535,7 @@ footer {
 .event-compass-heading span,
 .event-compass-scope span {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -3554,7 +3554,7 @@ footer {
   gap: 9px;
   margin: 0 0 22px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -3622,7 +3622,7 @@ footer {
 
 .event-compass-results button > b {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .event-compass-results button span {
@@ -3639,7 +3639,7 @@ footer {
 .event-compass-results small {
   margin-top: 3px;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .event-compass-results i {
@@ -3743,7 +3743,7 @@ footer {
   padding: 7px 10px;
   background: var(--acid);
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -3758,7 +3758,7 @@ footer {
 .local-event-card small {
   margin-bottom: 12px;
   color: rgba(255, 255, 255, 0.75);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -3773,7 +3773,7 @@ footer {
 .local-event-card i {
   margin-top: 18px;
   color: var(--acid);
-  font-size: 13px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
 }
@@ -3798,7 +3798,7 @@ footer {
   display: block;
   margin-bottom: 38px;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -3848,7 +3848,7 @@ footer {
 
 .event-filters label > span {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -3914,7 +3914,7 @@ footer {
 
 .event-category-row button span {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .event-category-row button.active {
@@ -3995,7 +3995,7 @@ footer {
   z-index: 1;
   bottom: 17px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.06em;
 }
 
@@ -4021,7 +4021,7 @@ footer {
 .event-type-copy > p {
   margin-bottom: 10px;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -4127,7 +4127,7 @@ footer {
   display: block;
   margin-bottom: 60px;
   color: var(--acid);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
 }
 
@@ -4317,7 +4317,7 @@ footer {
 .event-detail-planning > div span,
 .event-board-head span {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -4361,7 +4361,7 @@ footer {
 .event-direction-grid small {
   display: block;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -4396,7 +4396,7 @@ footer {
 .event-local-note p {
   margin: 0;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .event-detail-heading {
@@ -4477,7 +4477,7 @@ footer {
   padding: 7px 9px;
   background: rgba(13, 19, 16, 0.82);
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.03em;
 }
 
@@ -4572,7 +4572,7 @@ footer {
 
 .event-detail-planning li b {
   color: var(--acid);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .event-detail-actions {
@@ -4657,7 +4657,7 @@ footer {
 .event-board-items small,
 .event-board-items span {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -4785,7 +4785,7 @@ footer {
   bottom: 22px;
   left: 36px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -4800,7 +4800,7 @@ footer {
 .event-schedule-heading span {
   margin: 0;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -4835,7 +4835,7 @@ footer {
 
 .event-schedule-summary span {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -4885,7 +4885,7 @@ footer {
   padding: 12px;
   border-block: 1px solid var(--line);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.07em;
   text-align: left;
   text-transform: uppercase;
@@ -4900,7 +4900,7 @@ footer {
   padding: 16px 12px;
   border-bottom: 1px solid var(--line);
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   vertical-align: top;
 }
@@ -4920,7 +4920,7 @@ footer {
 .event-schedule-table td small {
   margin-bottom: 4px;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -4939,13 +4939,13 @@ footer {
 }
 
 .event-schedule-note strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .event-schedule-note p {
   margin: 5px 0 0;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -5015,7 +5015,7 @@ footer {
 
   .event-world-header .text-button {
     display: inline-flex;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .event-world-header .solid-button,
@@ -5058,7 +5058,7 @@ footer {
   }
 
   .event-world-stats span {
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.04em;
   }
 
@@ -5184,7 +5184,7 @@ footer {
     border: 0;
     background: transparent;
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
   }
 
@@ -5306,7 +5306,7 @@ footer {
   .inventory-row > b::before {
     color: var(--text-muted);
     content: "Quantity · ";
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
   }
 
@@ -5315,7 +5315,7 @@ footer {
     margin-bottom: 4px;
     color: var(--text-muted);
     content: "Reference measurement";
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -5330,7 +5330,7 @@ footer {
   .mobile-cta a {
     min-width: 0;
     padding-inline: 6px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .event-compass-selects {
@@ -5352,7 +5352,7 @@ footer {
   }
 
   .event-world-stats span {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .event-detail-facts {
@@ -5419,7 +5419,7 @@ footer {
     margin-bottom: 5px;
     color: var(--text-muted);
     content: attr(data-label);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 750;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -5449,7 +5449,7 @@ footer {
 
 .event-schedule-table td small,
 .event-world-stats span {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -5493,7 +5493,7 @@ footer {
   }
 
   .event-schedule-table td::before {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.4;
   }
 }
@@ -5551,7 +5551,7 @@ footer {
 .local-event-card p {
   margin: 13px 0 0;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .event-collections-section {
@@ -5617,7 +5617,7 @@ footer {
   display: block;
   margin-bottom: 17px;
   color: #526259;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -5632,7 +5632,7 @@ footer {
   display: grid;
   gap: 9px;
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5654,7 +5654,7 @@ footer {
 
 .event-collection-select small {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
   letter-spacing: 0.02em;
   line-height: 1.45;
@@ -5730,7 +5730,7 @@ footer {
   z-index: 1;
   bottom: 16px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.04em;
 }
 
@@ -5756,7 +5756,7 @@ footer {
 .event-collection-copy > small {
   margin: 0;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -5795,7 +5795,7 @@ footer {
   background: transparent;
   color: var(--ink);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
   text-align: left;
 }
@@ -5836,7 +5836,7 @@ footer {
 .event-occasion-card > span {
   margin-bottom: 12px;
   color: #4f5f56;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -5853,7 +5853,7 @@ footer {
 
 .event-occasion-card small {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -5868,14 +5868,14 @@ footer {
 .event-occasion-card p {
   margin: 12px 0 0;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .event-occasion-card i {
   margin-top: auto;
   padding-top: 24px;
   color: currentColor;
-  font-size: 13px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 800;
 }
@@ -6003,7 +6003,7 @@ footer {
 
 @media (max-width: 520px) {
   .event-world-stats span {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.35;
   }
 
@@ -6018,7 +6018,7 @@ footer {
   .event-collection-image span,
   .event-collection-image b {
     bottom: 13px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .event-collection-image span { left: 13px; }
@@ -6060,23 +6060,23 @@ footer {
 /* Kingsperl app surfaces */
 .app-page { min-height: 100vh; background: var(--paper); }
 .app-page-header { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:28px max(6vw,24px); border-bottom:1px solid var(--line); }
-.app-page-header>a:last-child { font-size:15px; }
+.app-page-header>a:last-child { font-size: 15px; }
 .app-install-panel { display:grid; grid-template-columns:128px minmax(0,700px); gap:48px; align-items:start; max-width:1100px; padding:92px 40px 65px; margin:auto; }
 .app-install-panel>img { width:112px;height:112px; border-radius:26px; box-shadow:0 16px 50px #071a1f21; }
 .app-install-panel h1 { font-family:var(--serif); font-size:clamp(42px,5.7vw,74px); font-weight:400; line-height:1.08; letter-spacing:-.04em; }
-.app-install-panel p:not(.eyebrow) { font-size:18px; max-width:590px; }
-.app-install-panel .app-note { font-size:14px !important; color:#506268; margin-top:24px; }
+.app-install-panel p:not(.eyebrow) { font-size: 18px; max-width:590px; }
+.app-install-panel .app-note { font-size: 14px !important; color:#506268; margin-top:24px; }
 .app-install-instructions { padding:24px; background:#fffdf8; border-left:3px solid var(--acid); margin-top:28px; }
 .app-install-instructions p { margin:8px 0 0; }
 .app-status { padding:20px; background:#dcebe4; border-radius:10px; }
 .app-benefits { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; max-width:1120px; margin:0 auto; padding:30px 40px 80px; }
-.app-benefits span { color:#8b652e; font-size:14px; }
-.app-benefits h2 { font-family:var(--serif); font-weight:400; font-size:28px; margin:12px 0; }
-.app-benefits p { font-size:16px; color:#506268; }
-.app-page-footer { display:flex; gap:26px; justify-content:center; padding:28px 24px; font-size:14px; border-top:1px solid var(--line); }
+.app-benefits span { color:#8b652e; font-size: 14px; }
+.app-benefits h2 { font-family:var(--serif); font-weight:400; font-size: 28px; margin:12px 0; }
+.app-benefits p { font-size: 16px; color:#506268; }
+.app-page-footer { display:flex; gap:26px; justify-content:center; padding:28px 24px; font-size: 14px; border-top:1px solid var(--line); }
 .offline-page { min-height:100vh; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:22px; max-width:820px; padding:60px 8vw; margin:0 auto; }
 .offline-page>.brand { margin-bottom:40px; }
 .offline-page h1 { font-family:var(--serif); font-size:clamp(46px,7vw,76px); line-height:1.05; font-weight:400; letter-spacing:-.04em; margin:0; }
-.offline-page p { max-width:510px; font-size:19px; }
-.offline-page small { font-size:14px; color:#506268; }
+.offline-page p { max-width:510px; font-size: 19px; }
+.offline-page small { font-size: 14px; color:#506268; }
 @media(max-width:650px) { .app-install-panel { grid-template-columns:1fr; gap:30px; padding:56px 24px 35px; }.app-benefits {grid-template-columns:1fr;padding:20px 24px 45px;gap:16px;}.app-page-header {padding:20px 24px;}.app-page-header>a:last-child{max-width:110px;text-align:right;} }

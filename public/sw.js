@@ -1,5 +1,5 @@
 /* Kingsperl Events: public assets only. Customer data never enters this cache. */
-const CACHE = "kingsperl-public-v3";
+const CACHE = "kingsperl-public-v4";
 const PRECACHE = ["/offline", "/icon-192.png", "/icon-512.png", "/brand/kingsperl-logo-dark.svg"];
 const PUBLIC_PAGES = new Set(["/", "/events", "/privacy", "/terms", "/install"]);
 
@@ -31,7 +31,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  const isPublicAsset = url.pathname.startsWith("/_next/static/") || /^\/(?:decor|decor-v2|event-world|brand|og|fonts)\//.test(url.pathname) || /^\/(?:icon-[\w-]+\.png|favicon\.(?:svg|ico)|favicon-\d+\.png|apple-touch-icon\.png)$/.test(url.pathname);
+  const isPublicAsset = url.pathname.startsWith("/_next/static/") || /^\/(?:decor|decor-v2|event-world|brand|og|fonts|editorial)\//.test(url.pathname) || /^\/(?:icon-[\w-]+\.png|favicon\.(?:svg|ico)|favicon-\d+\.png|apple-touch-icon\.png)$/.test(url.pathname);
   if (isPublicAsset && !url.search) {
     event.respondWith(caches.match(request).then((saved) => saved || fetch(request).then((response) => {
       const snapshot = response.ok ? response.clone() : null;

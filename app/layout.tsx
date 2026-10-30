@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { BRAND } from "./brand";
 import { PwaSupport } from "./pwa-support";
 import "./globals.css";
-import "./typography.css";
+import "./design-system.css";
+import "./home.css";
+import "./event-world-theme.css";
 import "./workspace-theme.css";
 
 export const metadata: Metadata = {
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#071A1F", colorScheme: "light", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#6542D6", colorScheme: "light", width: "device-width", initialScale: 1 };
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -83,8 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preload" href="/fonts/grenze-gotisch-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/plus-jakarta-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body>
         {process.env.NODE_ENV === "development" && <script dangerouslySetInnerHTML={{ __html: `if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(rs => rs.filter(r => r.active && new URL(r.active.scriptURL).pathname === '/sw.js').forEach(r => r.unregister())); } if ('caches' in window) { caches.keys().then(ks => ks.filter(k => k.startsWith('kingsperl-public-')).forEach(k => caches.delete(k))); }` }} />}

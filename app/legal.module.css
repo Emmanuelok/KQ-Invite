@@ -150,3 +150,5 @@
     flex-direction: column;
   }
 }
+
+.page{background:#f7f3fc;color:#37253e}.header{background:white;color:#44314f;border-color:#e4d7ee}.header a:not(:first-child){color:#795489;font-size:15px}.hero h1{font-family:var(--sans);font-weight:700;letter-spacing:-.055em;line-height:1.1;color:#573567}.hero p,.section>span{color:#8d62a2;font-size:14px;letter-spacing:.06em}.hero>span,.section p,.section li{color:#735981;font-size:18px;line-height:1.8}.section h2{font-family:var(--sans);font-weight:700;letter-spacing:-.04em;font-size:31px}.note{background:#eee3f7;color:#79548e;border-radius:12px;border-color:#aa7cc2;font-size:16px}.footer{background:#2b203b;color:#d7c5e7;font-size:15px}

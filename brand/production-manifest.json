@@ -4,31 +4,35 @@
     "id": "kingsperl-events",
     "name": "Kingsperl Events",
     "mode": "brand-and-web",
-    "objective": "Restore the original cinematic design with elegant Gothic headings, readable text and the existing operational planning workspace.",
+    "objective": "Completely reimagine Kingsperl Events with a distinctive contemporary visual identity, generous readable typography and a cohesive customer planning experience.",
     "audience": "Event hosts in St. John's and the Avalon Peninsula",
     "governing_idea": "An architectural K, an event arch and a pearl unify the identity.",
     "status": "implemented"
   },
   "creative_system": {
-    "visual_thesis": "Atlantic ink, warm ivory and gold; a restored cinematic composition with generous imagery, Gothic display headings and clear sans-serif supporting text.",
+    "visual_thesis": "A vivid violet opening, a coral-and-lilac event photograph, fresh-lime accents and open photographic layouts create an imaginative contemporary event studio.",
     "anti_goals": [
-      "generic spectacle",
-      "unmotivated visual effects"
+      "Gothic typography",
+      "dark gold cinematic theme",
+      "small low-contrast interface text",
+      "generic repeated imagery"
     ],
     "palette": {
       "dominant": [
-        "#071A1F",
-        "#FFF9EE"
+        "#6542D6",
+        "#FAF9FD",
+        "#2B203B"
       ],
       "accent": [
-        "#C69C59"
+        "#FF8D79",
+        "#DDF6A0"
       ],
-      "contrast": "Ivory on ink; gold for meaningful emphasis."
+      "contrast": "White and fresh lime on violet; dark plum text on pale surfaces."
     },
-    "composition": "Strong single focal point, layered depth, and deliberate negative space.",
+    "composition": "Oversized type, a framed photographic hero, varied service imagery, generous spacing, clear grouped controls and shared navigation.",
     "camera": "Grounded perspective, motivated movement, and stable screen direction.",
     "lighting": "Motivated practical sources with consistent direction and softness.",
-    "typography": "Outlined DejaVu Serif wordmark; self-hosted Grenze Gotisch display headings and Manrope body/interface text, with supporting text at least 14px.",
+    "typography": "Self-hosted Plus Jakarta Sans, bold expressive headings and clear 17\u201319px supporting copy; no Gothic display fonts.",
     "motion": "Existing restrained website transitions with reduced-motion support.",
     "sound": "Not applicable",
     "interface": "Clear hierarchy, responsive reflow, keyboard access, and reduced-motion parity.",
@@ -66,6 +70,16 @@
       "rights_status": "original",
       "description": "512-pixel icon rendered from original vector geometry.",
       "notes": "Dedicated maskable version also supplied."
+    },
+    {
+      "id": "ast-coral-gathering",
+      "type": "image",
+      "source": "public/editorial/coral-gathering.webp",
+      "role": "homepage hero",
+      "rights_status": "generated",
+      "description": "Original photorealistic coral-and-lilac celebration concept, with flowers, sculptural drapery and refined tables.",
+      "notes": "Generated with built-in ImageGen for this project. Interface explicitly labels it as a design concept, not completed client work.",
+      "prompt": "Create a spectacular high-end event design photograph, landscape 3:2, an airy architectural pavilion with coral and vermilion draping, coral and lavender floral arrangements, cherry-red sculptural plinths, ivory linen, violet-tinted glassware and brushed-metal chairs. A circular floral installation through tall draped arches. Professional architectural editorial photography, warm side daylight, realistic materials and scale, 35mm perspective. No people, text, logos, watermarks, or black-and-gold styling. Aspirational event concept imagery."
     }
   ],
   "elements": [],
@@ -138,9 +152,9 @@
     "acceptance_threshold": 85,
     "critical_failures": [],
     "review_notes": [
-      "Readable type system with a 14px minimum for supporting interface text and 16\u201319px controls and body text.",
-      "15 automated checks and the production build passed.",
-      "Live checks cover calculated scopes, local draft recovery, checklist persistence, tentative calendar export and private-link validation."
+      "Production build and 15 automated planning/security checks passed during development.",
+      "All visible supporting text is at least 14px; body text and controls use larger legible sizes.",
+      "Final rendered review in progress."
     ]
   },
   "gates": [],
@@ -148,5 +162,14 @@
     "Brand scope remains the existing St. John's event-design company."
   ],
   "open_questions": [],
-  "risks": []
+  "risks": [],
+  "direction_record": {
+    "selected": "Vivid contemporary event atelier",
+    "alternatives_considered": [
+      "Quiet monochrome architectural studio",
+      "Expressive colour-blocked event atelier",
+      "Soft romantic botanical editorial"
+    ],
+    "selection_reason": "The expressive direction is substantially different from both rejected designs and gives photography and clean readable typography the main roles."
+  }
 }

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import HomeOpening from "./home-opening";
 import { BRAND, BrandLockup } from "./brand";
 import {
   events as eventWorldEvents,
@@ -655,6 +656,7 @@ function IconArrow() {
 
 export default function EventDecorExperience() {
   const [filter, setFilter] = useState("All");
+  const [showAllLooks, setShowAllLooks] = useState(false);
   const [selectedProject, setSelectedProject] = useState<DecorProject | null>(null);
   const [selectedGuestOverride, setSelectedGuestOverride] = useState<number | null>(null);
   const [selectedEventOverride, setSelectedEventOverride] = useState<string | null>(null);
@@ -792,7 +794,15 @@ export default function EventDecorExperience() {
   }, [selectedProject, moodbookOpen, consultationOpen]);
 
   const visibleProjects = useMemo(
-    () => (filter === "All" ? projects : projects.filter((project) => project.category === filter)),
+    () => {
+      if (filter !== "All") return projects.filter((project) => project.category === filter);
+      const featured = ["pearl-sage", "blue-hour", "clay-rose", "cloud-nine", "heritage-gold", "north-star-gala"];
+      return [...projects].sort((a, b) => {
+        const first = featured.indexOf(a.id);
+        const second = featured.indexOf(b.id);
+        return (first < 0 ? 99 : first) - (second < 0 ? 99 : second);
+      });
+    },
     [filter],
   );
 
@@ -974,126 +984,21 @@ export default function EventDecorExperience() {
   };
 
   return (
-    <main id="top">
-      <div className="top-ribbon">
-        <span>St. John&apos;s · Mount Pearl · Paradise · Conception Bay South</span>
-        <span className="top-ribbon-secondary">Event dates now in consultation</span>
-      </div>
-
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label={`${BRAND.name} home`}><BrandLockup /></a>
-        <nav aria-label="Primary navigation">
-          <a href="/events">Event world</a>
-          <a href="#inspiration">Signature looks</a>
-          <a href="/studio">Design studio</a>
-          <a href="#services">Services</a>
-          <a href="/my-event">My event</a>
-        </nav>
-        <div className="header-actions">
-          <button className="text-button" onClick={() => setMoodbookOpen(true)}>
-            Moodbook <span>{moodbook.length}</span>
-          </button>
-          <button className="solid-button compact" onClick={() => setConsultationOpen(true)}>
-            Check a date
-          </button>
-        </div>
-      </header>
-
-      <section className="hero" id="main-content" tabIndex={-1}>
-        <div className="hero-media" aria-hidden="true">
-          <div className="hero-film">
-            <Image
-              unoptimized
-              priority
-              className="hero-frame hero-frame-base"
-              src="/decor-v2/hero-glasshouse-v2-hd.webp"
-              alt=""
-              width={3070}
-              height={2048}
-              decoding="async"
-              fetchPriority="high"
-            />
-            <Image
-              unoptimized
-              className="hero-frame hero-frame-rain"
-              src="/decor-v2/hero-glasshouse-rain-v2-hd.webp"
-              alt=""
-              width={3072}
-              height={2048}
-              loading="eager"
-              decoding="async"
-            />
-            <Image
-              unoptimized
-              className="hero-frame hero-frame-warm"
-              src="/decor-v2/hero-glasshouse-warm-v2-hd.webp"
-              alt=""
-              width={3070}
-              height={2048}
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <div className="hero-light-sweep" />
-          <div className="hero-wash" />
-          <div className="hero-grain" />
-        </div>
-        <div className="hero-content">
-          <p className="eyebrow light">{BRAND.name} · {BRAND.tagline}</p>
-          <h1>We don&apos;t decorate rooms. <em>We compose the feeling.</em></h1>
-          <p className="hero-copy">
-            Cinematic event environments for Newfoundland celebrations—designed around your people,
-            your venue, your budget and the exact moment you want them to remember.
-          </p>
-          <div className="hero-actions">
-            <a className="solid-button light-button" href="/studio">
-              Design my event <IconArrow />
-            </a>
-            <a className="ghost-button" href="#inspiration">
-              Explore signature looks
-            </a>
-            <a className="ghost-button" href="/events">Browse {eventWorldEvents.length} occasions</a>
-          </div>
-          <div className="hero-proof">
-            <div><strong>{eventWorldEvents.length}</strong><span>décor-relevant occasions</span></div>
-            <div><strong>6</strong><span>visual collections</span></div>
-            <div><strong>42</strong><span>one-use scenes</span></div>
-          </div>
-        </div>
-        <div className="hero-aside">
-          <span>01 / Design intelligence</span>
-          <p>Tell us the event, room, palette and spend. Receive a venue-aware concept with quantities, measurements and priorities.</p>
-          <a href="/studio">Open the advanced studio <span>→</span></a>
-        </div>
-        <div className="scroll-cue"><span /> Scroll to enter</div>
-      </section>
-
-      <section className="editorial-intro section-shell">
-        <div>
-          <p className="eyebrow">A clearer way to imagine your event</p>
-          <h2>Beautiful enough to inspire. Detailed enough to price.</h2>
-        </div>
-        <div className="editorial-copy">
-          <p>
-            Every concept opens into its complete décor build sheet—inventory, quantities, dimensions,
-            installation window and a realistic starting investment. No mystery moodboards.
-          </p>
-          <span>Concept imagery is clearly identified until replaced by verified client work.</span>
-        </div>
-      </section>
+    <main id="top" className="new-home">
+      <HomeOpening onConsult={() => setConsultationOpen(true)} onBoard={() => setMoodbookOpen(true)} boardCount={moodbook.length} onCategory={(category) => { setFilter(category); setShowAllLooks(false); scrollToSection("#inspiration"); }} />
 
       <section className="gallery-section" id="inspiration">
         <div className="section-shell gallery-heading">
           <div>
-            <p className="eyebrow">The inspiration library</p>
-            <h2>Find the feeling first.</h2>
+            <p className="eyebrow">Find your kind of extraordinary</p>
+            <h2>A world of possibilities.</h2>
           </div>
           <div className="filter-row" role="group" aria-label="Filter inspiration by event type">
             {["All", "Weddings", "Celebrations", "Corporate", "Community"].map((category) => (
               <button
                 key={category}
                 className={filter === category ? "active" : ""}
-                onClick={() => setFilter(category)}
+                onClick={() => { setFilter(category); setShowAllLooks(false); }}
                 aria-pressed={filter === category}
               >
                 {category}
@@ -1101,8 +1006,8 @@ export default function EventDecorExperience() {
             ))}
           </div>
         </div>
-        <div className="project-grid">
-          {visibleProjects.map((project, index) => (
+        <div className="project-grid" id="look-grid">
+          {visibleProjects.slice(0, showAllLooks ? visibleProjects.length : 6).map((project, index) => (
             <article
               className={`project-card ${index % 7 === 0 || index % 7 === 3 ? "project-card-wide" : ""}`}
               key={project.id}
@@ -1146,17 +1051,17 @@ export default function EventDecorExperience() {
             </article>
           ))}
         </div>
+        <div className="gallery-more section-shell"><p>Each image is a design concept. Your final look is created around your venue and priorities.</p>{visibleProjects.length > 6 && <button className="new-button dark" aria-expanded={showAllLooks} aria-controls="look-grid" onClick={() => setShowAllLooks(!showAllLooks)}>{showAllLooks ? "Show fewer looks" : `Explore all ${visibleProjects.length} looks`} <span aria-hidden="true">{showAllLooks ? "−" : "+"}</span></button>}</div>
       </section>
 
       <section className="planner-section" id="design-studio">
         <div className="section-shell planner-heading">
           <div>
-            <p className="eyebrow light">{BRAND.name} Design Intelligence</p>
-            <h2>Your venue. Your people. A concept built around both.</h2>
+            <p className="eyebrow light">Your ideas, taking shape</p>
+            <h2>Big idea?<br />Let’s give it a plan.</h2>
           </div>
           <p>
-            Complete a focused brief. The studio turns capacity, spatial limits, palette and budget into
-            a practical décor direction—not just a pretty picture.
+            A few details are all it takes to begin. Tell us about your occasion, explore a direction and see what your space could become.
           </p>
         </div>
 
@@ -1335,34 +1240,27 @@ export default function EventDecorExperience() {
 
       <section className="services-section section-shell" id="services">
         <div className="services-heading">
-          <div><p className="eyebrow">More than rentals</p><h2>One creative team. Every visible layer.</h2></div>
+          <div><p className="eyebrow">The details make the difference</p><h2>Your vision.<br />Our full attention.</h2></div>
           <p>Book a focused installation or place the complete visual environment in our hands.</p>
         </div>
-        <div className="service-grid">
+        <div className="new-service-stories">
           {[
-            ["01", "Creative direction", "Concept narrative, palette architecture, floor-zone plan and a visual proposal built around the venue."],
-            ["02", "Décor & rentals", "Backdrops, plinths, textiles, tabletop, candles, arches, signage, lounge pieces and custom scenic elements."],
-            ["03", "Floral composition", "Fresh, dried and premium faux floral systems selected for impact, seasonality and spend."],
-            ["04", "Lighting atmosphere", "Uplighting, pin spots, practical glow and candle-safe illumination that photographs beautifully."],
-            ["05", "Production logistics", "Venue liaison, load planning, crew scheduling, installation, strike, transport and weather contingencies."],
-            ["06", "Custom moments", "Entrances, photo environments, stages, cultural ceremonies, branded experiences and statement builds."],
-          ].map(([number, title, copy]) => (
-            <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p><a href="#design-studio" aria-label={`Plan ${title}`}>Explore <IconArrow /></a></article>
-          ))}
+            { title: "Design & styling", image: "/decor-v2/09-lavender-tea-v2.webp", number: "01", text: "A considered creative direction, from your colour palette and florals to the way the entire room feels.", tags: "Creative direction · Florals · Tablescapes" },
+            { title: "Décor & experiences", image: "/decor-v2/14-coral-launch-v2.webp", number: "02", text: "Distinctive rentals, sculptural backdrops and beautifully personal details that bring your story to life.", tags: "Rentals · Custom pieces · Brand moments" },
+            { title: "Production & care", image: "/decor-v2/07-blue-hour-v2.webp", number: "03", text: "The planning, lighting, installation and final checks that let you arrive and enjoy your own occasion.", tags: "Lighting · Logistics · Installation" },
+          ].map((service) => <article key={service.number}><div className="new-service-image"><Image unoptimized src={service.image} alt={`${service.title} inspiration — event design concept`} width={1536} height={1024} loading="lazy" /><span>{service.number}</span></div><div className="new-service-copy"><h3>{service.title}</h3><p>{service.text}</p><small>{service.tags}</small><button onClick={() => setConsultationOpen(true)} aria-label={`Discuss ${service.title.toLowerCase()}`}>Let’s talk <span aria-hidden="true">↗</span></button></div></article>)}
         </div>
       </section>
 
       <section className="approach-section" id="approach">
         <div className="section-shell">
-          <div className="approach-title"><p className="eyebrow light">From “maybe this” to doors open</p><h2>A process with no missing middle.</h2></div>
+          <div className="approach-title"><p className="eyebrow light">The journey, made simple</p><h2>From a spark<br />to a shared memory.</h2></div>
           <div className="timeline">
             {[
-              ["01", "Brief", "Event, venue, guests, priorities, palette and budget."],
-              ["02", "Concept", "Visual direction, room zones and initial feasibility."],
-              ["03", "Specification", "Every item, quantity, dimension and substitution rule."],
-              ["04", "Lock", "Venue walkthrough, scope, written agreement, deposit and date confirmation."],
-              ["05", "Produce", "Sourcing, florals, fabrication, packing and run sheet."],
-              ["06", "Transform", "Install, styling checks, handover, strike and return."],
+              ["01", "Dream it", "Share your occasion, your people and what you want the day to feel like."],
+              ["02", "Shape it", "Explore a visual direction with a clear scope and a thoughtful working budget."],
+              ["03", "Make it yours", "Refine the details, confirm your venue and approve the plan and agreement."],
+              ["04", "Be in the moment", "We coordinate the installation, styling and finishing touches. You enjoy the gathering."],
             ].map(([number, title, copy]) => <div key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></div>)}
           </div>
         </div>
@@ -1372,7 +1270,7 @@ export default function EventDecorExperience() {
         <div className="local-photo"><Image unoptimized src="/decor-v2/15-harbour-blue-v2.webp" alt="Harbour-inspired fundraising event décor concept" width={1536} height={1024} loading="lazy" decoding="async" /><span>Designed for the realities of the Avalon</span></div>
         <div className="local-copy">
           <p className="eyebrow">Local knowledge is part of the design</p>
-          <h2>Fog, wind, loading docks and fifteen-minute room flips.</h2>
+          <h2>A local heart.<br />A wider imagination.</h2>
           <p>Newfoundland events demand more than a moodboard. Every proposal can account for weather, delivery windows, narrow heritage access, venue inventory, flame policies and the time it takes to safely strike.</p>
           <ul>
             <li><span>01</span> Indoor backup logic for outdoor ceremonies</li>
@@ -1386,7 +1284,7 @@ export default function EventDecorExperience() {
       <section className="proof-section">
         <div className="section-shell">
           <p className="eyebrow">The experience we design for</p>
-          <blockquote>“The room should reveal itself in one breath—then keep rewarding every closer look.”</blockquote>
+          <blockquote>Thoughtfully imagined.<br />Beautifully brought together.</blockquote>
           <div className="proof-grid">
             <article><strong>One source of truth</strong><p>Your approved visual, item schedule, venue notes and substitutions stay connected.</p></article>
             <article><strong>Budget transparency</strong><p>Know where the visual impact lives and what can flex before you commit.</p></article>
@@ -1396,7 +1294,7 @@ export default function EventDecorExperience() {
       </section>
 
       <section className="faq-section section-shell">
-        <div><p className="eyebrow">Before we begin</p><h2>Good questions, answered clearly.</h2><button className="outline-button" onClick={() => setConsultationOpen(true)}>Ask about your event</button></div>
+        <div><p className="eyebrow">Before we begin</p><h2>A few things<br />you might wonder.</h2><button className="outline-button" onClick={() => setConsultationOpen(true)}>Ask about your event</button></div>
         <div className="faq-list">
           {[
             ["How early should I book?", "For full-room weddings and galas, 6–12 months is ideal. Focused installations can sometimes be produced in 4–8 weeks, depending on inventory and fabrication."],
@@ -1414,15 +1312,15 @@ export default function EventDecorExperience() {
       </section>
 
       <section className="closing-cta">
-        <div className="closing-media"><Image unoptimized src="/decor-v2/02-nocturne-v2.webp" alt="Candlelit black-tie ballroom décor concept" width={1536} height={1024} loading="lazy" decoding="async" /></div>
+        <div className="closing-media"><Image unoptimized src="/editorial/coral-gathering.webp" alt="Coral and lilac celebration design concept" width={1536} height={1024} loading="lazy" decoding="async" /></div>
         <div className="closing-content">
-          <p className="eyebrow light">The date is only the beginning</p>
-          <h2>Let&apos;s give the room a reason to be remembered.</h2>
+          <p className="eyebrow light">Your next great memory starts here</p>
+          <h2>Let’s make<br /><em>something special.</em></h2>
           <div><button className="solid-button light-button" onClick={() => setConsultationOpen(true)}>Start a consultation <IconArrow /></button><a href="#design-studio">Or create a first concept yourself</a></div>
         </div>
       </section>
 
-      <footer>
+      <footer className="new-footer">
         <div className="footer-top">
           <a className="brand footer-brand" href="#top" aria-label={`${BRAND.name} home`}><BrandLockup /></a>
           <p>Cinematic event design for St. John&apos;s and the Avalon Peninsula.</p>
@@ -1435,6 +1333,7 @@ export default function EventDecorExperience() {
           <div><span>Studio hours</span><p>Consultations by appointment</p><p>Tell us your preferred time.</p><p>We’ll confirm an appointment.</p><button onClick={() => setConsultationOpen(true)}>Request a time →</button></div>
         </div>
         <div className="footer-bottom"><span>© 2026 {BRAND.name} Events</span><span>{BRAND.tagline} · St. John&apos;s, Newfoundland & Labrador</span><div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/my-event">My event</a><a href="/install">Get the app ↗</a></div></div>
+        <div className="footer-wordmark" aria-hidden="true">kingsperl<span>EVENTS</span></div>
       </footer>
 
       <div className="mobile-cta"><a href="/events">Events</a><button onClick={() => scrollToSection("#design-studio")}>Design</button><button onClick={() => setMoodbookOpen(true)}>Moodbook {moodbook.length}</button><button onClick={() => setConsultationOpen(true)}>Check date</button></div>
@@ -1495,7 +1394,7 @@ export default function EventDecorExperience() {
           <aside className="consultation-modal">
             <button ref={dialogCloseRef} className="modal-close" onClick={closeConsultation} aria-label="Close">×</button>
             {!submitted ? (
-              <><p className="eyebrow">Begin with a real conversation</p><h2>Tell us enough to check the fit.</h2><p className="modal-lede">We&apos;ll respond with availability, the right service level and the next useful question—not a generic sales sequence.</p>
+              <><p className="eyebrow">Begin with a real conversation</p><h2>Let’s bring your idea to life.</h2><p className="modal-lede">Tell us what you’re planning. We’ll help you explore availability, possibilities and the right next step.</p>
                 <form onSubmit={submitConsultation}>
                   <div className="field-grid two"><label>Full name<input name="fullName" required placeholder="Your name" /></label><label>Email<input name="email" required type="email" placeholder="you@example.com" /></label></div>
                   <div className="field-grid two"><label>Phone<input name="phone" type="tel" placeholder="(709) 555-0123" /></label><label>Event date<input name="eventDate" type="date" defaultValue={planner.date} /></label></div>

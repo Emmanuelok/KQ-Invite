@@ -4,6 +4,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import SiteHeader from "../site-header";
 import { BRAND, BrandLockup } from "../brand";
 import {
   categories,
@@ -363,33 +364,13 @@ export default function EventWorld() {
 
   return (
     <main className="event-world-page">
-      <div className="top-ribbon event-world-ribbon">
-        <span>St. John&apos;s first · globally inspired</span>
-        <span className="top-ribbon-secondary">42 concept scenes · each shown once</span>
-      </div>
-
-      <header className="site-header event-world-header">
-        <a className="brand" href="/" aria-label={`${BRAND.name} home`}><BrandLockup /></a>
-        <nav aria-label="Primary navigation">
-          <a href="/">Home</a>
-          <a className="active" href="/events" aria-current="page">Event world</a>
-          <a href="/#inspiration">Signature looks</a>
-          <a href="/studio">Design studio</a><a href="/my-event">My event</a>
-        </nav>
-        <div className="header-actions">
-          <button className="text-button" onClick={openBoard}>Planning board <span>{savedLooks.length}</span></button>
-          <a className="solid-button compact" href="/studio">Start a brief</a>
-        </div>
-      </header>
+      <SiteHeader onBoard={openBoard} boardCount={savedLooks.length} />
 
       <section className="event-world-hero" id="main-content" tabIndex={-1}>
-        <div className="event-world-hero-media" aria-hidden="true">
-          <Image unoptimized priority src="/decor-v2/hero-glasshouse-v2-hd.webp" alt="" width={3070} height={2048} fetchPriority="high" sizes="100vw" />
-        </div>
         <div className="event-world-hero-copy">
-          <p className="eyebrow light">The {BRAND.name} Event World</p>
-          <h1>There is a room for <em>every reason</em> people gather.</h1>
-          <p>Search {events.length} real occasions, then enter one of six disciplined visual worlds. The 42 generated concept scenes are never recycled between themes: one scene, one placement, one clear reason to exist. These are design concepts, not photographs of completed client events.</p>
+          <p className="eyebrow light">THE KINGSPERL COLLECTIONS</p>
+          <h1>A world of ideas.<br /><em>Your kind of occasion.</em></h1>
+          <p>Explore {events.length} occasions and six curated collections. Save what you love, find your direction and begin making it yours. Images are inspirational design concepts.</p>
           <div className="event-world-stats" aria-label="Gallery coverage">
             <div><strong>{events.length}</strong><span>searchable occasions</span></div>
             <div><strong>{eventCollections.length}</strong><span>visual collections</span></div>
@@ -399,7 +380,7 @@ export default function EventWorld() {
         </div>
 
         <aside className="event-compass" aria-label="Event direction matcher">
-          <div className="event-compass-heading"><span>Live event compass</span><strong>Find the strongest starting points.</strong></div>
+          <div className="event-compass-heading"><span>A starting point, just for you</span><strong>Find your fit.</strong></div>
           <label>Guests <b>{matcherGuests}</b><input type="range" min="10" max="800" step="10" value={matcherGuests} onChange={(event) => setMatcherGuests(Number(event.target.value))} /></label>
           <label>Décor investment <b>{currency(matcherBudget)}</b><input type="range" min="1500" max="30000" step="500" value={matcherBudget} onChange={(event) => setMatcherBudget(Number(event.target.value))} /></label>
           <div className="event-compass-selects">
@@ -415,8 +396,8 @@ export default function EventWorld() {
 
       <section className="local-event-section">
         <div className="event-world-shell local-event-heading">
-          <div><p className="eyebrow">Popular and practical in St. John&apos;s</p><h2>Designed for the events this city actually hosts.</h2></div>
-          <p>These are direct routes into the right collection—not duplicate cover photos. Local priorities reflect recurring programming, major venue formats and established traditions, not paid placement.</p>
+          <div><p className="eyebrow">What brings you together?</p><h2>Start with your occasion.</h2></div>
+          <p>From life’s milestones to gatherings that move a community, find a collection that speaks to your moment.</p>
         </div>
         <div className="local-event-rail">
           {localEvents.map((event, index) => <button key={event.id} onClick={() => focusCollectionForEvent(event)} className="local-event-card">
@@ -433,7 +414,7 @@ export default function EventWorld() {
 
       <section className="event-collections-section" id="visual-collections">
         <div className="event-world-shell event-collections-heading">
-          <div><p className="eyebrow">Six visual worlds · zero recycled scenes</p><h2>Every scene earns one place.</h2></div>
+          <div><p className="eyebrow">SIX COLLECTIONS. ENDLESS PERSONALITY.</p><h2>Find the look that feels like you.</h2></div>
           <p>The catalogue has been tightened into six stronger collections. Choose the exact occasion inside a collection; quantities, measurements and the studio handoff remain specific to that selection.</p>
         </div>
 
@@ -474,7 +455,7 @@ export default function EventWorld() {
 
       <section className="event-catalog-section" id="event-catalog">
         <div className="event-world-shell event-catalog-heading">
-          <div><p className="eyebrow">The complete text-only occasion index</p><h2>Find any reason to gather.</h2></div>
+          <div><p className="eyebrow">EVERY REASON TO CELEBRATE</p><h2>Find any reason to gather.</h2></div>
           <p>All {events.length} décor-relevant occasions remain searchable without duplicating photography. Choose one and we will take you to its strongest visual collection with the exact occasion already selected.</p>
         </div>
 
@@ -508,18 +489,18 @@ export default function EventWorld() {
       </section>
 
       <section className="event-intelligence-section">
-        <div className="event-world-shell event-intelligence-heading"><p className="eyebrow light">Beyond the image grid</p><h2>Every inspiration can become an executable event brief.</h2></div>
+        <div className="event-world-shell event-intelligence-heading"><p className="eyebrow light">FROM INSPIRATION TO SOMETHING REAL</p><h2>Beautiful ideas. Practical plans.</h2></div>
         <div className="event-world-shell event-intelligence-grid">
-          <article><span>01</span><h3>Zero-repeat visual system</h3><p>Forty-two original scenes are divided once across six visual collections. No card is disguised as a different theme.</p></article>
-          <article><span>02</span><h3>Local operating intelligence</h3><p>Weather, wind, access, venue class, guest flow and seasonal substitution logic travel with the visual direction.</p></article>
-          <article><span>03</span><h3>Persistent planning board</h3><p>Save a look once, attach it to the correct occasion and carry every selected signal into the design studio.</p></article>
-          <article><span>04</span><h3>Specification-ready handoff</h3><p>Move from an event and direction into the design studio, then calculate inventory, quantities, measurements and scope.</p></article>
+          <article><span>01</span><h3>Room to imagine</h3><p>Explore forty-two distinctive concept scenes across six collections, each with its own atmosphere and details.</p></article>
+          <article><span>02</span><h3>Made for your venue</h3><p>Weather, wind, access, venue class, guest flow and seasonal substitution logic travel with the visual direction.</p></article>
+          <article><span>03</span><h3>Keep what you love</h3><p>Save a look once, attach it to the correct occasion and carry every selected signal into the design studio.</p></article>
+          <article><span>04</span><h3>A clear next step</h3><p>Move from an event and direction into the design studio, then calculate inventory, quantities, measurements and scope.</p></article>
         </div>
       </section>
 
       <section className="event-world-cta">
         <div className="event-world-cta-orbit" aria-hidden="true"><span /><span /><span /></div>
-        <div><p className="eyebrow light">Found the signal?</p><h2>Now make it unmistakably yours.</h2><p>Bring one precise direction or a board of contrasting ideas. The studio translates the signal into a venue-aware, quantity-ready plan.</p><a className="solid-button light-button" href="/studio">Open the design studio <Arrow /></a></div>
+        <div><p className="eyebrow light">YOUR IDEAS ARE ONLY THE BEGINNING</p><h2>Now make it unmistakably yours.</h2><p>Bring a favourite look or a board full of possibilities. We’ll help turn your inspiration into a plan for your people and your place.</p><a className="solid-button light-button" href="/studio">Open the design studio <Arrow /></a></div>
       </section>
 
       <footer className="event-world-footer">

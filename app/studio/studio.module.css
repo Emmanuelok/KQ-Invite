@@ -333,7 +333,7 @@
   width: min(1320px, calc(100% - clamp(56px, 8vw, 128px)));
   margin: 28px auto -18px;
   padding: 14px 18px;
-  border-left: 3px solid #2f7677;
+  border-left: 3px solid #8160ae;
   background: #dfece7;
   color: #173e39;
   font-size: 14px;
@@ -352,7 +352,7 @@
   gap: 18px;
   padding: clamp(22px, 3vw, 38px);
   border: 1px solid rgba(7, 26, 31, 0.13);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .formGrid label,
@@ -403,7 +403,7 @@
 .approvalPanel input:focus,
 .changePanel select:focus,
 .changePanel textarea:focus {
-  border-color: #2f7677;
+  border-color: #8160ae;
   box-shadow: 0 0 0 3px rgba(47, 118, 119, 0.14);
 }
 
@@ -423,7 +423,7 @@
   min-height: 32px !important;
   padding: 0 !important;
   border: 0 !important;
-  accent-color: #2f7677;
+  accent-color: #8160ae;
   background: transparent !important;
 }
 
@@ -442,7 +442,7 @@
   width: 20px !important;
   min-height: 20px !important;
   margin: 2px 0 0;
-  accent-color: #2f7677;
+  accent-color: #8160ae;
 }
 
 .checkLine span {
@@ -487,7 +487,7 @@
 
 .primaryAction:hover,
 .primaryAction:focus-visible {
-  background: #164147;
+  background: #3c255e;
 }
 
 .secondaryAction {
@@ -504,12 +504,12 @@
 .tierCard {
   overflow: hidden;
   border: 1px solid rgba(7, 26, 31, 0.14);
-  background: #f8f5ef;
+  background: #ffffff;
   box-shadow: 0 14px 40px rgba(7, 26, 31, 0.05);
 }
 
 .selectedTier {
-  border-color: #2f7677;
+  border-color: #8160ae;
   box-shadow: 0 0 0 2px rgba(47, 118, 119, 0.2), 0 18px 50px rgba(7, 26, 31, 0.1);
 }
 
@@ -517,7 +517,7 @@
   position: relative;
   aspect-ratio: 1.3;
   overflow: hidden;
-  background: #183137;
+  background: #463153;
 }
 
 .tierImage img {
@@ -557,7 +557,7 @@
 
 .tierBody > p:first-child {
   margin: 0 0 6px;
-  color: #2f7677;
+  color: #8160ae;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -611,7 +611,7 @@
 
 .tierBody li {
   padding: 5px 8px;
-  background: #e8ece7;
+  background: #eee6f6;
 }
 
 .tierMeta {
@@ -634,7 +634,7 @@
 }
 
 .selectedTier .tierBody button {
-  background: #2f7677;
+  background: #8160ae;
 }
 
 .budgetSignal {
@@ -674,7 +674,7 @@
 
 .onBudget {
   background: rgba(81, 170, 127, 0.18);
-  color: #bde7d0;
+  color: #ddd0f1;
 }
 
 .overBudget {
@@ -692,7 +692,7 @@
 .floorPlanPanel {
   padding: clamp(22px, 3vw, 34px);
   border: 1px solid rgba(7, 26, 31, 0.13);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .dimensionGrid {
@@ -803,7 +803,7 @@
   margin: 0 auto;
   overflow: hidden;
   border: 2px solid #52676b;
-  background-color: #e9ede8;
+  background-color: #f2eaf8;
   background-image: linear-gradient(rgba(7, 26, 31, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(7, 26, 31, .055) 1px, transparent 1px);
   background-size: 22px 22px;
 }
@@ -816,9 +816,9 @@
   display: grid;
   height: 16%;
   place-items: center;
-  border: 1px solid #2f7677;
+  border: 1px solid #8160ae;
   background: rgba(47, 118, 119, 0.15);
-  color: #245b5d;
+  color: #65407b;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -856,7 +856,7 @@
   min-width: 16px;
   place-items: center;
   background: repeating-linear-gradient(180deg, rgba(47, 118, 119, 0.18), rgba(47, 118, 119, 0.18) 8px, rgba(47, 118, 119, 0.36) 8px, rgba(47, 118, 119, 0.36) 12px);
-  color: #245b5d;
+  color: #65407b;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -869,7 +869,7 @@
   right: 7%;
   bottom: 0;
   padding: 5px 9px;
-  background: #c69c59;
+  background: #bd9be2;
   font-size: 14px;
   font-weight: 850;
 }
@@ -885,7 +885,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   border: 1px solid rgba(7, 26, 31, 0.12);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .constraintGrid article {
@@ -901,7 +901,7 @@
 .proposalScope > span,
 .assumptions span,
 .localRules span {
-  color: #2f7677;
+  color: #8160ae;
   font-size: 14px;
   font-weight: 820;
   letter-spacing: 0.1em;
@@ -969,7 +969,7 @@
 .tableWrap {
   overflow: hidden;
   border: 1px solid rgba(7, 26, 31, 0.13);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .buildTable {
@@ -981,7 +981,7 @@
 .buildTable th {
   padding: 14px 16px;
   border-bottom: 1px solid rgba(7, 26, 31, 0.13);
-  background: #e5e8e2;
+  background: #f0e7f7;
   color: #56666a;
   font-size: 14px;
   font-weight: 800;
@@ -1073,7 +1073,7 @@
 .proposalDocument,
 .approvalPanel {
   border: 1px solid rgba(7, 26, 31, 0.13);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .proposalDocument {
@@ -1117,8 +1117,8 @@
 
 .proposalTop > strong {
   padding: 8px 11px;
-  background: #dce8e4;
-  color: #245b5d;
+  background: #ecdef7;
+  color: #65407b;
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1155,7 +1155,7 @@
 
 .proposalScope li {
   padding: 5px 9px;
-  background: #e8ece7;
+  background: #eee6f6;
 }
 
 .quoteLines {
@@ -1202,7 +1202,7 @@
 
 .assumptions {
   padding: 17px;
-  background: #e9ece7;
+  background: #efe6f7;
 }
 
 .assumptions p {
@@ -1235,7 +1235,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 14px;
-  background: #e7ebe6;
+  background: #f0e7f7;
 }
 
 .paymentCards strong {
@@ -1246,7 +1246,7 @@
 }
 
 .paymentCards i {
-  color: #2f7677;
+  color: #8160ae;
   font-size: 14px;
   font-style: normal;
   font-weight: 800;
@@ -1316,7 +1316,7 @@
 .resumeNotice {
   padding: 13px 16px;
   border: 1px solid rgba(7, 26, 31, 0.14);
-  background: #f4efe5;
+  background: #f3ecfa;
   color: var(--ink);
   font-size: 14px;
   line-height: 1.5;
@@ -1364,7 +1364,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(7, 26, 31, 0.12);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .readinessList article {
@@ -1379,7 +1379,7 @@
 }
 
 .readinessList article > div:first-child > span {
-  color: #2f7677;
+  color: #8160ae;
   font-size: 14px;
   font-weight: 830;
   letter-spacing: 0.1em;
@@ -1436,7 +1436,7 @@
   flex-direction: column;
   padding: 22px;
   border: 1px solid rgba(7, 26, 31, 0.12);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .localRules p {
@@ -1459,7 +1459,7 @@
   gap: 28px;
   padding: 30px;
   border: 1px solid rgba(7, 26, 31, 0.12);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .portalHero h2 {
@@ -1480,7 +1480,7 @@
 .changePanel {
   padding: clamp(22px, 3vw, 34px);
   border: 1px solid rgba(7, 26, 31, 0.13);
-  background: #f8f5ef;
+  background: #ffffff;
 }
 
 .timelinePanel > div {
@@ -1525,7 +1525,7 @@
   gap: 13px;
   margin-top: 20px;
   padding: 18px;
-  background: #e9ece7;
+  background: #efe6f7;
 }
 
 .changePanel form button {
@@ -1882,7 +1882,7 @@
     margin-bottom: 12px;
     padding: 14px;
     border: 1px solid rgba(7, 26, 31, 0.13);
-    background: #f8f5ef;
+    background: #ffffff;
   }
 
   .buildTable td {
@@ -1964,3 +1964,14 @@
 .printSummary {display:none;}
 @media(max-width:800px){.header nav{display:none}.header{grid-template-columns:1fr auto;gap:12px;padding:14px 20px}.printButton{display:none}.saveButton{font-size:15px;padding-inline:13px}.draftStatus a{margin-left:0}.contentHeader h1{font-size:43px}.sectionLead h2{font-size:32px}.mobileNav button{min-width:104px;font-size:14px;white-space:normal}.mobileNav{overflow:auto}}
 @media print{.header,.workspace,.mobileNav{display:none!important}.printSummary,.printSummary *{visibility:visible!important}.printSummary{display:block;position:absolute;inset:0;background:white;color:#172c1d;padding:20px;font:12pt/1.5 Arial,sans-serif}.printSummary h1{font-size:28pt}.printSummary h2{font-size:19pt}.printSummary table{width:100%;border-collapse:collapse}.printSummary td,.printSummary th{border-bottom:1px solid #aaa;padding:10px 6px;text-align:left;font-size:10pt}.printSummary tr{break-inside:avoid}.printSummary li{margin-bottom:8px}}
+
+/* A lighter studio, sharing the public site's contemporary identity. */
+.app{background:#f4f0f9;color:#35263e}.header{background:#fff;color:#382544;border-color:#e2d5ed;min-height:86px;backdrop-filter:none}.brand{color:#382544}.header nav a{color:#755880;font-size:15px}.header nav a:hover{color:#6542d6}.headerActions{gap:12px}.saveButton,.primaryAction{border-radius:30px;background:#6542d6;color:white;font-size:16px;padding:14px 23px}.secondaryAction,.printButton{border-radius:30px;background:white;border:1px solid #cdb4dc;color:#755089;font-size:16px}.reference{color:#76528c;font-size:14px}
+.workspace{grid-template-columns:255px minmax(0,1fr);min-height:calc(100vh - 86px)}.sidebar{top:86px;height:calc(100vh - 86px);background:#fff;color:#674774;border-color:#e0d0eb}.sidebarIntro{border-color:#eadff1;padding:27px 23px}.sidebarIntro span,.sidebarIntro small{color:#81638f;letter-spacing:.06em;font-size:14px}.sidebarIntro strong{font-size:20px;line-height:1.3;font-weight:650;color:#573c65;letter-spacing:-.035em}.sidebar nav{gap:7px;padding:16px 13px}.sidebar nav button{border:0;border-radius:11px;color:#755782;font-size:15px;min-height:53px}.sidebar nav button>span{color:#a082b2;letter-spacing:0}.sidebar nav button>i{background:#eee3f5;color:#8a62a0}.sidebar nav button:hover,.sidebar nav button:focus-visible{background:#f3ebf9;color:#76508f}.sidebar nav .activeNav{background:#6542d6;color:white}.sidebar nav .activeNav>span{color:#d9c6ef}.sidebar nav .activeNav>i{background:#9275e4;color:white}.sidebarProof{border-radius:13px;border-color:#e4d7ee;background:#f9f5fc;color:#775285}.sidebarProof small{color:#836491;line-height:1.6}.liveDot{background:#9773af;box-shadow:0 0 0 5px #9773af15}
+.contentHeader{border-color:#e1d2ed;background:#eee5f7;min-height:139px;padding-block:29px}.contentHeader h1{font-family:var(--sans);font-size:43px;font-weight:700;letter-spacing:-.06em;line-height:1.1;color:#543168}.contentHeader p,.sectionLead>p,.portalHero p{color:#88579e;font-size:14px;letter-spacing:.065em}.projectHealth{border:1px solid #dcc8e9;background:#fdfaff;border-radius:12px;overflow:hidden}.projectHealth>span{color:#9575a5;font-size:14px;letter-spacing:.025em}.projectHealth strong{color:#5b3e70;font-size:15px}.projectHealth>span+span{border-color:#e5d7ef}.draftStatus{background:#f5effb;border-color:#e1d2ec;color:#816193;font-size:15px;margin:0;padding:16px 4vw}.draftStatus a{color:#795398}.sectionStack{padding-top:38px;gap:29px}.sectionLead h2,.portalHero h2{font-size:34px;line-height:1.15;font-weight:650;letter-spacing:-.045em;color:#59366e}.sectionLead>span,.sectionLead p,.sectionStack>p{font-size:17px;color:#7b6388;line-height:1.8}
+.formGrid,.venueControls,.readinessOverview,.readinessList,.localRules,.changePanel,.timelinePanel,.paymentCards,.quoteHero,.summary,.designCard,.scopeCard{border-radius:17px;border-color:#e2d2ed;background:#fff}.formGrid label,.venueControls label,.approvalPanel>label,.changePanel label{color:#80618f;font-size:15px;letter-spacing:0}.formGrid input,.formGrid select,.formGrid textarea,.venueControls input,.venueControls select,.approvalPanel input,.changePanel input,.changePanel select,.changePanel textarea{font-size:16px;border-radius:9px;border-color:#d9c2e6;color:#674276}.formGrid input:focus,.formGrid select:focus,.formGrid textarea:focus{border-color:#8a62af;box-shadow:0 0 0 3px #efe3f7}.notice{border-radius:12px;background:#eae0f5;border-color:#8b60ae;color:#75508c}.noticeError{background:#fce7e3;border-color:#ce6a5e;color:#954135}.budgetTable,.itemTable{border-radius:14px;overflow:hidden}.mobileNav{background:#fff;border-color:#dfd0ea}.mobileNav button{color:#886393;font-size:14px}.mobileNav .activeNav{color:#6542d6;background:#eee5f7}
+@media(max-width:1000px){.header{gap:18px;padding:15px 24px}.header nav{gap:18px}.workspace{grid-template-columns:220px minmax(0,1fr)}.contentHeader{gap:22px}.projectHealth>span{min-width:105px;padding:11px}.contentHeader h1{font-size:37px}}
+@media(max-width:800px){.header{grid-template-columns:1fr auto;min-height:80px}.header nav,.printButton{display:none}.workspace{grid-template-columns:1fr}.contentHeader{min-height:120px;padding:25px 22px}.contentHeader h1{font-size:35px}.projectHealth>span{min-width:86px;font-size:14px;padding:8px}.projectHealth strong{font-size:14px}.sectionStack{width:calc(100% - 40px);padding-top:30px}.sectionLead h2{font-size:30px}.saveButton{font-size:15px;padding:12px 19px}.formGrid{padding:24px 20px}.draftStatus{padding:15px 22px}}
+@media(max-width:480px){.projectHealth{display:none}.header{padding-inline:18px}.header .brand strong{font-size:25px}.contentHeader h1{font-size:33px}.sectionLead h2{font-size:29px}}
+
+.readinessOverview{background:#3c255e;color:white}.readinessOverview strong,.readinessOverview p{color:white}.readinessOverview p{font-size:16px}.range{accent-color:#6542d6}

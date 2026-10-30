@@ -30,6 +30,8 @@ Kingsperl Events uses an outlined vector wordmark, an architectural K and pearl 
 
 The Design Studio saves essential progress locally, preserves the existing authenticated customer API, and prints a complete planning summary. Public copy clearly separates estimates and personal checklists from confirmed bookings. Supporting interface text uses at least 14px, with larger form controls and body text.
 
-## Typography
+## Visual identity
 
-The original Atlantic-ink and gold design pairs self-hosted Grenze Gotisch headings with Manrope body and interface text. Supporting copy is at least 14px and body copy is generally 17–20px. Both font licenses are included in `public/fonts/`.
+The reimagined platform uses a violet, coral and fresh-lime palette, self-hosted Plus Jakarta Sans, generous image-led layouts, and a shared navigation system. The homepage pairs a new coral-and-lilac event concept with curated inspiration, image-led service stories, an interactive brief and enquiries. All supporting text is at least 14px, with 17–19px body text and readable form controls.
+
+`public/editorial/coral-gathering.webp` is original AI-generated concept imagery, clearly labelled in the interface, not a completed client event. Its production prompt is recorded in `brand/production-manifest.json`. The font license is included in `public/fonts/`.

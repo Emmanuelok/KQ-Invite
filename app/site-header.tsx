@@ -24,8 +24,8 @@ export default function SiteHeader({ onConsult, onBoard, boardCount = 0 }: {
       <span /><span /><span />
     </button>
     <nav className={`modern-navigation ${open ? "is-open" : ""}`} id="main-navigation" aria-label="Main navigation">
-      <a href="/events" onClick={() => setOpen(false)}>Event collections</a>
-      <a href="/#services" onClick={() => setOpen(false)}>Our services</a>
+      <a href="/events" onClick={() => setOpen(false)}>Discover</a>
+      <a href="/#services" onClick={() => setOpen(false)}>What we do</a>
       <a href="/studio" onClick={() => setOpen(false)}>Design studio</a>
       <a href="/my-event" onClick={() => setOpen(false)}>My event</a>
     </nav>

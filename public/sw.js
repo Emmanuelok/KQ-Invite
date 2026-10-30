@@ -1,5 +1,5 @@
 /* Kingsperl Events: public assets only. Customer data never enters this cache. */
-const CACHE = "kingsperl-public-v4";
+const CACHE = "kingsperl-public-v5";
 const PRECACHE = ["/offline", "/icon-192.png", "/icon-512.png", "/brand/kingsperl-logo-dark.svg"];
 const PUBLIC_PAGES = new Set(["/", "/events", "/privacy", "/terms", "/install"]);
 

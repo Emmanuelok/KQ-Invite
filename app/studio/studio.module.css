@@ -1975,3 +1975,13 @@
 @media(max-width:480px){.projectHealth{display:none}.header{padding-inline:18px}.header .brand strong{font-size:25px}.contentHeader h1{font-size:33px}.sectionLead h2{font-size:29px}}
 
 .readinessOverview{background:#3c255e;color:white}.readinessOverview strong,.readinessOverview p{color:white}.readinessOverview p{font-size:16px}.range{accent-color:#6542d6}
+
+/* Match the public mobile navigation with explicit, accessible colours. */
+@media(max-width:1000px){
+ .mobileNav{gap:5px;background:#fff;color:#352842;border-top:1px solid #ddd5e8;box-shadow:0 -5px 24px #2b203b0d;backdrop-filter:none;padding:8px max(10px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+ .mobileNav button{background:transparent;color:#352842;border:0;border-radius:10px;min-height:60px;font-size:14px;font-weight:650;padding:7px 10px;gap:5px}
+ .mobileNav button span{color:inherit;letter-spacing:0}
+ .mobileNav .activeMobile{background:#5b36c4;color:#fff;box-shadow:none}
+ .mobileNav .activeMobile span{color:#fff}
+ .content{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+}

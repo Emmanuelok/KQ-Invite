@@ -1,10 +1,14 @@
 "use client";
 
+import { UIIcon } from "../ui-icon";
+
+
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import SiteHeader from "../site-header";
+import MobileActionBar from "../mobile-action-bar";
 import { BRAND, BrandLockup } from "../brand";
 import {
   categories,
@@ -389,7 +393,7 @@ export default function EventWorld() {
           </div>
           <div className="event-compass-scope"><span>Recommended scope</span><strong>{scopeFromBudget(matcherBudget)}</strong></div>
           <div className="event-compass-results">
-            {matcherResults.map(({ event }, index) => <button key={event.id} onClick={() => focusCollectionForEvent(event)}><b>0{index + 1}</b><span><strong>{event.title}</strong><small>{collectionForEvent(event).title} · {event.setting}</small></span><i>↘</i></button>)}
+            {matcherResults.map(({ event }, index) => <button key={event.id} onClick={() => focusCollectionForEvent(event)}><b>0{index + 1}</b><span><strong>{event.title}</strong><small>{collectionForEvent(event).title} · {event.setting}</small></span><i><UIIcon name="arrow-right" /></i></button>)}
           </div>
         </aside>
       </section>
@@ -402,7 +406,7 @@ export default function EventWorld() {
         <div className="local-event-rail">
           {localEvents.map((event, index) => <button key={event.id} onClick={() => focusCollectionForEvent(event)} className="local-event-card">
             <span>Local route {String(index + 1).padStart(2, "0")}</span>
-            <div><small>{event.localExample}</small><strong>{event.title}</strong><p>{collectionForEvent(event).title}</p><i>Open its collection ↘</i></div>
+            <div><small>{event.localExample}</small><strong>{event.title}</strong><p>{collectionForEvent(event).title}</p><i>Open its collection <UIIcon name="arrow-right" /></i></div>
           </button>)}
         </div>
         <div className="event-world-shell local-signal-grid">
@@ -441,7 +445,7 @@ export default function EventWorld() {
                   return <article className="event-collection-card" key={direction.id}>
                     <button className="event-collection-image" onClick={() => openSchedule(selectedEvent, direction)} aria-label={`Open item schedule for ${direction.title}, adapted to ${selectedEvent.title}`}>
                       <Image unoptimized src={direction.image} alt={`${direction.title} event décor concept`} width={1536} height={1024} loading="lazy" decoding="async" sizes="(max-width: 840px) calc(100vw - 38px), (max-width: 1180px) 50vw, 33vw" />
-                      <span>{String(index + 1).padStart(2, "0")} / 07</span><b>See quantities + measurements ↗</b>
+                      <span>{String(index + 1).padStart(2, "0")} / 07</span><b>See quantities + measurements <UIIcon name="arrow-right" /></b>
                     </button>
                     <div className="event-collection-copy"><p>{direction.venue}</p><h3>{direction.title}</h3><span>{direction.mood}</span><div className="event-direction-palette" aria-label={`${direction.title} palette`}>{direction.palette.map((color) => <i key={color} style={{ background: color }} />)}</div><small>Reference investment from {currency(direction.startingAt)}</small></div>
                     <button className={saved ? "saved" : ""} onClick={() => toggleLook(selectedEvent, direction)} aria-pressed={saved}>{saved ? "Saved to board ✓" : `+ Save for ${selectedEvent.title}`}</button>
@@ -480,7 +484,7 @@ export default function EventWorld() {
               <small>{event.season} · {event.setting} · {event.scale}</small>
               <strong>{event.title}</strong>
               <p>{collectionForEvent(event).title}</p>
-              <i>Open collection ↘</i>
+              <i>Open collection <UIIcon name="arrow-right" /></i>
             </button>)}
           </div>
         ) : (
@@ -509,7 +513,12 @@ export default function EventWorld() {
         <div><a href="/">Home</a><a href="/#inspiration">Signature looks</a><a href="/studio">Design studio</a><a href="/privacy">Privacy</a><a href="/install">Get the app</a><button onClick={openBoard}>Planning board ({savedLooks.length})</button></div>
       </footer>
 
-      <div className="event-world-mobile-nav"><a href="/">Home</a><a href="#visual-collections">Collections</a><button onClick={openBoard}>Board {savedLooks.length}</button><a href="/studio">Design</a></div>
+      <MobileActionBar label="Mobile collection navigation" actions={[
+        { label: "Home", icon: "home", href: "/" },
+        { label: "Ideas", icon: "grid", href: "#visual-collections", current: true },
+        { label: "Saved", icon: "bookmark", count: savedLooks.length, onClick: openBoard },
+        { label: "Design", icon: "design", href: "/studio", primary: true },
+      ]} />
 
       {boardOpen && (
         <div className="event-world-overlay" role="dialog" aria-modal="true" aria-labelledby="board-title">

@@ -1,8 +1,12 @@
 "use client";
 
+import { UIIcon } from "./ui-icon";
+
+
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import HomeOpening from "./home-opening";
+import MobileActionBar from "./mobile-action-bar";
 import { BRAND, BrandLockup } from "./brand";
 import {
   events as eventWorldEvents,
@@ -651,7 +655,7 @@ function categoryForEvent(event: string): DecorProject["category"] {
 }
 
 function IconArrow() {
-  return <span aria-hidden="true">↗</span>;
+  return <span aria-hidden="true"><UIIcon name="arrow-right" /></span>;
 }
 
 export default function EventDecorExperience() {
@@ -1098,7 +1102,7 @@ export default function EventDecorExperience() {
                     <span>✦</span><div><strong>Design from scratch</strong><small>Compose an original direction from this brief.</small></div>
                   </button>
                   <button className={designMode === "adapt" ? "active" : ""} onClick={() => setDesignMode("adapt")} aria-pressed={designMode === "adapt"}>
-                    <span>↗</span><div><strong>Adapt an inspiration</strong><small>{moodbook.length ? `Use ${moodbook.length} saved ${moodbook.length === 1 ? "look" : "looks"} as signals.` : "Use a selected direction as the starting point."}</small></div>
+                    <span><UIIcon name="arrow-right" /></span><div><strong>Adapt an inspiration</strong><small>{moodbook.length ? `Use ${moodbook.length} saved ${moodbook.length === 1 ? "look" : "looks"} as signals.` : "Use a selected direction as the starting point."}</small></div>
                   </button>
                 </div>
                 <div className="field-grid two">
@@ -1248,7 +1252,7 @@ export default function EventDecorExperience() {
             { title: "Design & styling", image: "/decor-v2/09-lavender-tea-v2.webp", number: "01", text: "A considered creative direction, from your colour palette and florals to the way the entire room feels.", tags: "Creative direction · Florals · Tablescapes" },
             { title: "Décor & experiences", image: "/decor-v2/14-coral-launch-v2.webp", number: "02", text: "Distinctive rentals, sculptural backdrops and beautifully personal details that bring your story to life.", tags: "Rentals · Custom pieces · Brand moments" },
             { title: "Production & care", image: "/decor-v2/07-blue-hour-v2.webp", number: "03", text: "The planning, lighting, installation and final checks that let you arrive and enjoy your own occasion.", tags: "Lighting · Logistics · Installation" },
-          ].map((service) => <article key={service.number}><div className="new-service-image"><Image unoptimized src={service.image} alt={`${service.title} inspiration — event design concept`} width={1536} height={1024} loading="lazy" /><span>{service.number}</span></div><div className="new-service-copy"><h3>{service.title}</h3><p>{service.text}</p><small>{service.tags}</small><button onClick={() => setConsultationOpen(true)} aria-label={`Discuss ${service.title.toLowerCase()}`}>Let’s talk <span aria-hidden="true">↗</span></button></div></article>)}
+          ].map((service) => <article key={service.number}><div className="new-service-image"><Image unoptimized src={service.image} alt={`${service.title} inspiration — event design concept`} width={1536} height={1024} loading="lazy" /><span>{service.number}</span></div><div className="new-service-copy"><h3>{service.title}</h3><p>{service.text}</p><small>{service.tags}</small><button onClick={() => setConsultationOpen(true)} aria-label={`Discuss ${service.title.toLowerCase()}`}>Let’s talk <span aria-hidden="true"><UIIcon name="arrow-right" /></span></button></div></article>)}
         </div>
       </section>
 
@@ -1332,11 +1336,16 @@ export default function EventDecorExperience() {
           <div><span>Service area</span><p>St. John&apos;s</p><p>Mount Pearl</p><p>Paradise & CBS</p><p>Northeast Avalon</p></div>
           <div><span>Studio hours</span><p>Consultations by appointment</p><p>Tell us your preferred time.</p><p>We’ll confirm an appointment.</p><button onClick={() => setConsultationOpen(true)}>Request a time →</button></div>
         </div>
-        <div className="footer-bottom"><span>© 2026 {BRAND.name} Events</span><span>{BRAND.tagline} · St. John&apos;s, Newfoundland & Labrador</span><div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/my-event">My event</a><a href="/install">Get the app ↗</a></div></div>
+        <div className="footer-bottom"><span>© 2026 {BRAND.name} Events</span><span>{BRAND.tagline} · St. John&apos;s, Newfoundland & Labrador</span><div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/my-event">My event</a><a href="/install">Get the app <UIIcon name="arrow-right" /></a></div></div>
         <div className="footer-wordmark" aria-hidden="true">kingsperl<span>EVENTS</span></div>
       </footer>
 
-      <div className="mobile-cta"><a href="/events">Events</a><button onClick={() => scrollToSection("#design-studio")}>Design</button><button onClick={() => setMoodbookOpen(true)}>Moodbook {moodbook.length}</button><button onClick={() => setConsultationOpen(true)}>Check date</button></div>
+      <MobileActionBar actions={[
+        { label: "Ideas", icon: "grid", href: "/events" },
+        { label: "Design", icon: "design", href: "#design-studio" },
+        { label: "Saved", icon: "bookmark", count: moodbook.length, onClick: () => setMoodbookOpen(true) },
+        { label: "Enquire", icon: "calendar", primary: true, ariaLabel: "Check a date or request a consultation", onClick: () => setConsultationOpen(true) },
+      ]} />
 
       {selectedProject && (
         <div className="overlay" role="dialog" aria-modal="true" aria-label={`${selectedProject.title} build sheet`}>

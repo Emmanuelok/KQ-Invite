@@ -1,5 +1,8 @@
 "use client";
 
+import { UIIcon } from "../ui-icon";
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -460,7 +463,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
             </div>
           </div>
 
-          <div className={styles.draftStatus} role="status"><span aria-hidden="true">✓</span>{localSaveStatus || "Preparing your planning space"}<a href="/my-event">My event workspace ↗</a></div>
+          <div className={styles.draftStatus} role="status"><span aria-hidden="true">✓</span>{localSaveStatus || "Preparing your planning space"}<a href="/my-event">My event workspace <UIIcon name="arrow-right" /></a></div>
 
           {saveMessage && <div className={`${styles.notice} ${saveState === "error" ? styles.noticeError : ""}`} role="status">{saveMessage}</div>}
 
@@ -659,12 +662,12 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
                 </article>
               ))}</div>
               <div className={styles.localRules}>
-                <article><span>Municipal screening</span><p>Outdoor City-property events may require a special-event application, multi-agency review and supporting plans.</p><a href="https://www.stjohns.ca/recreation-culture/events/host-an-event/" target="_blank" rel="noreferrer">Open City guidance ↗</a></article>
-                <article><span>Temporary power</span><p>Power distribution, GFCI protection, cord ratings and final inspection requirements are tracked before production release.</p><a href="https://www.stjohns.ca/media/engixn3q/pr_2026-temporary-power-for-events-guide.pdf" target="_blank" rel="noreferrer">Open power guide ↗</a></article>
-                <article><span>Accessibility</span><p>Arrival, circulation, seating, stage access and information barriers are reviewed as design constraints—not late add-ons.</p><a href="https://www.gov.nl.ca/sswb/accessibility-act/" target="_blank" rel="noreferrer">Open provincial framework ↗</a></article>
-                <article><span>Insurance + event procedures</span><p>Liability coverage, additional-insured wording, supporting plans, vendor evidence and deadlines are tracked as dated evidence.</p><a href="https://www.stjohns.ca/media/k0zphtru/special-events-procedures.pdf" target="_blank" rel="noreferrer">Open City procedures ↗</a></article>
-                <article><span>Food vendors</span><p>Temporary food operations need provincial review; the project register separates vendor claims from verified permit evidence.</p><a href="https://www.gov.nl.ca/gs/licences/env-health/food/temp/" target="_blank" rel="noreferrer">Open provincial guidance ↗</a></article>
-                <article><span>Weather + fire</span><p>Weather calls, closures, parking restrictions, fire conditions and venue rules can block an otherwise beautiful outdoor plan.</p><a href="https://www.stjohns.ca/resident-services/weather-hub/" target="_blank" rel="noreferrer">Open City Weather Hub ↗</a></article>
+                <article><span>Municipal screening</span><p>Outdoor City-property events may require a special-event application, multi-agency review and supporting plans.</p><a href="https://www.stjohns.ca/recreation-culture/events/host-an-event/" target="_blank" rel="noreferrer">Open City guidance <UIIcon name="arrow-right" /></a></article>
+                <article><span>Temporary power</span><p>Power distribution, GFCI protection, cord ratings and final inspection requirements are tracked before production release.</p><a href="https://www.stjohns.ca/media/engixn3q/pr_2026-temporary-power-for-events-guide.pdf" target="_blank" rel="noreferrer">Open power guide <UIIcon name="arrow-right" /></a></article>
+                <article><span>Accessibility</span><p>Arrival, circulation, seating, stage access and information barriers are reviewed as design constraints—not late add-ons.</p><a href="https://www.gov.nl.ca/sswb/accessibility-act/" target="_blank" rel="noreferrer">Open provincial framework <UIIcon name="arrow-right" /></a></article>
+                <article><span>Insurance + event procedures</span><p>Liability coverage, additional-insured wording, supporting plans, vendor evidence and deadlines are tracked as dated evidence.</p><a href="https://www.stjohns.ca/media/k0zphtru/special-events-procedures.pdf" target="_blank" rel="noreferrer">Open City procedures <UIIcon name="arrow-right" /></a></article>
+                <article><span>Food vendors</span><p>Temporary food operations need provincial review; the project register separates vendor claims from verified permit evidence.</p><a href="https://www.gov.nl.ca/gs/licences/env-health/food/temp/" target="_blank" rel="noreferrer">Open provincial guidance <UIIcon name="arrow-right" /></a></article>
+                <article><span>Weather + fire</span><p>Weather calls, closures, parking restrictions, fire conditions and venue rules can block an otherwise beautiful outdoor plan.</p><a href="https://www.stjohns.ca/resident-services/weather-hub/" target="_blank" rel="noreferrer">Open City Weather Hub <UIIcon name="arrow-right" /></a></article>
               </div>
             </div>
           )}

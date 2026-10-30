@@ -1,5 +1,8 @@
 "use client";
 
+import { UIIcon } from "./ui-icon";
+
+
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 interface InstallEvent extends Event {
@@ -59,7 +62,7 @@ export function InstallPanel() {
       <h1>Kingsperl Events.<br />At your fingertips.</h1>
       <p>Keep inspiration, your planning studio, and event ideas one tap away. Install Kingsperl Events on your phone or desktop.</p>
       {installed ? <p className="app-status" role="status">✓ Kingsperl Events is installed and ready.</p> : canPrompt ?
-        <button className="solid-button" onClick={install}>Install Kingsperl Events <span aria-hidden="true">↗</span></button> :
+        <button className="solid-button" onClick={install}>Install Kingsperl Events <span aria-hidden="true"><UIIcon name="arrow-right" /></span></button> :
         <div className="app-install-instructions"><strong>{ios ? "Install on iPhone or iPad" : "Install from your browser"}</strong><p>{ios ? "Open this page in Safari, tap Share, then Add to Home Screen." : "Open your browser menu and choose Install app or Add to Home screen. On desktop Chrome or Edge, look for the install icon in the address bar."}</p></div>}
       <p className="app-note">{workerReady ? "Offline page ready." : "Open the app online once to prepare offline access."} Your event records and submissions always use a secure online connection.</p>
     </div>

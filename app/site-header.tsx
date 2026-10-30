@@ -1,5 +1,8 @@
 "use client";
 
+import { UIIcon } from "./ui-icon";
+
+
 import { useEffect, useRef, useState } from "react";
 import { BrandLockup } from "./brand";
 
@@ -31,7 +34,7 @@ export default function SiteHeader({ onConsult, onBoard, boardCount = 0 }: {
     </nav>
     <div className="modern-header-actions">
       {onBoard && <button className="board-button" onClick={onBoard} aria-label={`Open inspiration board, ${boardCount} saved looks`}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z" stroke="currentColor" strokeWidth="1.5" /></svg><span>{boardCount}</span></button>}
-      {onConsult ? <button className="modern-button header-consult" onClick={onConsult}>Let’s plan <span aria-hidden="true">↗</span></button> : <a className="modern-button header-consult" href="/?inquiry=1">Let’s plan <span aria-hidden="true">↗</span></a>}
+      {onConsult ? <button className="modern-button header-consult" onClick={onConsult}>Let’s plan <span aria-hidden="true"><UIIcon name="arrow-right" /></span></button> : <a className="modern-button header-consult" href="/?inquiry=1">Let’s plan <span aria-hidden="true"><UIIcon name="arrow-right" /></span></a>}
     </div>
   </header>;
 }

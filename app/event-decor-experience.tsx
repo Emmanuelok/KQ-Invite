@@ -964,7 +964,7 @@ export default function EventDecorExperience() {
   };
 
   return (
-    <main className="modern-home" id="main-content">
+    <main className="modern-home" id="top">
       <div className="top-ribbon">
         <span>St. John&apos;s · Mount Pearl · Paradise · Conception Bay South</span>
         <span className="top-ribbon-secondary">Thoughtfully planned. Beautifully brought to life.</span>

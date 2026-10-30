@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return <main className={styles.page}>
     <header className={styles.header}><Link className="brand" href="/" aria-label="Kingsperl Events home"><BrandLockup /></Link><div><Link href="/studio">Design Studio</Link><Link href="/privacy">Privacy</Link></div></header>
-    <article className={styles.main}>
+    <article className={styles.main} id="main-content" tabIndex={-1}>
       <div className={styles.hero}><p>Planning framework · updated August 14, 2026</p><h1>Planning terms</h1><span>What a concept, build sheet, proposal estimate and direction acknowledgement do—and do not—mean.</span></div>
       <section className={styles.section}><span>01 · Concept status</span><h2>Inspiration is not a claim of completed client work.</h2><p>Gallery imagery and Design Studio photographs are inspirational concept renders. They communicate atmosphere and possible design language; they do not promise an identical result, a specific venue, a past Kingsperl Events installation or exact seasonal floral availability.</p></section>
       <section className={styles.section}><span>02 · Estimates and inventory</span><h2>A planning estimate is not a reservation.</h2><p>Quantities and prices are recalculated from the selected scope, guest count and venue inputs. They remain estimates until Kingsperl Events verifies measurements, access, labour, logistics, supplier pricing, taxes, production timing and date-window inventory availability.</p><p>No item, crew member, vehicle, supplier or event date is reserved until an authorized hold or agreement confirms it.</p></section>

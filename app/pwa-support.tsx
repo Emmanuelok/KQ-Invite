@@ -52,7 +52,7 @@ export function PwaSupport({ children }: { children: ReactNode }) {
 
 export function InstallPanel() {
   const { installed, ios, canPrompt, workerReady, install } = useContext(AppContext);
-  return <section className="app-install-panel">
+  return <section className="app-install-panel" id="main-content" tabIndex={-1}>
     <img src="/icon-192.png" width="96" height="96" alt="Kingsperl Events app icon" />
     <div>
       <p className="eyebrow">YOUR NEXT EVENT, CLOSER</p>

@@ -195,3 +195,5 @@ button, a { touch-action: manipulation; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }.discovery-card,.modern-button,.discovery-image img { transition: none; }.discovery-card:hover,.modern-button:hover { transform: none; }.discovery-card:hover img { transform: none; }
 }
+
+.local-draft-controls { margin-top: 18px; border-top: 1px solid #c8d5bb; padding-top: 10px; }.local-draft-controls > p { font-size: 16px; margin: 12px 0; }.local-draft-controls .modern-button { margin-right: 20px; }.workspace-feedback .modern-text-link { margin-left: 20px; }

@@ -408,7 +408,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
   };
 
   return (
-    <main className={styles.app} id="main-content">
+    <main className={styles.app}>
       <header className={styles.header}>
         <Link className={`brand ${styles.brand}`} href="/" aria-label="Kingsperl Events home"><BrandLockup /></Link>
         <nav aria-label="Studio navigation">
@@ -447,7 +447,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
           </div>
         </aside>
 
-        <section className={styles.content}>
+        <section className={styles.content} id="main-content" tabIndex={-1}>
           <p className={styles.srOnly} aria-live="polite">{sections.find((item) => item.id === section)?.label} section selected.</p>
           <div className={styles.contentHeader}>
             <div>

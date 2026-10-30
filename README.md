@@ -23,3 +23,9 @@ Old wedding pages and assets are absent from the current source tree. Prior vers
 ## Brand and app
 
 Kingsperl Events uses an outlined vector wordmark, an architectural K and pearl monogram, and a cinematic Open Graph card. Logos are in `public/brand/`; the social image is `public/og/kingsperl-events.jpg`. The PWA provides home-screen icons, `/install`, app shortcuts, and a public-content offline fallback. The service worker never caches APIs, staff operations, project tokens, or private studio pages.
+
+## Customer planning workspace
+
+`/my-event` recovers the current device's essential event draft, keeps a personal preparation checklist, exports a tentative calendar reminder and opens saved projects through validated private links. Local drafts exclude contact information, personal notes, attachments and project access keys. Visitors can remove a local draft and undo that removal without deleting a submitted project.
+
+The Design Studio saves essential progress locally, preserves the existing authenticated customer API, and prints a complete planning summary. Public copy clearly separates estimates and personal checklists from confirmed bookings. Supporting interface text uses at least 14px, with larger form controls and body text.

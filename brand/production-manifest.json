@@ -139,8 +139,8 @@
     "critical_failures": [],
     "review_notes": [
       "Readable type system with a 14px minimum for supporting interface text and 16\u201319px controls and body text.",
-      "Local-only essential draft saving, secure project-link handoff, checklist, calendar reminder and print summary implemented.",
-      "Browser and production verification in progress."
+      "15 automated checks and the production build passed.",
+      "Live checks cover calculated scopes, local draft recovery, checklist persistence, tentative calendar export and private-link validation."
     ]
   },
   "gates": [],

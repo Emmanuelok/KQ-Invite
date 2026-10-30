@@ -363,7 +363,7 @@ export default function EventWorld() {
   };
 
   return (
-    <main className="event-world-page" id="main-content">
+    <main className="event-world-page">
       <div className="top-ribbon event-world-ribbon">
         <span>St. John&apos;s first · globally inspired</span>
         <span className="top-ribbon-secondary">42 concept scenes · each shown once</span>
@@ -371,7 +371,7 @@ export default function EventWorld() {
 
       <SiteHeader onBoard={openBoard} boardCount={savedLooks.length} />
 
-      <section className="event-world-hero">
+      <section className="event-world-hero" id="main-content" tabIndex={-1}>
         <div className="event-world-hero-media" aria-hidden="true">
           <Image unoptimized priority src="/decor-v2/hero-glasshouse-v2-hd.webp" alt="" width={3070} height={2048} fetchPriority="high" sizes="100vw" />
         </div>

@@ -13,7 +13,7 @@ const collections = [
 
 export function ModernHero({ onConsult }: { onConsult: () => void }) {
   return <>
-    <section className="modern-hero" id="top">
+    <section className="modern-hero" id="main-content" tabIndex={-1}>
       <div className="modern-hero-copy">
         <p className="modern-kicker"><span /> EVENT DESIGN, WITH FEELING</p>
         <h1>Your occasion.<br /><em>Our obsession.</em></h1>

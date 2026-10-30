@@ -1,57 +1,76 @@
 import type { Metadata, Viewport } from "next";
+import { BRAND } from "./brand";
+import { PwaSupport } from "./pwa-support";
 import "./globals.css";
-import "./kp6.css";
-import "./kp8.css";
-import "./kp9.css";
-import "./gallery.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kingsperl.com"),
-  title: "Kingsford & Perla — Our Wedding",
+  metadataBase: new URL(BRAND.siteUrl),
+  applicationName: "Kingsperl Events",
+  title: "Kingsperl Events | St. John's Event Decor",
   description:
-    "With grateful hearts, Kingsford and Perla thank you for celebrating their wedding and for your presence, prayers, love and kind wishes.",
-  applicationName: "Kingsford & Perla — Our Wedding",
-  category: "wedding",
+    "Cinematic event styling, transparent decor build sheets, and intelligent event design for St. John's and the Avalon Peninsula.",
+  alternates: { canonical: "/" },
+  category: "Event design and decor",
+  keywords: ["St. John's event decor", "Newfoundland wedding decor", "event design", "event rentals", "event styling", "event build sheets"],
+  creator: BRAND.name,
+  publisher: BRAND.name,
+  robots: { index: true, follow: true },
   openGraph: {
-    type: "website",
-    locale: "en_CA",
-    url: "/",
-    siteName: "Kingsford & Perla — Our Wedding",
-    title: "Kingsford & Perla — Our Wedding",
+    title: "Kingsperl Events",
     description:
-      "With grateful hearts, Kingsford and Perla thank you for your presence, prayers, love and kind wishes as they begin married life.",
+      "Where atmosphere takes form. Cinematic event design, exact build sheets and venue-aware planning for St. John's.",
+    url: "/",
+    siteName: "Kingsperl Events",
+    locale: "en_CA",
+    type: "website",
     images: [
       {
-        url: "/og-image",
+        url: "/og/kingsperl-events.jpg",
         width: 1200,
         height: 630,
-        alt: "Kingsford and Perla smiling together in coordinated traditional attire.",
+        alt: "Kingsperl Events — Where atmosphere takes form",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kingsford & Perla — Our Wedding",
-    description:
-      "With grateful hearts, Kingsford and Perla thank you for your presence, prayers, love and kind wishes as they begin married life.",
-    images: ["/og-image"],
-  },
-  other: {
-    "codex-preview": "development",
-  },
-  robots: {
-    index: false,
-    follow: false,
+    title: "Kingsperl Events",
+    description: "Where atmosphere takes form. Cinematic, venue-aware event design for St. John's.",
+    images: ["/og/kingsperl-events.jpg"],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     shortcut: "/favicon.svg",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    other: [{ rel: "mask-icon", url: "/brand/kingsperl-mark.svg", color: "#071A1F" }],
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Kingsperl Events",
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#120907",
-  colorScheme: "light",
+export const viewport: Viewport = { themeColor: "#071A1F", colorScheme: "light", width: "device-width", initialScale: 1 };
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Kingsperl Events",
+  alternateName: BRAND.name,
+  description: "Cinematic, venue-aware event design, styling, rentals and installation for St. John's and the Avalon Peninsula.",
+  url: BRAND.siteUrl,
+  logo: `${BRAND.siteUrl}/brand/kingsperl-mark.svg`,
+  image: `${BRAND.siteUrl}/og/kingsperl-events.jpg`,
+  areaServed: ["St. John's", "Mount Pearl", "Paradise", "Conception Bay South", "Avalon Peninsula"],
+  slogan: BRAND.tagline,
+  serviceType: ["Event design", "Event decor", "Event styling", "Event rentals", "Event installation"],
 };
 
 export default function RootLayout({
@@ -61,7 +80,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <PwaSupport>{children}</PwaSupport>
+      </body>
     </html>
   );
 }

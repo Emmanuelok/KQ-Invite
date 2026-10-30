@@ -1,0 +1,13 @@
+{
+  "name": "Kingsperl Events",
+  "idea": "An event arch, an architectural K and a pearl",
+  "palette": {
+    "ink": "#071A1F",
+    "gold": "#C69C59",
+    "pearl": "#FFF9EE"
+  },
+  "tagline": "Where atmosphere takes form.",
+  "masterArtwork": "public/brand/kingsperl-logo-dark.svg",
+  "smallSize": "public/favicon.svg",
+  "font": "DejaVu Serif and DejaVu Sans; production lettering outlined"
+}

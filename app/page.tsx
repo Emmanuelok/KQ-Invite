@@ -1,5 +1,5 @@
-import { WeddingExperienceV9 } from "@/components/wedding-experience-v9";
+import EventDecorExperience from "./event-decor-experience";
 
 export default function Home() {
-  return <WeddingExperienceV9 />;
+  return <EventDecorExperience />;
 }

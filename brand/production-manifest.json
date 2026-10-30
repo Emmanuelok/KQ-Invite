@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "kingsperl-events",
+    "name": "Kingsperl Events",
+    "mode": "brand-and-web",
+    "objective": "Replace the completed wedding website on kingsperl.com with the rebranded event company and an installable app.",
+    "audience": "Event hosts in St. John's and the Avalon Peninsula",
+    "governing_idea": "An architectural K, an event arch and a pearl unify the identity.",
+    "status": "implemented"
+  },
+  "creative_system": {
+    "visual_thesis": "Warm gold and pearl over deep Atlantic green, paired with cinematic event photography.",
+    "anti_goals": [
+      "generic spectacle",
+      "unmotivated visual effects"
+    ],
+    "palette": {
+      "dominant": [
+        "#071A1F",
+        "#FFF9EE"
+      ],
+      "accent": [
+        "#C69C59"
+      ],
+      "contrast": "Ivory on ink; gold for meaningful emphasis."
+    },
+    "composition": "Strong single focal point, layered depth, and deliberate negative space.",
+    "camera": "Grounded perspective, motivated movement, and stable screen direction.",
+    "lighting": "Motivated practical sources with consistent direction and softness.",
+    "typography": "Outlined DejaVu Serif wordmark; serif display headings and sans-serif body text.",
+    "motion": "Existing restrained website transitions with reduced-motion support.",
+    "sound": "Not applicable",
+    "interface": "Clear hierarchy, responsive reflow, keyboard access, and reduced-motion parity.",
+    "invariants": [
+      "Keep approved identity, product geometry, palette roles, and logo treatment consistent."
+    ],
+    "permitted_variations": [
+      "Adapt composition and pacing to aspect ratio and placement."
+    ]
+  },
+  "assets": [
+    {
+      "id": "ast-logo",
+      "type": "svg",
+      "source": "public/brand/kingsperl-logo-dark.svg",
+      "role": "identity",
+      "rights_status": "original",
+      "description": "Original K, arch and pearl geometry with outlined wordmark.",
+      "notes": "DejaVu font lettering outlined."
+    },
+    {
+      "id": "ast-og",
+      "type": "image",
+      "source": "public/og/kingsperl-events.jpg",
+      "role": "social",
+      "rights_status": "generated",
+      "description": "ImageGen cinematic Kingsperl Events card, 1200 by 630 pixels; optimized from the approved 1730 by 909 master.",
+      "notes": "Generated with the original mark and the existing glasshouse concept as references; not a completed-client-event photograph."
+    },
+    {
+      "id": "ast-app",
+      "type": "image",
+      "source": "public/icon-512.png",
+      "role": "app-icon",
+      "rights_status": "original",
+      "description": "512-pixel icon rendered from original vector geometry.",
+      "notes": "Dedicated maskable version also supplied."
+    }
+  ],
+  "elements": [],
+  "scenes": [],
+  "shots": [],
+  "screens": [],
+  "deliverables": [
+    {
+      "id": "del-logo",
+      "type": "svg",
+      "title": "Kingsperl Events identity",
+      "channel": "web-and-print",
+      "source_ids": [
+        "ast-logo"
+      ],
+      "dimensions": "660x145",
+      "format": "svg",
+      "language": "en",
+      "version": 1,
+      "status": "implemented"
+    },
+    {
+      "id": "del-og",
+      "type": "image",
+      "title": "Kingsperl Events social preview",
+      "channel": "web",
+      "source_ids": [
+        "ast-og"
+      ],
+      "dimensions": "1200x630",
+      "format": "jpg",
+      "language": "en",
+      "version": 1,
+      "status": "implemented"
+    },
+    {
+      "id": "del-app",
+      "type": "image",
+      "title": "PWA and browser icons",
+      "channel": "web",
+      "source_ids": [
+        "ast-app"
+      ],
+      "dimensions": "16,32,180,192,512",
+      "format": "png-svg-ico",
+      "language": "en",
+      "version": 1,
+      "status": "implemented"
+    }
+  ],
+  "rights_and_claims": [
+    {
+      "id": "right-original",
+      "category": "original-artwork",
+      "description": "New original logo geometry; generated concept social card.",
+      "evidence": "Current user request to design assets for Kingsperl Events.",
+      "status": "reviewed"
+    }
+  ],
+  "qa": {
+    "required_gates": [
+      "gate-brief",
+      "gate-direction",
+      "gate-look",
+      "gate-system",
+      "gate-rough",
+      "gate-finish",
+      "gate-delivery"
+    ],
+    "acceptance_threshold": 85,
+    "critical_failures": [],
+    "review_notes": [
+      "Identity and social card visually inspected.",
+      "Application build passed. Eleven functional tests passed, including private-data cache exclusions.",
+      "Production deployment verification pending."
+    ]
+  },
+  "gates": [],
+  "assumptions": [
+    "Brand scope remains the existing St. John's event-design company."
+  ],
+  "open_questions": [],
+  "risks": []
+}

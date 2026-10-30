@@ -1,12 +1,13 @@
-import path from "node:path";
-
 import type { NextConfig } from "next";
 
+// Next's development runtime uses eval and a WebSocket for hot reloading.
+// Keep those capabilities out of the production policy.
+const isDevelopment = process.env.NODE_ENV === "development";
+const scriptSources = isDevelopment ? "'self' 'unsafe-inline' 'unsafe-eval'" : "'self' 'unsafe-inline'";
+const connectSources = isDevelopment ? "'self' ws: wss:" : "'self'";
+
 const securityHeaders = [
-  {
-    key: "Content-Security-Policy",
-    value: "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; media-src 'self' blob:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests",
-  },
+  { key: "Content-Security-Policy", value: `default-src 'self'; base-uri 'self'; connect-src ${connectSources}; font-src 'self' data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; media-src 'self' blob:; object-src 'none'; script-src ${scriptSources}; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests` },
   { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(), payment=(), usb=()" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
@@ -15,38 +16,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  compress: true,
   poweredByHeader: false,
-  images: {
-    // Sites does not provision a Cloudflare Images binding for this project.
-    // Serve the already-optimised local WebP files directly instead of routing
-    // them through Vinext's runtime image endpoint.
-    unoptimized: true,
-  },
-  async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
-  },
-  webpack(config) {
-    // Resolve the project alias explicitly during hosted builds. Vercel can
-    // inject a build root before Next reads tsconfig paths, so relying only on
-    // the TypeScript `@/*` mapping can make valid source files look missing.
-    config.resolve.alias["@"] = process.cwd();
-
-    // Native Next.js never exposes Cloudflare's virtual workers module. Use
-    // the empty fallback only for the dedicated Vercel build; the Vinext/Sites
-    // build must keep vite.config.ts's alias to `cloudflare:workers` so runtime
-    // bindings such as DB and WEDDING_ADMIN_KEY remain available.
-    if (
-      process.env.VERCEL ||
-      process.env.npm_lifecycle_event === "build:vercel"
-    ) {
-      config.resolve.alias["wedding-runtime-env"] = path.resolve(
-        process.cwd(),
-        "lib/vercel-runtime-env.ts",
-      );
-    }
-    return config;
-  },
+  images: { unoptimized: true },
+  async headers() { return [
+    { source: "/(.*)", headers: securityHeaders },
+    { source: "/sw.js", headers: [
+      { key: "Content-Type", value: "application/javascript; charset=utf-8" },
+      { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+      { key: "Service-Worker-Allowed", value: "/" },
+    ] },
+  ]; },
 };
 
 export default nextConfig;

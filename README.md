@@ -29,3 +29,7 @@ Kingsperl Events uses an outlined vector wordmark, an architectural K and pearl 
 `/my-event` recovers the current device's essential event draft, keeps a personal preparation checklist, exports a tentative calendar reminder and opens saved projects through validated private links. Local drafts exclude contact information, personal notes, attachments and project access keys. Visitors can remove a local draft and undo that removal without deleting a submitted project.
 
 The Design Studio saves essential progress locally, preserves the existing authenticated customer API, and prints a complete planning summary. Public copy clearly separates estimates and personal checklists from confirmed bookings. Supporting interface text uses at least 14px, with larger form controls and body text.
+
+## Typography
+
+The original Atlantic-ink and gold design pairs self-hosted Grenze Gotisch headings with Manrope body and interface text. Supporting copy is at least 14px and body copy is generally 17–20px. Both font licenses are included in `public/fonts/`.

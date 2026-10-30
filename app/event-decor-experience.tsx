@@ -3,8 +3,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { BRAND, BrandLockup } from "./brand";
-import SiteHeader from "./site-header";
-import { ModernHero, PlanningInvitation } from "./home-modern";
 import {
   events as eventWorldEvents,
   inspirationDirections as eventWorldDirections,
@@ -657,7 +655,6 @@ function IconArrow() {
 
 export default function EventDecorExperience() {
   const [filter, setFilter] = useState("All");
-  const [showAllLooks, setShowAllLooks] = useState(false);
   const [selectedProject, setSelectedProject] = useState<DecorProject | null>(null);
   const [selectedGuestOverride, setSelectedGuestOverride] = useState<number | null>(null);
   const [selectedEventOverride, setSelectedEventOverride] = useState<string | null>(null);
@@ -920,16 +917,29 @@ export default function EventDecorExperience() {
     : minimumViableInvestment <= activeResultBrief.budget * 0.78 ? "Comfortable with contingency" : "Feasible with a tight contingency";
 
   const applyProjectToPlanner = (project: DecorProject, eventOverride?: string | null) => {
-    const params = new URLSearchParams({ event: eventOverride || project.event, style: project.title, guests: String(selectedGuestOverride || project.guests), budget: String(project.startingAt), venue: project.venue });
-    window.location.assign(`/studio?${params.toString()}`);
-  };
-
-  const buildFromMoodbook = () => {
-    const first = moodbookProjects[0];
-    const params = new URLSearchParams();
-    if (first) { params.set("event", first.event); params.set("style", first.title); params.set("guests", String(first.guests)); params.set("budget", String(first.startingAt)); }
-    moodbookProjects.slice(0, 12).forEach(project => params.append("look", project.title));
-    window.location.assign(`/studio?${params.toString()}`);
+    setPlanner((current) => ({
+      ...current,
+      event: eventOverride && plannerEventOptions.includes(eventOverride) ? eventOverride : project.event,
+      guests: project.guests,
+      budget: Math.max(current.budget, project.startingAt),
+      palette: paletteOptions.find((option) => project.paletteName.includes(option.name.split(" ")[0]))?.name ?? "Surprise me",
+      venue: /ballroom/i.test(project.venue)
+        ? "Hotel ballroom"
+        : /hall/i.test(project.venue)
+          ? "Community hall"
+          : /dining|restaurant|lounge/i.test(project.venue)
+            ? "Restaurant / private dining"
+            : /coast|garden|outdoor/i.test(project.venue)
+              ? "Outdoor / tented"
+              : /gallery|studio|glasshouse/i.test(project.venue)
+                ? "Gallery / studio"
+                : "Venue not selected yet",
+      description: `Adapt the ${project.title} direction for my venue. Keep the ${project.mood.toLowerCase()} atmosphere while protecting guest circulation and the main focal view.`,
+    }));
+    setDesignMode("adapt");
+    setSelectedProject(null);
+    setPlannerStep(2);
+    window.setTimeout(() => scrollToSection("#design-studio"), 50);
   };
 
   const submitConsultation = async (event: FormEvent<HTMLFormElement>) => {
@@ -949,7 +959,7 @@ export default function EventDecorExperience() {
           eventType: form.get("eventType"),
           budgetBand: form.get("budgetBand"),
           description: form.get("description"),
-          brief: { source: "website-consultation", savedLookIds: moodbook },
+          brief: { planner, designMode, moodbook, resultProjectId, venueFileNames },
         }),
       });
       const payload = (await response.json()) as { publicId?: string; error?: string };
@@ -964,25 +974,111 @@ export default function EventDecorExperience() {
   };
 
   return (
-    <main className="modern-home" id="top">
+    <main id="top">
       <div className="top-ribbon">
         <span>St. John&apos;s · Mount Pearl · Paradise · Conception Bay South</span>
-        <span className="top-ribbon-secondary">Thoughtfully planned. Beautifully brought to life.</span>
+        <span className="top-ribbon-secondary">Event dates now in consultation</span>
       </div>
 
-      <SiteHeader onConsult={() => setConsultationOpen(true)} onBoard={() => setMoodbookOpen(true)} boardCount={moodbook.length} />
-      <ModernHero onConsult={() => setConsultationOpen(true)} />
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label={`${BRAND.name} home`}><BrandLockup /></a>
+        <nav aria-label="Primary navigation">
+          <a href="/events">Event world</a>
+          <a href="#inspiration">Signature looks</a>
+          <a href="/studio">Design studio</a>
+          <a href="#services">Services</a>
+          <a href="/my-event">My event</a>
+        </nav>
+        <div className="header-actions">
+          <button className="text-button" onClick={() => setMoodbookOpen(true)}>
+            Moodbook <span>{moodbook.length}</span>
+          </button>
+          <button className="solid-button compact" onClick={() => setConsultationOpen(true)}>
+            Check a date
+          </button>
+        </div>
+      </header>
+
+      <section className="hero" id="main-content" tabIndex={-1}>
+        <div className="hero-media" aria-hidden="true">
+          <div className="hero-film">
+            <Image
+              unoptimized
+              priority
+              className="hero-frame hero-frame-base"
+              src="/decor-v2/hero-glasshouse-v2-hd.webp"
+              alt=""
+              width={3070}
+              height={2048}
+              decoding="async"
+              fetchPriority="high"
+            />
+            <Image
+              unoptimized
+              className="hero-frame hero-frame-rain"
+              src="/decor-v2/hero-glasshouse-rain-v2-hd.webp"
+              alt=""
+              width={3072}
+              height={2048}
+              loading="eager"
+              decoding="async"
+            />
+            <Image
+              unoptimized
+              className="hero-frame hero-frame-warm"
+              src="/decor-v2/hero-glasshouse-warm-v2-hd.webp"
+              alt=""
+              width={3070}
+              height={2048}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <div className="hero-light-sweep" />
+          <div className="hero-wash" />
+          <div className="hero-grain" />
+        </div>
+        <div className="hero-content">
+          <p className="eyebrow light">{BRAND.name} · {BRAND.tagline}</p>
+          <h1>We don&apos;t decorate rooms. <em>We compose the feeling.</em></h1>
+          <p className="hero-copy">
+            Cinematic event environments for Newfoundland celebrations—designed around your people,
+            your venue, your budget and the exact moment you want them to remember.
+          </p>
+          <div className="hero-actions">
+            <a className="solid-button light-button" href="/studio">
+              Design my event <IconArrow />
+            </a>
+            <a className="ghost-button" href="#inspiration">
+              Explore signature looks
+            </a>
+            <a className="ghost-button" href="/events">Browse {eventWorldEvents.length} occasions</a>
+          </div>
+          <div className="hero-proof">
+            <div><strong>{eventWorldEvents.length}</strong><span>décor-relevant occasions</span></div>
+            <div><strong>6</strong><span>visual collections</span></div>
+            <div><strong>42</strong><span>one-use scenes</span></div>
+          </div>
+        </div>
+        <div className="hero-aside">
+          <span>01 / Design intelligence</span>
+          <p>Tell us the event, room, palette and spend. Receive a venue-aware concept with quantities, measurements and priorities.</p>
+          <a href="/studio">Open the advanced studio <span>→</span></a>
+        </div>
+        <div className="scroll-cue"><span /> Scroll to enter</div>
+      </section>
 
       <section className="editorial-intro section-shell">
         <div>
           <p className="eyebrow">A clearer way to imagine your event</p>
-          <h2>A little inspiration. A clear way forward.</h2>
+          <h2>Beautiful enough to inspire. Detailed enough to price.</h2>
         </div>
         <div className="editorial-copy">
           <p>
-            Explore a look, see its reference items and quantities, then shape it around your venue and budget. Every direction is a starting point for a conversation.
+            Every concept opens into its complete décor build sheet—inventory, quantities, dimensions,
+            installation window and a realistic starting investment. No mystery moodboards.
           </p>
-          <span>Our gallery shows design concepts, not completed client events.</span>
+          <span>Concept imagery is clearly identified until replaced by verified client work.</span>
         </div>
       </section>
 
@@ -1006,7 +1102,7 @@ export default function EventDecorExperience() {
           </div>
         </div>
         <div className="project-grid">
-          {(filter === "All" && !showAllLooks ? [projects[0], projects[6], projects[12], projects[4], projects[16], projects[17]] : visibleProjects).map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <article
               className={`project-card ${index % 7 === 0 || index % 7 === 3 ? "project-card-wide" : ""}`}
               key={project.id}
@@ -1050,10 +1146,192 @@ export default function EventDecorExperience() {
             </article>
           ))}
         </div>
-        {filter === "All" && <div className="gallery-more"><button className="modern-button secondary" onClick={() => setShowAllLooks(!showAllLooks)}>{showAllLooks ? "Show the curated edit" : "Explore all 18 signature looks"}<span aria-hidden="true">{showAllLooks ? "↑" : "↗"}</span></button></div>}
       </section>
 
-      <div id="design-studio"><PlanningInvitation /></div>
+      <section className="planner-section" id="design-studio">
+        <div className="section-shell planner-heading">
+          <div>
+            <p className="eyebrow light">{BRAND.name} Design Intelligence</p>
+            <h2>Your venue. Your people. A concept built around both.</h2>
+          </div>
+          <p>
+            Complete a focused brief. The studio turns capacity, spatial limits, palette and budget into
+            a practical décor direction—not just a pretty picture.
+          </p>
+        </div>
+
+        <div className="planner-shell section-shell">
+          <div className="planner-sidebar">
+            <div className="planner-status"><span className="pulse-dot" /> Design studio online</div>
+            {[
+              [1, "The occasion", "Date, guests and investment"],
+              [2, "The room", "Venue, footprint and access"],
+              [3, "The feeling", "Palette and non-negotiables"],
+            ].map(([step, title, description]) => (
+              <button
+                className={plannerStep === step ? "active" : plannerStep > Number(step) ? "complete" : ""}
+                key={String(step)}
+                onClick={() => setPlannerStep(Number(step))}
+              >
+                <b>{Number(step).toString().padStart(2, "0")}</b>
+                <span><strong>{title}</strong><small>{description}</small></span>
+              </button>
+            ))}
+            <div className="studio-note">
+              <span>Private by design</span>
+              <p>Your brief stays on this device in this browser. The full Design Studio can securely submit your project for review. Selected files are not uploaded.</p>
+            </div>
+          </div>
+
+          <div className="planner-form">
+            <div className="step-label">Step {plannerStep} of 3</div>
+            {plannerStep === 1 && (
+              <div className="form-step">
+                <div className="form-title"><h3>What are we celebrating?</h3><p>We use this to select the right spatial and service pattern.</p></div>
+                <div className="design-mode" role="group" aria-label="Choose how the concept should begin">
+                  <button className={designMode === "scratch" ? "active" : ""} onClick={() => setDesignMode("scratch")} aria-pressed={designMode === "scratch"}>
+                    <span>✦</span><div><strong>Design from scratch</strong><small>Compose an original direction from this brief.</small></div>
+                  </button>
+                  <button className={designMode === "adapt" ? "active" : ""} onClick={() => setDesignMode("adapt")} aria-pressed={designMode === "adapt"}>
+                    <span>↗</span><div><strong>Adapt an inspiration</strong><small>{moodbook.length ? `Use ${moodbook.length} saved ${moodbook.length === 1 ? "look" : "looks"} as signals.` : "Use a selected direction as the starting point."}</small></div>
+                  </button>
+                </div>
+                <div className="field-grid two">
+                  <label>
+                    Event type
+                    <select value={planner.event} onChange={(event) => updatePlanner("event", event.target.value)}>
+                      {plannerEventOptions.map((event) => <option key={event}>{event}</option>)}
+                    </select>
+                  </label>
+                  <label>
+                    Event date
+                    <input type="date" value={planner.date} onChange={(event) => updatePlanner("date", event.target.value)} />
+                  </label>
+                </div>
+                <div className="field-grid two">
+                  <label>
+                    Expected guests
+                    <span className="number-input"><input type="number" min="2" max="800" step="1" value={planner.guests} onChange={(event) => updatePlanner("guests", Math.min(800, Math.max(2, Math.round(Number(event.target.value) || 2))))} /><small>people</small></span>
+                  </label>
+                  <label>
+                    Working décor budget
+                    <span className="budget-value">{formatCurrency(planner.budget)}</span>
+                    <input className="range" type="range" min="750" max="30000" step="250" value={planner.budget} onChange={(event) => updatePlanner("budget", Number(event.target.value))} />
+                    <span className="range-labels"><small>$750 focal styling</small><small>$20k immersive</small></span>
+                  </label>
+                </div>
+              </div>
+            )}
+
+            {plannerStep === 2 && (
+              <div className="form-step">
+                <div className="form-title"><h3>Describe the room we need to transform.</h3><p>Access, ceiling height and usable footprint can change the concept more than colour.</p></div>
+                <div className="field-grid two">
+                  <label>
+                    Venue type
+                    <select value={planner.venue} onChange={(event) => updatePlanner("venue", event.target.value)}>
+                      {["Hotel ballroom", "Community hall", "Restaurant / private dining", "Outdoor / tented", "Home / backyard", "Gallery / studio", "Church / ceremony venue", "Venue not selected yet"].map((venue) => <option key={venue}>{venue}</option>)}
+                    </select>
+                  </label>
+                  <label>Usable room dimensions<input value={planner.dimensions} onChange={(event) => updatePlanner("dimensions", event.target.value)} placeholder="e.g. 60 ft × 40 ft" /></label>
+                </div>
+                <div className="field-grid two">
+                  <label>Ceiling / rigging height<input value={planner.ceiling} onChange={(event) => updatePlanner("ceiling", event.target.value)} placeholder="e.g. 12 ft, no ceiling rigging" /></label>
+                  <label>
+                    Loading access
+                    <select value={planner.access} onChange={(event) => updatePlanner("access", event.target.value)}>
+                      {["Ground-level loading access", "Elevator access", "Stairs / restricted doorway", "Outdoor carry-in", "Not sure yet"].map((access) => <option key={access}>{access}</option>)}
+                    </select>
+                  </label>
+                </div>
+                <label className="full-field">Room description<textarea rows={4} value={planner.description} onChange={(event) => updatePlanner("description", event.target.value)} /></label>
+                <label className="upload-zone" htmlFor="venue-reference-files">
+                  <input
+                    className="venue-file-input"
+                    id="venue-reference-files"
+                    type="file"
+                    accept="image/jpeg,image/png,application/pdf"
+                    multiple
+                    onChange={(event) => setVenueFileNames(Array.from(event.target.files ?? []).map((file) => file.name))}
+                  />
+                  <span>{venueFileNames.length ? "✓" : "＋"}</span>
+                  <div>
+                    <strong>{venueFileNames.length ? `${venueFileNames.length} venue reference ${venueFileNames.length === 1 ? "file" : "files"} ready` : "Add venue photos or a floor plan"}</strong>
+                    <small>{venueFileNames.length ? venueFileNames.join(" · ") : "Optional · JPG, PNG or PDF · kept on this device on this device"}</small>
+                  </div>
+                </label>
+              </div>
+            )}
+
+            {plannerStep === 3 && (
+              <div className="form-step">
+                <div className="form-title"><h3>Choose the emotional temperature.</h3><p>Select a palette, then tell us which moments must feel extraordinary.</p></div>
+                <div className="palette-picker">
+                  {paletteOptions.map((option) => (
+                    <button key={option.name} className={planner.palette === option.name ? "active" : ""} onClick={() => updatePlanner("palette", option.name)} aria-pressed={planner.palette === option.name}>
+                      <span>{option.colors.map((color) => <i key={color} style={{ background: color }} />)}</span>
+                      <strong>{option.name}</strong>
+                    </button>
+                  ))}
+                </div>
+                <div className="must-haves">
+                  <span>Must-have moments</span>
+                  <div>{mustHaveOptions.map((item) => <button key={item} className={planner.mustHaves.includes(item) ? "active" : ""} onClick={() => toggleMustHave(item)} aria-pressed={planner.mustHaves.includes(item)}>{planner.mustHaves.includes(item) ? "✓" : "+"} {item}</button>)}</div>
+                </div>
+              </div>
+            )}
+
+            <div className="planner-footer">
+              <button className="back-button" disabled={plannerStep === 1} onClick={() => setPlannerStep((step) => Math.max(1, step - 1))}>← Back</button>
+              {plannerStep < 3 ? (
+                <button className="solid-button" onClick={() => setPlannerStep((step) => Math.min(3, step + 1))}>Continue <span>→</span></button>
+              ) : (
+                <button className="solid-button generate-button" onClick={createConcept} disabled={generating}>
+                  {generating ? <><i className="spinner" /> Composing your concept…</> : <>Generate my décor direction <IconArrow /></>}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {resultProject && (
+          <div className="concept-result section-shell" id="concept-result">
+            <div className="result-visual">
+              <Image unoptimized src={resultProject.image} alt={`${resultProject.title} suggested concept`} width={1536} height={1024} loading="lazy" decoding="async" />
+              <span>{resultDesignMode === "scratch" ? "Composed from your brief" : "Adapted from your inspiration"} · concept render</span>
+              <div className="result-score"><strong>{Math.round(fitScore)}%</strong><small>brief alignment</small></div>
+            </div>
+            <div className="result-content">
+              <p className="eyebrow">{resultDesignMode === "scratch" ? "Your original design direction" : "Your adapted design direction"}</p>
+              <h3>{resultDesignMode === "scratch" && activeResultBrief.palette !== "Surprise me" ? `${activeResultBrief.palette} ${activeResultBrief.event}` : resultProject.title}</h3>
+              <p className="result-lede">
+                A {resultProject.mood.toLowerCase()} environment for {activeResultBrief.guests} guests, planned around {venuePhrase(activeResultBrief.venue)} and prioritized to protect your {formatCurrency(activeResultBrief.budget)} working budget.
+              </p>
+              <div className="result-facts">
+                <div><span>Budget position</span><strong>{budgetStatus}</strong></div>
+                <div><span>Minimum viable scope</span><strong>{formatCurrency(Math.round(minimumViableInvestment / 50) * 50)} + HST</strong></div>
+                <div><span>Inventory lines</span><strong>{resultInventory.length} specified</strong></div>
+                <div><span>Install crew</span><strong>{Math.max(2, Math.ceil(activeResultBrief.guests / 55))} stylists</strong></div>
+              </div>
+              <div className="allocation">
+                <span>Recommended allocation</span>
+                {[
+                  ["Focal environments", 34], ["Tablescape & textiles", 28], ["Florals", 21], ["Lighting & logistics", 17],
+                ].map(([label, value]) => <div key={String(label)}><small>{label}</small><i><b style={{ width: `${value}%` }} /></i><strong>{value}%</strong></div>)}
+              </div>
+              <div className={`result-alert ${overBudget > 0 ? "budget-warning" : ""}`}>
+                <b>{overBudget > 0 ? "Scope correction required" : "Venue intelligence"}</b>
+                <p>{overBudget > 0 ? `The current guest count and must-have list cannot responsibly fit inside ${formatCurrency(activeResultBrief.budget)}. Raise the working budget, remove a major zone, or choose focal styling before requesting a quote. ` : ""}{activeResultBrief.access.includes("Stairs") ? "Restricted access adds handling time; use modular panels under 4 ft wide." : "Access supports full-size modular scenic pieces."} Confirm load-in, elevator dimensions, power and flame-retardancy requirements before contract.</p>
+              </div>
+              <p className="price-assumption">Planning estimate includes concept development, pictured décor/rentals, standard St. John&apos;s two-way delivery, installation and strike. HST, venue charges, specialized rigging, fresh-floral market changes, travel beyond the metro area and refundable damage/security deposits are excluded until quoted.</p>
+              <div className="result-actions">
+                <button className="solid-button" onClick={() => setConsultationOpen(true)}>Refine with a designer <IconArrow /></button>
+                <button className="outline-button" onClick={() => openProject(resultProject, activeResultBrief.guests, activeResultBrief.event)}>See the exact item schedule</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
 
       <section className="services-section section-shell" id="services">
         <div className="services-heading">
@@ -1082,7 +1360,7 @@ export default function EventDecorExperience() {
               ["01", "Brief", "Event, venue, guests, priorities, palette and budget."],
               ["02", "Concept", "Visual direction, room zones and initial feasibility."],
               ["03", "Specification", "Every item, quantity, dimension and substitution rule."],
-              ["04", "Lock", "Venue walkthrough, confirmed scope, written agreement and deposit."],
+              ["04", "Lock", "Venue walkthrough, scope, written agreement, deposit and date confirmation."],
               ["05", "Produce", "Sourcing, florals, fabrication, packing and run sheet."],
               ["06", "Transform", "Install, styling checks, handover, strike and return."],
             ].map(([number, title, copy]) => <div key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></div>)}
@@ -1125,7 +1403,7 @@ export default function EventDecorExperience() {
             ["Is the starting price the final quote?", "No. It is a planning anchor based on the pictured scope and reference guest count. The confirmed quote follows venue access, exact quantities, floral mix, logistics, installation window and taxes."],
             ["Can you work with décor I already own?", "Yes. We can design around heirlooms, cultural pieces, venue inventory and client-supplied items once condition, dimensions and delivery responsibility are confirmed."],
             ["Do you serve outside St. John’s?", "Yes. We serve the Northeast Avalon and can quote travel elsewhere in Newfoundland. Ferry, flight, accommodation and freight requirements are scoped separately."],
-            ["Are these photographs completed client events?", "The current library is an inspirational concept collection, clearly labelled as concept renders. These concepts illustrate possible styles and layouts. Your final proposal will confirm the design, quantities and availability for your venue."],
+            ["Are these photographs completed client events?", "The current library is an inspirational concept collection, clearly labelled as concept renders. Each final proposal confirms the design, quantities and availability for your venue."],
           ].map(([question, answer], index) => (
             <article key={question} className={faqOpen === index ? "open" : ""}>
               <button onClick={() => setFaqOpen(faqOpen === index ? null : index)} aria-expanded={faqOpen === index} aria-controls={`faq-answer-${index}`}><span>{question}</span><i>{faqOpen === index ? "−" : "+"}</i></button>
@@ -1151,15 +1429,15 @@ export default function EventDecorExperience() {
           <button className="footer-email" onClick={() => setConsultationOpen(true)}>Start a private consultation <IconArrow /></button>
         </div>
         <div className="footer-columns">
-          <div><span>Explore</span><a href="/events">Event world · {eventWorldEvents.length} occasions</a><a href="#inspiration">Signature looks</a><a href="/studio">Design studio</a><a href="/my-event">My event workspace</a><a href="#services">Services</a><a href="#approach">Process</a></div>
+          <div><span>Explore</span><a href="/events">Event world · {eventWorldEvents.length} occasions</a><a href="#inspiration">Signature looks</a><a href="/studio">Design studio</a><a href="#services">Services</a><a href="#approach">Process</a></div>
           <div><span>Celebrations</span><a href="#inspiration">Weddings</a><a href="#inspiration">Birthdays & showers</a><a href="#inspiration">Corporate events</a><a href="#inspiration">Cultural events</a></div>
           <div><span>Service area</span><p>St. John&apos;s</p><p>Mount Pearl</p><p>Paradise & CBS</p><p>Northeast Avalon</p></div>
           <div><span>Studio hours</span><p>Consultations by appointment</p><p>Tell us your preferred time.</p><p>We’ll confirm an appointment.</p><button onClick={() => setConsultationOpen(true)}>Request a time →</button></div>
         </div>
-        <div className="footer-bottom"><span>© 2026 {BRAND.name} Events</span><span>{BRAND.tagline} · St. John&apos;s, Newfoundland & Labrador</span><div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/install">Get the app ↗</a></div></div>
+        <div className="footer-bottom"><span>© 2026 {BRAND.name} Events</span><span>{BRAND.tagline} · St. John&apos;s, Newfoundland & Labrador</span><div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/my-event">My event</a><a href="/install">Get the app ↗</a></div></div>
       </footer>
 
-      <nav className="mobile-cta" aria-label="Quick actions"><a href="/events">Explore</a><a href="/studio">Design studio</a><a href="/my-event">My event</a><button onClick={() => setConsultationOpen(true)}>Enquire ↗</button></nav>
+      <div className="mobile-cta"><a href="/events">Events</a><button onClick={() => scrollToSection("#design-studio")}>Design</button><button onClick={() => setMoodbookOpen(true)}>Moodbook {moodbook.length}</button><button onClick={() => setConsultationOpen(true)}>Check date</button></div>
 
       {selectedProject && (
         <div className="overlay" role="dialog" aria-modal="true" aria-label={`${selectedProject.title} build sheet`}>
@@ -1203,7 +1481,7 @@ export default function EventDecorExperience() {
           <aside className="moodbook-drawer">
             <div className="moodbook-head"><div><span>Your saved direction</span><h2>Moodbook</h2></div><button ref={dialogCloseRef} onClick={() => setMoodbookOpen(false)} aria-label="Close">×</button></div>
             {moodbookProjects.length ? (
-              <><div className="moodbook-items">{moodbookProjects.map((project) => <article key={project.id}><Image unoptimized src={project.image} alt="" width={1536} height={1024} loading="lazy" decoding="async" /><div><span>{project.event}</span><strong>{project.title}</strong><small>{project.paletteName}</small></div><button onClick={() => toggleMoodbook(project.id)} aria-label={`Remove ${project.title}`}>×</button></article>)}</div><div className="moodbook-footer"><p>{moodbookProjects.length} visual {moodbookProjects.length === 1 ? "direction" : "directions"} ready to combine into a brief.</p><button className="solid-button" onClick={buildFromMoodbook}>Build from my moodbook <IconArrow /></button></div></>
+              <><div className="moodbook-items">{moodbookProjects.map((project) => <article key={project.id}><Image unoptimized src={project.image} alt="" width={1536} height={1024} loading="lazy" decoding="async" /><div><span>{project.event}</span><strong>{project.title}</strong><small>{project.paletteName}</small></div><button onClick={() => toggleMoodbook(project.id)} aria-label={`Remove ${project.title}`}>×</button></article>)}</div><div className="moodbook-footer"><p>{moodbookProjects.length} visual {moodbookProjects.length === 1 ? "direction" : "directions"} ready to combine into a brief.</p><button className="solid-button" onClick={() => { setDesignMode("adapt"); setPlannerStep(1); setMoodbookOpen(false); scrollToSection("#design-studio"); }}>Build from my moodbook <IconArrow /></button></div></>
             ) : (
               <div className="empty-moodbook"><span>♡</span><h3>Your moodbook is waiting.</h3><p>Save the looks that catch your eye. We&apos;ll use the pattern—not just one picture—to understand your taste.</p><button className="outline-button" onClick={() => { setMoodbookOpen(false); scrollToSection("#inspiration"); }}>Explore inspiration</button></div>
             )}
@@ -1220,16 +1498,16 @@ export default function EventDecorExperience() {
               <><p className="eyebrow">Begin with a real conversation</p><h2>Tell us enough to check the fit.</h2><p className="modal-lede">We&apos;ll respond with availability, the right service level and the next useful question—not a generic sales sequence.</p>
                 <form onSubmit={submitConsultation}>
                   <div className="field-grid two"><label>Full name<input name="fullName" required placeholder="Your name" /></label><label>Email<input name="email" required type="email" placeholder="you@example.com" /></label></div>
-                  <div className="field-grid two"><label>Phone<input name="phone" type="tel" placeholder="(709) 555-0123" /></label><label>Event date<input name="eventDate" type="date" defaultValue="" /></label></div>
-                  <div className="field-grid two"><label>Event<select name="eventType" defaultValue="" required><option value="" disabled>Choose an occasion</option><option>Wedding or ceremony</option><option>Private celebration</option><option>Business or academic event</option><option>Arts or entertainment</option><option>Cultural or community gathering</option><option>Other event</option></select></label><label>Working budget<select name="budgetBand" defaultValue="" required><option value="" disabled>Choose a planning range</option><option>$750–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$10,000</option><option>$10,000+</option><option>I would like guidance</option></select></label></div>
-                  <label className="full-field">What should the room feel like?<textarea name="description" rows={4} placeholder="Tell us about your occasion, venue, style and anything that matters to you." /></label>
+                  <div className="field-grid two"><label>Phone<input name="phone" type="tel" placeholder="(709) 555-0123" /></label><label>Event date<input name="eventDate" type="date" defaultValue={planner.date} /></label></div>
+                  <div className="field-grid two"><label>Event<select name="eventType" defaultValue={planner.event}><option>{planner.event}</option><option>Wedding</option><option>Celebration</option><option>Corporate / community</option></select></label><label>Working budget<select name="budgetBand" defaultValue={budgetBandFor(planner.budget)}><option>$750–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$10,000</option><option>$10,000+</option></select></label></div>
+                  <label className="full-field">What should the room feel like?<textarea name="description" rows={4} defaultValue={planner.description} /></label>
                   <label className="consent"><input type="checkbox" required /><span>I agree to be contacted about this event inquiry. This request does not reserve a date.</span></label>
                   {inquiryError && <p className="form-error" role="alert">{inquiryError}</p>}
                   <button className="solid-button full-button" type="submit" disabled={submittingInquiry}>{submittingInquiry ? <><i className="spinner" /> Saving your inquiry…</> : <>Request my consultation <IconArrow /></>}</button>
                 </form>
               </>
             ) : (
-              <div className="success-state"><span>✓</span><p className="eyebrow">Inquiry received · {inquiryReference}</p><h2>Your event has a starting point.</h2><p>Your contact details and complete design brief have been securely saved for review. This request starts the availability check but does not reserve the date or create a payment obligation.</p><button className="solid-button" onClick={closeConsultation}>Continue exploring</button></div>
+              <div className="success-state"><span>✓</span><p className="eyebrow">Inquiry received · {inquiryReference}</p><h2>Your event has a starting point.</h2><p>Your contact details and complete design brief have been securely saved for review. This request starts the availability check but does not reserve the date or create a payment obligation.</p><button className="solid-button" onClick={closeConsultation}>Return to the studio</button></div>
             )}
           </aside>
         </div>

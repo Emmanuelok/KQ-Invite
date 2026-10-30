@@ -246,7 +246,7 @@
   color: #52676b;
   font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -1950,54 +1950,17 @@
   }
 }
 
-/* Readable, light planning workspace */
-.app { background: #f4f5ee; }
-.header { min-height: 90px; background: #faf8f2; color: #173f33; border-color: #d5ddcd; padding: 18px 30px; }
-.brand { color: #173f33; }
-.header nav a { color: #425d4d; font-size: 16px; }
-.header nav a:hover { color: #8d573e; }
-.headerActions { gap: 14px; }
-.saveButton { border-radius: 7px; min-height: 50px; background: #214f3b; color: white; font-size: 16px; }
-.printButton { min-height: 46px; padding: 10px 14px; border: 1px solid #b7c7b0; border-radius: 7px; background: transparent; color: #31513d; font-size: 15px; cursor: pointer; }
-.reference { color: #5b725b; font-size: 14px; letter-spacing: .025em; }
-.workspace { min-height: calc(100vh - 90px); grid-template-columns: 265px minmax(0,1fr); }
-.sidebar { top: 90px; height: calc(100vh - 90px); background: #e7edde; color: #2d503b; border-color: #cbd8bf; }
-.sidebarIntro { padding: 30px 24px; border-color: #c9d5bf; }
-.sidebarIntro span,.sidebarIntro small { color: #58704f; font-size: 14px; letter-spacing: .04em; }
-.sidebarIntro strong { font-size: 26px; line-height: 1.23; margin-block: 5px; }
-.sidebar nav { gap: 5px; padding: 15px; }
-.sidebar nav button { min-height: 58px; padding: 12px; border: 0; border-radius: 8px; color: #3c5843; font-size: 16px; line-height: 1.35; grid-template-columns: 25px 1fr auto; }
-.sidebar nav button > span { color: #718267; font-size: 14px; }
-.sidebar nav button:hover { background: #dbe6d0; color: #1b422c; }
-.sidebar nav button.activeNav { background: #29533c; color: #fffdf1; }
-.sidebar nav button.activeNav > span { color: #e5d3a0; }
-.sidebar nav button > i { background: #cfdbc5; color: #264c33; font-size: 14px; }
-.sidebar nav button.activeNav > i { background: #63835d; color: white; }
-.sidebarProof { background: #dce6d2; color: #244b33; border-color: #bfceb4; }
-.sidebarProof strong { color: #294b35; font-size: 16px; }.sidebarProof small { color: #526e49; font-size: 14px; line-height: 1.5; }
-.content { padding: 37px clamp(24px,3vw,52px) 65px; }
-.contentHeader { gap: 20px; align-items: flex-start; margin-bottom: 22px; }
-.contentHeader > div > p { font-size: 14px; color: #6d795d; letter-spacing: .075em; }
-.contentHeader h1 { font-size: 49px; line-height: 1.08; font-weight: 400; letter-spacing: -.04em; }
-.projectHealth { padding-top: 8px; }.projectHealth > span { font-size: 14px; color: #566a4d; }.projectHealth strong { font-size: 16px; line-height: 1.5; }
-.draftStatus { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #e6eddd; color: #4c6540; border: 1px solid #cfddbf; padding: 13px 18px; border-radius: 8px; font-size: 14px; line-height: 1.5; margin-bottom: 32px; }.draftStatus > span { color: #4f7950; }.draftStatus a { margin-left: auto; color: #295a3b; text-decoration: underline; text-underline-offset: 3px; font-size: 14px; }
-.sectionLead h2 { font-size: 34px; font-weight: 400; line-height: 1.18; letter-spacing: -.025em; }.sectionLead > p { font-size: 14px; color: #8e6442; }.sectionLead > span { font-size: 18px; line-height: 1.6; color: #5c7052; }
-.formGrid { gap: 24px; padding: 28px; border: 1px solid #d9dfcf; border-radius: 14px; background: #fffef8; }
-.formGrid label,.approvalPanel label,.changePanel label { font-size: 15px; line-height: 1.5; color: #4d6546; }
-.formGrid input,.formGrid select,.formGrid textarea,.approvalPanel input,.changePanel select,.changePanel textarea { font-size: 17px; min-height: 54px; border: 1px solid #c4cfb8; border-radius: 7px; padding: 14px; background: #fdfdf5; color: #20452f; line-height: 1.5; }
-.formGrid textarea { min-height: 110px; }.rangeValue { color: #294d33; font-size: 22px; }
-.checkLine { padding: 20px; border-radius: 10px; background: #ebeede; }.checkLine strong { font-size: 17px; }.checkLine small { font-size: 15px; line-height: 1.6; color: #5b7050; }.checkLine input { min-height: 22px; }
-.primaryAction,.secondaryAction { min-height: 55px; border-radius: 7px; font-size: 16px; padding: 15px 24px; }.primaryAction { background: #24533a; color: #fffdf1; }.primaryAction:hover { background: #346d4d; }.secondaryAction { background: #fffef5; color: #39573b; border-color: #bfccb4; }
-.tierGrid { gap: 20px; }.tierCard { border: 1px solid #cbd7c0; border-radius: 14px; overflow: hidden; background: #fffef7; }.tierCard.selectedTier { border: 2px solid #436942; box-shadow: 0 5px 24px #2e4d3014; }.tierImage { height: 200px; }.tierImage > span { font-size: 14px; padding: 9px 12px; background: #fcf9ece6; color: #35513a; }.tierBody { padding: 23px; }.tierBody > p { font-size: 15px; color: #586c4f; }.tierBody h3 { font-size: 31px; font-weight: 400; }.tierPrice strong { font-size: 33px; }.tierPrice span { font-size: 14px; }.tierBody ul { font-size: 16px; line-height: 1.65; }.tierFacts { font-size: 14px; line-height: 1.7; }.tierCard button { min-height: 53px; font-size: 16px; background: #dfebd3; color: #2c4c33; }.selectedTier button { background: #2b563a; color: white; }
-.budgetNote { padding: 23px; border-radius: 10px; background: #efe5cf; }.budgetNote p { font-size: 16px; }
-.venueCard,.venuePanel,.buildHeader,.quoteCard,.approvalPanel,.readinessOverview,.portalMetrics article,.timelinePanel,.changePanel { border-radius: 12px; }
-.venueCard h3,.quoteCard h3,.approvalPanel h3,.changePanel h3 { font-size: 28px; font-weight: 400; }.venueCard p,.venueCard small,.venuePanel p { font-size: 16px; line-height: 1.6; }
-.buildHeader { padding: 24px; background: #e6eddb; }.buildHeader span { font-size: 14px; }.buildHeader strong { font-size: 21px; }
-.buildTable th { font-size: 14px; letter-spacing: .035em; padding: 17px 12px; }.buildTable td { font-size: 15px; padding: 20px 12px; line-height: 1.5; }.buildTable td strong { font-size: 17px; }.buildTable td small,.buildTable td em { font-size: 14px; line-height: 1.5; }.statusPill { font-size: 14px; padding: 7px 10px; border-radius: 20px; }
-.quoteCard { padding: 28px; background: #fffef7; }.quoteRow { font-size: 17px; }.quoteTotal strong { font-size: 35px; }.quoteTotal span { font-size: 16px; }.assumptions { font-size: 15px; line-height: 1.65; }.approvalPanel { background: #e6edda; padding: 28px; }.approvalPanel > small { font-size: 15px; line-height: 1.6; }.paymentCards small { font-size: 14px; }.paymentCards strong { font-size: 26px; }
-.readinessList article { border-radius: 10px; background: #fffef8; padding: 26px; margin-bottom: 14px; }.readinessList h3 { font-size: 24px; }.readinessList p { font-size: 17px; line-height: 1.65; }.taskMeta small { font-size: 14px; }.taskMeta strong { font-size: 16px; }.localRules article { padding: 23px; border-radius: 10px; }.localRules p { font-size: 16px; }.localRules a { font-size: 15px; }
-.portalHero { border-radius: 16px; background: #285038; padding: 32px; }.portalHero h2 { font-size: 45px; font-weight: 400; }.portalHero p,.portalHero span { font-size: 16px; }.portalMetrics article { padding: 24px; }.portalMetrics span,.portalMetrics small { font-size: 15px; }.portalMetrics strong { font-size: 26px; }.timelinePanel,.changePanel { background: #fffef7; padding: 28px; }.timelinePanel strong { font-size: 17px; }.timelinePanel small { font-size: 15px; line-height: 1.6; }.timelinePanel em { font-size: 14px; }.resumePanel { padding: 25px; border-radius: 12px; }.resumePanel strong { font-size: 20px; }.resumePanel span { font-size: 16px; line-height: 1.6; }.resumePanel button { font-size: 16px; min-height: 50px; }.notice { border-radius: 10px; font-size: 16px; line-height: 1.6; }
-.printSummary { display: none; }
-@media(max-width:1180px) { .workspace { grid-template-columns:230px minmax(0,1fr); }.sidebarIntro { padding:25px 18px; }.sidebar nav { padding:10px; }.sidebar nav button { font-size:15px; }.content { padding-inline:25px; }.tierGrid { grid-template-columns:1fr; }.tierCard { display:grid; grid-template-columns:220px 1fr; }.tierImage { height:100%; min-height:260px; }.tierBody { padding:25px; }.header nav { gap:16px; }.header nav a { font-size:15px; } }
-@media(max-width:800px) { .header { padding:14px 20px; min-height:82px; grid-template-columns:1fr auto; gap:12px; }.header nav { display:none; }.workspace { display:block; }.sidebar { display:none; }.content { padding:28px 20px 100px; }.contentHeader h1 { font-size:42px; }.contentHeader { flex-direction:column; gap:18px; }.projectHealth { justify-content:flex-start; gap:30px; }.draftStatus { font-size:14px; padding:12px; }.draftStatus a { margin-left:0; }.formGrid { padding:23px; gap:23px; }.sectionLead h2 { font-size:31px; }.sectionLead > span { font-size:17px; }.mobileNav { background:#173e2e; padding:8px 10px calc(8px + env(safe-area-inset-bottom)); display:flex; overflow:auto; gap:5px; }.mobileNav button { min-width:105px; min-height:54px; padding:9px; font-size:14px; white-space:normal; color:#f1f4e7; border-radius:6px; flex:0 0 auto; }.mobileNav button.activeMobile { background:#e8d9a4; color:#2e4931; }.mobileNav button span { font-size:14px; }.tierCard { display:block; }.tierImage { height:230px; min-height:0; }.buildTable td { padding:10px 0; }.buildTable th { font-size:14px; }.buildTable tr { padding:18px; border-radius:10px; }.portalHero h2 { font-size:37px; }.portalHero { padding:25px; }.printButton { display:none; }.reference { display:none; }.saveButton { padding-inline:15px; font-size:15px; }.sectionStack { gap:24px; }.projectHealth strong { font-size:16px; } }
-@media print { .header,.workspace,.mobileNav { display:none !important; }.app { background:white;color:#172c1d; }.printSummary { display:block;font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;padding:20px; }.printSummary h1 { font-size:28pt; }.printSummary h2 { font-size:19pt;margin-top:24px; }.printSummary p { font-size:11pt; }.printSummary table { width:100%;border-collapse:collapse; }.printSummary th,.printSummary td { padding:10px 6px;border-bottom:1px solid #aaa;text-align:left;font-size:10pt; }.printSummary tr { break-inside:avoid; }.printSummary li { margin-bottom:9px; } }
+/* Functional controls retained in the restored design. */
+.draftStatus { display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:15px 20px;margin:0 0 28px;background:#e4e9df;border:1px solid #bdcbb8;color:#2c493b;font-size:15px;line-height:1.6; }
+.draftStatus a { margin-left:auto;text-decoration:underline;text-underline-offset:3px; }
+.printButton { border:1px solid #759187;background:transparent;color:#eef1e6;min-height:46px;padding:10px 16px;cursor:pointer;font-size:16px; }
+.header nav a,.saveButton,.primaryAction,.secondaryAction { font-size:16px; }
+.sidebar nav button { font-size:16px;min-height:56px; }
+.formGrid label,.formGrid input,.formGrid select,.formGrid textarea { font-size:16px; }
+.formGrid input,.formGrid select,.formGrid textarea { min-height:52px; }
+.sectionLead>span,.sectionLead p,.sectionStack>p { font-size:17px;line-height:1.65; }
+.contentHeader h1 { font-family:var(--display);font-size:52px;letter-spacing:0; }
+.sectionLead h2 { font-family:var(--display);font-size:38px;letter-spacing:0; }
+.printSummary {display:none;}
+@media(max-width:800px){.header nav{display:none}.header{grid-template-columns:1fr auto;gap:12px;padding:14px 20px}.printButton{display:none}.saveButton{font-size:15px;padding-inline:13px}.draftStatus a{margin-left:0}.contentHeader h1{font-size:43px}.sectionLead h2{font-size:32px}.mobileNav button{min-width:104px;font-size:14px;white-space:normal}.mobileNav{overflow:auto}}
+@media print{.header,.workspace,.mobileNav{display:none!important}.printSummary,.printSummary *{visibility:visible!important}.printSummary{display:block;position:absolute;inset:0;background:white;color:#172c1d;padding:20px;font:12pt/1.5 Arial,sans-serif}.printSummary h1{font-size:28pt}.printSummary h2{font-size:19pt}.printSummary table{width:100%;border-collapse:collapse}.printSummary td,.printSummary th{border-bottom:1px solid #aaa;padding:10px 6px;text-align:left;font-size:10pt}.printSummary tr{break-inside:avoid}.printSummary li{margin-bottom:8px}}

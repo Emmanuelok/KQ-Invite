@@ -53,17 +53,17 @@
   color: #4f6669;
   font-size: 14px;
   font-weight: 850;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
 .hero h1 {
   margin: 0 0 20px;
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(48px, 8vw, 82px);
   font-weight: 500;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
+  letter-spacing: 0;
+  line-height: 1.12;
 }
 
 .hero > span {
@@ -81,16 +81,16 @@
 
 .section h2 {
   margin: 0 0 14px;
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(28px, 4vw, 38px);
   font-weight: 500;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
 }
 
 .section p,
 .section li {
   color: #334b4f;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.75;
 }
 

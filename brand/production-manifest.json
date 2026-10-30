@@ -4,13 +4,13 @@
     "id": "kingsperl-events",
     "name": "Kingsperl Events",
     "mode": "brand-and-web",
-    "objective": "Modernize Kingsperl Events with legible typography, a vibrant editorial design and an operational customer planning workspace.",
+    "objective": "Restore the original cinematic design with elegant Gothic headings, readable text and the existing operational planning workspace.",
     "audience": "Event hosts in St. John's and the Avalon Peninsula",
     "governing_idea": "An architectural K, an event arch and a pearl unify the identity.",
     "status": "implemented"
   },
   "creative_system": {
-    "visual_thesis": "Warm ivory, Atlantic green, terracotta and soft botanical colours; clear typography and generous event photography.",
+    "visual_thesis": "Atlantic ink, warm ivory and gold; a restored cinematic composition with generous imagery, Gothic display headings and clear sans-serif supporting text.",
     "anti_goals": [
       "generic spectacle",
       "unmotivated visual effects"
@@ -28,7 +28,7 @@
     "composition": "Strong single focal point, layered depth, and deliberate negative space.",
     "camera": "Grounded perspective, motivated movement, and stable screen direction.",
     "lighting": "Motivated practical sources with consistent direction and softness.",
-    "typography": "Outlined DejaVu Serif wordmark; serif display headings and sans-serif body text.",
+    "typography": "Outlined DejaVu Serif wordmark; self-hosted Grenze Gotisch display headings and Manrope body/interface text, with supporting text at least 14px.",
     "motion": "Existing restrained website transitions with reduced-motion support.",
     "sound": "Not applicable",
     "interface": "Clear hierarchy, responsive reflow, keyboard access, and reduced-motion parity.",

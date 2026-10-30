@@ -5,7 +5,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { BRAND, BrandLockup } from "../brand";
-import SiteHeader from "../site-header";
 import {
   categories,
   collectionForEvent,
@@ -369,7 +368,19 @@ export default function EventWorld() {
         <span className="top-ribbon-secondary">42 concept scenes · each shown once</span>
       </div>
 
-      <SiteHeader onBoard={openBoard} boardCount={savedLooks.length} />
+      <header className="site-header event-world-header">
+        <a className="brand" href="/" aria-label={`${BRAND.name} home`}><BrandLockup /></a>
+        <nav aria-label="Primary navigation">
+          <a href="/">Home</a>
+          <a className="active" href="/events" aria-current="page">Event world</a>
+          <a href="/#inspiration">Signature looks</a>
+          <a href="/studio">Design studio</a><a href="/my-event">My event</a>
+        </nav>
+        <div className="header-actions">
+          <button className="text-button" onClick={openBoard}>Planning board <span>{savedLooks.length}</span></button>
+          <a className="solid-button compact" href="/studio">Start a brief</a>
+        </div>
+      </header>
 
       <section className="event-world-hero" id="main-content" tabIndex={-1}>
         <div className="event-world-hero-media" aria-hidden="true">
@@ -378,7 +389,7 @@ export default function EventWorld() {
         <div className="event-world-hero-copy">
           <p className="eyebrow light">The {BRAND.name} Event World</p>
           <h1>There is a room for <em>every reason</em> people gather.</h1>
-          <p>Explore {events.length} occasions across six collections. Find a look you love, save it to your board, and bring it into your event plan. Our 42 scenes are generated design concepts, not completed client events.</p>
+          <p>Search {events.length} real occasions, then enter one of six disciplined visual worlds. The 42 generated concept scenes are never recycled between themes: one scene, one placement, one clear reason to exist. These are design concepts, not photographs of completed client events.</p>
           <div className="event-world-stats" aria-label="Gallery coverage">
             <div><strong>{events.length}</strong><span>searchable occasions</span></div>
             <div><strong>{eventCollections.length}</strong><span>visual collections</span></div>
@@ -423,7 +434,7 @@ export default function EventWorld() {
       <section className="event-collections-section" id="visual-collections">
         <div className="event-world-shell event-collections-heading">
           <div><p className="eyebrow">Six visual worlds · zero recycled scenes</p><h2>Every scene earns one place.</h2></div>
-          <p>Six collections, each with its own mood. Choose your occasion to see reference quantities and measurements, then make the plan your own in the design studio.</p>
+          <p>The catalogue has been tightened into six stronger collections. Choose the exact occasion inside a collection; quantities, measurements and the studio handoff remain specific to that selection.</p>
         </div>
 
         <div className="event-collections-list">

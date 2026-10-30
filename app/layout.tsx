@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { BRAND } from "./brand";
 import { PwaSupport } from "./pwa-support";
 import "./globals.css";
-import "./modern.css";
+import "./typography.css";
+import "./workspace-theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.siteUrl),
@@ -81,6 +82,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/fonts/grenze-gotisch-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body>
         {process.env.NODE_ENV === "development" && <script dangerouslySetInnerHTML={{ __html: `if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(rs => rs.filter(r => r.active && new URL(r.active.scriptURL).pathname === '/sw.js').forEach(r => r.unregister())); } if ('caches' in window) { caches.keys().then(ks => ks.filter(k => k.startsWith('kingsperl-public-')).forEach(k => caches.delete(k))); }` }} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />

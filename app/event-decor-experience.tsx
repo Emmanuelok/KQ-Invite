@@ -13,7 +13,7 @@ import {
   inspirationDirections as eventWorldDirections,
   type EventCategory as WorldEventCategory,
 } from "./events/event-catalog";
-import { referenceSchedule } from "./events/event-world";
+import { referenceSchedule } from "./events/reference-schedule";
 
 type DecorProject = {
   id: string;
@@ -333,8 +333,10 @@ const projectCategoryFromWorld = (category: WorldEventCategory, title = ""): Dec
   return "Celebrations";
 };
 
+const canonicalDirectionId = (id: string) => ({ "emerald-fifty": "emerald", "edge-of-ocean": "edge-ocean", "north-star-gala": "north-star", "coral-launch": "coral-lab" }[id] ?? id);
+
 const directionProjects: DecorProject[] = eventWorldDirections
-  .filter((direction) => !projects.some((project) => project.id === direction.id))
+  .filter((direction): direction is typeof direction & { startingAt: number } => direction.startingAt !== null && !projects.some((project) => canonicalDirectionId(project.id) === direction.id))
   .map((direction) => ({
     id: direction.id,
     title: `${direction.title} · custom route`,
@@ -820,7 +822,7 @@ export default function EventDecorExperience() {
       if (!resultProject) return [];
       const brief = resultBrief ?? planner;
       const catalogEvent = eventWorldEvents.find((event) => event.title === brief.event);
-      const catalogDirection = eventWorldDirections.find((direction) => direction.id === resultProject.id);
+      const catalogDirection = eventWorldDirections.find((direction) => direction.id === canonicalDirectionId(resultProject.id));
       return catalogEvent && catalogDirection
         ? referenceSchedule(catalogEvent, catalogDirection, brief.guests)
         : inventoryFor(resultProject, brief.guests);
@@ -833,7 +835,7 @@ export default function EventDecorExperience() {
     const catalogEvent = selectedEventOverride
       ? eventWorldEvents.find((event) => event.title === selectedEventOverride)
       : null;
-    const catalogDirection = eventWorldDirections.find((direction) => direction.id === selectedProject.id);
+    const catalogDirection = eventWorldDirections.find((direction) => direction.id === canonicalDirectionId(selectedProject.id));
     return catalogEvent && catalogDirection
       ? referenceSchedule(catalogEvent, catalogDirection, selectedGuestOverride ?? selectedProject.guests)
       : inventoryFor(selectedProject, selectedGuestOverride ?? undefined);
@@ -1040,6 +1042,7 @@ export default function EventDecorExperience() {
                   <strong>{formatCurrency(project.startingAt)}</strong>
                 </div>
               </div>
+              <a className="catalogue-detail-link" href={`/events/designs/${canonicalDirectionId(project.id)}`}>Open full design catalogue <IconArrow /></a>
               <div className="palette-line">
                 <div className="swatches" aria-label={`${project.paletteName} palette`}>
                   {project.palette.map((color) => <i key={color} style={{ background: color }} />)}
@@ -1055,7 +1058,7 @@ export default function EventDecorExperience() {
             </article>
           ))}
         </div>
-        <div className="gallery-more section-shell"><p>Each image is a design concept. Your final look is created around your venue and priorities.</p>{visibleProjects.length > 6 && <button className="new-button dark" aria-expanded={showAllLooks} aria-controls="look-grid" onClick={() => setShowAllLooks(!showAllLooks)}>{showAllLooks ? "Show fewer looks" : `Explore all ${visibleProjects.length} looks`} <span aria-hidden="true">{showAllLooks ? "−" : "+"}</span></button>}</div>
+        <div className="gallery-more section-shell"><p>Each image is a design concept. Your final look is created around your venue and priorities. <a href="/events#visual-collections">Browse all {eventWorldDirections.length} designs by setting and occasion →</a></p>{visibleProjects.length > 6 && <button className="new-button dark" aria-expanded={showAllLooks} aria-controls="look-grid" onClick={() => setShowAllLooks(!showAllLooks)}>{showAllLooks ? "Show fewer looks" : `Explore all ${visibleProjects.length} looks`} <span aria-hidden="true">{showAllLooks ? "−" : "+"}</span></button>}</div>
       </section>
 
       <section className="planner-section" id="design-studio">
@@ -1377,6 +1380,7 @@ export default function EventDecorExperience() {
                 ))}
               </div>
               <div className="spec-note"><strong>Specification note</strong><p>Measurements are planning references for the pictured concept—not a promise of venue fit. Final quantities and dimensions follow a site measure, fire/egress review, approved floor plan and confirmed vendor inventory.</p></div>
+              <p><a className="catalogue-detail-link" href={`/events/designs/${canonicalDirectionId(selectedProject.id)}`}>Open adjustable build sheet with spare quantities →</a></p>
               <div className="drawer-actions"><button className="solid-button" onClick={() => applyProjectToPlanner(selectedProject, selectedEventOverride)}>Adapt this look to my event <IconArrow /></button><button className="outline-button" onClick={() => toggleMoodbook(selectedProject.id)}>{moodbook.includes(selectedProject.id) ? "Remove from moodbook" : "Save to moodbook"}</button></div>
             </div>
           </aside>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { inspirationDirections } from "../events/event-catalog";
+import { normalizeReserve } from "../events/reference-schedule";
 import StudioExperience, { type StudioPrefill } from "./studio-experience";
 
 export const metadata: Metadata = {
@@ -20,9 +22,12 @@ const first = (value: string | string[] | undefined) => Array.isArray(value) ? v
 export default async function StudioPage({ searchParams }: { searchParams: Promise<StudioSearchParams> }) {
   const params = await searchParams;
   const lookValue = params.look;
+  const selectedDesign = inspirationDirections.find((direction) => direction.id === first(params.design));
   const prefill: StudioPrefill = {
+    design: selectedDesign?.id,
+    reserve: selectedDesign ? normalizeReserve(Number(first(params.reserve))) : undefined,
     event: first(params.event)?.slice(0, 160),
-    style: first(params.style)?.slice(0, 160),
+    style: selectedDesign?.title ?? first(params.style)?.slice(0, 160),
     looks: (Array.isArray(lookValue) ? lookValue : lookValue ? [lookValue] : []).slice(0, 12).map((value) => value.slice(0, 160)),
     venue: first(params.venue)?.slice(0, 240),
     guests: Number(first(params.guests)),

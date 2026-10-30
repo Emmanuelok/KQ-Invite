@@ -7,6 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { BrandLockup } from "../brand";
+import { events, inspirationDirections } from "../events/event-catalog";
+import { profileForDirection } from "../events/design-profiles";
+import { normalizeGuestCount, normalizeReserve } from "../events/reference-schedule";
 import {
   buildLines,
   defaultBrief,
@@ -79,6 +82,8 @@ const paletteOptions = [
 ];
 
 export type StudioPrefill = {
+  design?: string;
+  reserve?: number;
   event?: string;
   style?: string;
   looks?: string[];
@@ -89,20 +94,30 @@ export type StudioPrefill = {
 
 const initialBriefFrom = (prefill?: StudioPrefill): StudioBrief => {
   if (!prefill) return defaultBrief;
-  const venueSignal = prefill.venue?.trim();
+  const selectedDesign = inspirationDirections.find((direction) => direction.id === prefill.design);
+  const selectedProfile = selectedDesign ? profileForDirection(selectedDesign) : null;
+  const concurrentScope = selectedProfile?.capacityBasis === "concurrent";
+  const conceptGuests = selectedDesign ? normalizeGuestCount(selectedDesign, prefill.guests ?? selectedProfile!.referenceGuests) : null;
+  const venueSignal = concurrentScope ? undefined : prefill.venue?.trim();
   const customVenue = venueProfiles.find((candidate) => candidate.id === "custom")!;
   const looks = (prefill.looks ?? []).map((item) => item.trim()).filter(Boolean).slice(0, 12);
   return {
     ...defaultBrief,
     eventType: prefill.event?.trim() || defaultBrief.eventType,
-    guests: Math.min(800, Math.max(2, Math.round(prefill.guests || defaultBrief.guests))),
-    budget: Math.min(30_000, Math.max(1_500, Math.round(prefill.budget || defaultBrief.budget))),
+    guests: concurrentScope ? defaultBrief.guests : Math.min(800, Math.max(2, Math.round(prefill.guests || defaultBrief.guests))),
+    budget: concurrentScope ? defaultBrief.budget : Math.min(30_000, Math.max(1_500, Math.round(prefill.budget || defaultBrief.budget))),
     venueId: venueSignal ? "custom" : defaultBrief.venueId,
     widthFt: venueSignal ? customVenue.widthFt : defaultBrief.widthFt,
     lengthFt: venueSignal ? customVenue.lengthFt : defaultBrief.lengthFt,
     ceilingFt: venueSignal ? customVenue.ceilingFt : defaultBrief.ceilingFt,
     atmosphere: [
-      prefill.style?.trim() ? `Adapt the ${prefill.style.trim()} visual direction` : "",
+      selectedDesign
+        ? concurrentScope
+          ? `Add ${selectedDesign.title} as a separate side lounge for ${conceptGuests} concurrent users; full-event headcount is set separately in the Event brief`
+          : `Adapt ${selectedDesign.title} for ${conceptGuests} guests; its catalogue build sheet is a separate scope from the full-event estimator`
+        : prefill.style?.trim() ? `Adapt the ${prefill.style.trim()} visual direction` : "",
+      selectedDesign ? `Catalogue spare allowance: ${normalizeReserve(prefill.reserve ?? 10)}%; reconcile its design-specific quantities with the full-event plan before quoting` : "",
+      concurrentScope && prefill.venue?.trim() ? `Side-lounge venue context: ${prefill.venue.trim()}` : "",
       looks.length ? `reconcile saved signals: ${looks.join(", ")}` : "",
       venueSignal ? `for the venue context: ${venueSignal}` : "",
     ].filter(Boolean).join("; ") || defaultBrief.atmosphere,
@@ -137,6 +152,14 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
   const [changeSubmitting, setChangeSubmitting] = useState(false);
   const [resumeMessage, setResumeMessage] = useState("");
   const [savedPlanSnapshot, setSavedPlanSnapshot] = useState<SavedPlanSnapshot | null>(null);
+
+  const selectedDesign = inspirationDirections.find((direction) => direction.id === prefill?.design);
+  const selectedProfile = selectedDesign ? profileForDirection(selectedDesign) : null;
+  const selectedDesignGuests = selectedDesign ? normalizeGuestCount(selectedDesign, prefill?.guests ?? selectedProfile!.referenceGuests) : null;
+  const selectedReserve = normalizeReserve(prefill?.reserve ?? 10);
+  const selectedOccasion = selectedProfile ? events.find((event) => selectedProfile.occasionIds.includes(event.id) && (event.id === prefill?.event || event.title === prefill?.event))
+    ?? events.find((event) => selectedProfile.occasionIds.includes(event.id)) : null;
+  const selectedDesignHref = selectedDesign && selectedOccasion ? `/events/designs/${selectedDesign.id}?${new URLSearchParams({ event: selectedOccasion.id, guests: String(selectedDesignGuests), reserve: String(selectedReserve) })}#build-sheet` : null;
 
   const tier = designTiers.find((candidate) => candidate.id === tierId) ?? designTiers[1];
   const visibleEventOptions = eventOptions.includes(brief.eventType) ? eventOptions : [brief.eventType, ...eventOptions];
@@ -211,7 +234,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const hasPrefill = Boolean(prefill?.event || prefill?.style || prefill?.looks?.length || prefill?.venue || prefill?.guests || prefill?.budget);
+      const hasPrefill = Boolean(prefill?.design || prefill?.event || prefill?.style || prefill?.looks?.length || prefill?.venue || prefill?.guests || prefill?.budget);
       if (!window.location.hash.includes("project=") && !hasPrefill && new URLSearchParams(window.location.search).get("new") !== "1") {
         try {
           const saved = parsePlanningDraft(JSON.parse(localStorage.getItem(DRAFT_KEY) ?? "null"));
@@ -462,6 +485,24 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
               <span><i className={statusClass(readinessComplete >= 4 ? "Ready" : "Review")} />Readiness<strong>{readinessComplete}/{readiness.length} ready</strong></span>
             </div>
           </div>
+
+          {selectedDesign && selectedProfile && selectedDesignHref && (
+            <aside className={styles.catalogueSelection} aria-labelledby="catalogue-selection-title">
+              <div className={styles.catalogueSelectionImage}><Image unoptimized src={selectedDesign.image} alt={`${selectedDesign.title} concept render`} width={768} height={512} /><span>Concept render</span></div>
+              <div className={styles.catalogueSelectionCopy}>
+                <p className={styles.catalogueSelectionEyebrow}>Your selected catalogue design</p>
+                <h2 id="catalogue-selection-title">{selectedDesign.title}</h2>
+                <p>{selectedOccasion?.title} · {selectedDesignGuests} {selectedProfile.capacityBasis === "concurrent" ? "concurrent users" : "reference guests"} · {selectedReserve}% spare allowance</p>
+                <p>{selectedProfile.capacityNote}</p>
+                <div className={styles.catalogueScopeNote}>
+                  <strong>{selectedProfile.capacityBasis === "concurrent" ? "Side lounge and full event are separate scopes." : "Keep your design build sheet alongside this event plan."}</strong>
+                  <p>The estimator below builds a general full-event scope. Your selected design’s materials, quantities and spare allowance stay in its catalogue build sheet. {selectedProfile.capacityBasis === "concurrent" ? "Set the full event’s guest count below; the lounge’s concurrent users are retained in your atmosphere notes." : "The team will reconcile both scopes before a final quote."}</p>
+                  {selectedDesign.startingAt === null && <p><strong>This design is quoted after venue review.</strong> The full-event planning estimate below is not its price.</p>}
+                </div>
+                <Link className={styles.catalogueReturnLink} href={selectedDesignHref}>Return to the selected design’s build sheet <UIIcon name="arrow-right" /></Link>
+              </div>
+            </aside>
+          )}
 
           <div className={styles.draftStatus} role="status"><span aria-hidden="true">✓</span>{localSaveStatus || "Preparing your planning space"}<a href="/my-event">My event workspace <UIIcon name="arrow-right" /></a></div>
 
@@ -719,6 +760,7 @@ export default function StudioExperience({ prefill }: { prefill?: StudioPrefill 
       <section className={styles.printSummary}>
         <p>KINGSPERL EVENTS · PLANNING SUMMARY</p><h1>{brief.eventType}</h1>
         <p>{brief.date || "Date to be confirmed"} · {brief.guests} guests · {venue.name}</p>
+        {selectedDesign && <p>Catalogue reference: {selectedDesign.title} · {selectedDesignGuests} {selectedProfile?.capacityBasis === "concurrent" ? "concurrent lounge users" : "reference guests"} · {selectedReserve}% spare allowance. This summary estimates the general full-event scope; the selected design’s detailed quantities and quote remain separate in its catalogue build sheet.</p>}
         <p>Design scope: {tier.name}. {projectReference ? `Saved reference: ${projectReference}` : "Working draft — not submitted."}</p>
         <table><thead><tr><th>Item</th><th>Quantity</th><th>Dimensions</th><th>Estimate</th></tr></thead><tbody>{buildLinesForTier.map(line => <tr key={line.sku}><td>{line.name}</td><td>{line.quantity} {line.unit}</td><td>{line.dimensions}</td><td>{money(line.total)}</td></tr>)}</tbody></table>
         <h2>Planning total: {money(quote.total)}</h2><p>Includes estimated HST. Final scope, availability and agreement require team confirmation.</p>

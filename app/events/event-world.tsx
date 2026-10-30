@@ -7,6 +7,9 @@ import { UIIcon } from "../ui-icon";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { designMatchesFilters, profileForDirection } from "./design-profiles";
+import { normalizeGuestCount, referenceSchedule, scheduleCsv } from "./reference-schedule";
 import SiteHeader from "../site-header";
 import MobileActionBar from "../mobile-action-bar";
 import { BRAND, BrandLockup } from "../brand";
@@ -56,104 +59,9 @@ const idealBudgetByScale: Record<EventScale, number> = {
   Flexible: 5500,
 };
 
+const NEW_DESIGN_IDS = new Set(["apartment-atelier", "quiet-cove", "rain-garden", "open-circle", "makers-workshop", "screen-salon"]);
+
 const sampleKey = (event: EventType, direction: InspirationDirection) => `${event.id}::${direction.id}`;
-
-export type ReferenceBuildItem = {
-  zone: string;
-  item: string;
-  quantity: number;
-  measurement: string;
-  note: string;
-};
-
-export const referenceSchedule = (event: EventType, direction: InspirationDirection, guestCount: number): ReferenceBuildItem[] => {
-  const guests = Math.min(800, Math.max(10, Math.round(guestCount)));
-  const diningTables = Math.max(1, Math.ceil(guests / 10));
-  const loungeSets = Math.max(1, Math.ceil(guests / 60));
-  const floralPieces = Math.max(3, Math.ceil(diningTables * 0.7));
-  const lightPieces = Math.max(18, diningTables * 5);
-  const outdoor = event.setting !== "Indoor";
-  const title = event.title.toLowerCase();
-  const isPerformance = event.category === "Arts & entertainment" || /concert|music festival|theatre|opera|dance recital|comedy|screening|fashion show|talent show/.test(title);
-  const isExpo = /conference|convention|trade show|expo|symposium|seminar|workshop|open house|science fair|orientation/.test(title);
-  const isSport = event.category === "Sport & wellness" && !/awards banquet|retreat/.test(title);
-  const isPublicFestival = event.category === "Community & civic" && /street|festival|market|fair|block party|picnic/.test(title);
-  const isCeremony = /ceremony|elopement|proposal|christening|baptism|communion|confirmation|memorial|wake|worship|bar or bat mitzvah/.test(title);
-
-  const arrival: ReferenceBuildItem[] = [
-    { zone: "Arrival", item: `${direction.title} welcome portal`, quantity: 1, measurement: "10 ft W × 9 ft H / 3.05 × 2.74 m", note: "Freestanding modular frame; blank artwork panel included" },
-    { zone: "Feature", item: "Scenic backdrop modules", quantity: guests > 220 ? 5 : 3, measurement: "4 ft W × 10 ft H each / 1.22 × 3.05 m", note: `Finished to the ${direction.title} material and palette direction` },
-  ];
-
-  const banquet: ReferenceBuildItem[] = [
-    { zone: "Feature", item: "Grounded floral / botanical compositions", quantity: floralPieces, measurement: "24–48 in W × 20–42 in H / 61–122 × 51–107 cm", note: "Recipe and substitutions follow season, culture and venue rules" },
-    { zone: "Dining", item: "72-inch round guest tables", quantity: diningTables, measurement: "72 in Ø × 30 in H / 1.83 × 0.76 m", note: "Reference seating at 10 guests per table" },
-    { zone: "Dining", item: "Guest chairs", quantity: guests, measurement: "18 in W × 36 in H / 46 × 91 cm", note: "Final chair family follows venue inventory and access" },
-    { zone: "Dining", item: "Floor-length table linen", quantity: diningTables, measurement: "132 in round / 3.35 m round", note: "Pressed on site; palette-matched textile" },
-    { zone: "Tabletop", item: "Complete styled place setting", quantity: guests + Math.ceil(guests * 0.05), measurement: "5-piece setting with 20 in / 51 cm napkin", note: "Includes a 5% service reserve" },
-    { zone: "Lounge", item: "Soft-seating conversation vignette", quantity: loungeSets, measurement: "10 × 8 ft each / 3.05 × 2.44 m", note: "Sofa, two chairs, rug and cocktail tables" },
-  ];
-
-  const ceremony: ReferenceBuildItem[] = [
-    { zone: "Ceremony", item: "Guest ceremony chairs", quantity: guests, measurement: "18 in W × 36 in H / 46 × 91 cm", note: "Set in accessible blocks with a minimum 44 in / 1.12 m primary aisle" },
-    { zone: "Ceremony", item: `${direction.title} focal structure`, quantity: 1, measurement: "12 ft W × 10 ft H / 3.66 × 3.05 m", note: "Freestanding, venue-safe and rebuilt around cultural or faith protocol" },
-    { zone: "Aisle", item: "Grounded aisle compositions", quantity: Math.max(6, Math.ceil(guests / 24)), measurement: "18–30 in W × 16–28 in H / 46–76 × 41–71 cm", note: "Kept clear of accessible travel and egress" },
-    { zone: "Hospitality", item: "Welcome / remembrance lounge vignette", quantity: loungeSets, measurement: "10 × 8 ft each / 3.05 × 2.44 m", note: "Seating, side tables, textile and restrained botanical layer" },
-  ];
-
-  const performance: ReferenceBuildItem[] = [
-    { zone: "Stage", item: "Modular performance deck", quantity: 1, measurement: guests > 350 ? "32 × 20 ft × 32 in H / 9.75 × 6.10 × 0.81 m" : "24 × 16 ft × 24 in H / 7.32 × 4.88 × 0.61 m", note: "Guarding, steps and accessible route follow final venue plan" },
-    { zone: "Production", item: "Ground-supported lighting / scenic truss bays", quantity: guests > 350 ? 4 : 2, measurement: "10 ft W × 14 ft H / 3.05 × 4.27 m each", note: "Engineer-reviewed ballast and venue-approved power distribution" },
-    { zone: "Audience", item: "Audience chairs", quantity: Math.ceil(guests * 0.9), measurement: "20 in W × 34 in H / 51 × 86 cm", note: "Remaining capacity reserved for accessible, standing and technical zones" },
-    { zone: "Backstage", item: "Draped artist / speaker support bay", quantity: Math.max(1, Math.ceil(guests / 400)), measurement: "12 × 10 ft / 3.66 × 3.05 m", note: "Opaque flame-rated drape, mirror, table and garment rail" },
-    { zone: "Front of house", item: "Technical control position", quantity: 1, measurement: "12 × 8 ft / 3.66 × 2.44 m", note: "Protected sightline for audio, lighting and show control" },
-  ];
-
-  const expo: ReferenceBuildItem[] = [
-    { zone: "Registration", item: "Accessible welcome / check-in counters", quantity: Math.max(2, Math.ceil(guests / 250)), measurement: "6 ft W × 30–42 in H / 1.83 × 0.76–1.07 m", note: "Includes one lowered accessible position per bank" },
-    { zone: "Exhibition", item: "Modular exhibitor / content bays", quantity: Math.max(6, Math.ceil(guests / 35)), measurement: "10 × 10 ft / 3.05 × 3.05 m", note: "Blank brand-ready panels, task light and concealed cable path" },
-    { zone: "Program", item: "Talk / demonstration platform", quantity: 1, measurement: "20 × 12 ft × 16 in H / 6.10 × 3.66 × 0.41 m", note: "Accessible approach and clear screen sightlines" },
-    { zone: "Networking", item: "Standing conversation clusters", quantity: Math.max(4, Math.ceil(guests / 45)), measurement: "8 × 8 ft each / 2.44 × 2.44 m", note: "Cocktail tables, two stools and a rest perch per cluster" },
-    { zone: "Power", item: "Managed floor-power / cable-ramp runs", quantity: Math.max(4, Math.ceil(guests / 80)), measurement: "25 ft / 7.62 m run", note: "Final circuits and loads by venue electrician" },
-  ];
-
-  const sport: ReferenceBuildItem[] = [
-    { zone: "Recognition", item: "Awards / photo platform", quantity: 1, measurement: "20 × 12 ft × 16 in H / 6.10 × 3.66 × 0.41 m", note: "Blank scenic face, accessible approach and weather-rated finish" },
-    { zone: "Hospitality", item: "Covered team / guest lounge bay", quantity: Math.max(2, Math.ceil(guests / 160)), measurement: "20 × 20 ft / 6.10 × 6.10 m", note: "Open-sided weather canopy with engineered ballast" },
-    { zone: "Route", item: "Weighted route barrier sections", quantity: Math.max(12, Math.ceil(guests / 20)), measurement: "8 ft L × 42 in H / 2.44 × 1.07 m", note: "Continuous accessible gates and emergency breaks shown on plan" },
-    { zone: "Recovery", item: "Hydration / rest stations", quantity: Math.max(2, Math.ceil(guests / 180)), measurement: "12 × 10 ft / 3.66 × 3.05 m", note: "Shaded counter, waste sorting and accessible rest seating" },
-    { zone: "Spectator", item: "Loose hospitality chairs", quantity: Math.max(30, Math.ceil(guests * 0.28)), measurement: "20 in W × 34 in H / 51 × 86 cm", note: "Concentrated at recognition and recovery zones, not the course" },
-  ];
-
-  const publicFestival: ReferenceBuildItem[] = [
-    { zone: "Program", item: "Covered community program platform", quantity: 1, measurement: "24 × 16 ft × 24 in H / 7.32 × 4.88 × 0.61 m", note: "Weather roof, accessible approach and blank scenic backdrop" },
-    { zone: "Public realm", item: "Weighted vendor / activity bays", quantity: Math.max(6, Math.ceil(guests / 75)), measurement: "10 × 10 ft / 3.05 × 3.05 m", note: "Wind-rated canopy, ballast and a minimum 12 ft / 3.66 m public aisle" },
-    { zone: "Rest", item: "Accessible seating and shade clusters", quantity: Math.max(3, Math.ceil(guests / 160)), measurement: "14 × 12 ft / 4.27 × 3.66 m", note: "Mixed-height seating with wheelchair companion spaces" },
-    { zone: "Route", item: "Pedestrian-control barrier sections", quantity: Math.max(12, Math.ceil(guests / 28)), measurement: "8 ft L × 42 in H / 2.44 × 1.07 m", note: "Emergency breaks and crossings remain visible" },
-    { zone: "Waste", item: "Styled waste-sorting stations", quantity: Math.max(3, Math.ceil(guests / 180)), measurement: "6 × 3 ft / 1.83 × 0.91 m", note: "Waste, recycling and organics with blank changeable headers" },
-  ];
-
-  const formatItems = isPerformance
-    ? performance
-    : isExpo
-      ? expo
-      : isSport
-        ? sport
-        : isPublicFestival
-          ? publicFestival
-          : isCeremony
-            ? ceremony
-            : banquet;
-
-  return [
-    ...arrival,
-    ...formatItems,
-    { zone: "Lighting", item: "Venue-compliant programmable LED lights", quantity: lightPieces, measurement: "6–18 in H / 15–46 cm", note: `Warm-to-neutral output and colour accents calibrated to ${direction.title}` },
-    { zone: "Wayfinding", item: "Blank modular information / photo panel", quantity: Math.max(2, Math.ceil(guests / 180)), measurement: "36 × 72 in / 91 × 183 cm", note: "Accessible viewing height; final artwork quoted separately" },
-    ...(outdoor ? [{ zone: "Weather", item: "Wind-rated ballast and weather protection", quantity: Math.max(6, Math.ceil(guests / 35)), measurement: "250–500 lb / 113–227 kg rated points", note: "Final engineering follows site exposure and tent/scenic loads" }] : []),
-    { zone: "Logistics", item: "Installation and strike crew", quantity: Math.max(3, Math.ceil(guests / 65)), measurement: guests > 250 ? "10–14 hour install" : "6–10 hour install", note: "Final labour follows venue access, loading and curfew" },
-  ];
-};
 
 export default function EventWorld() {
   const [query, setQuery] = useState("");
@@ -161,6 +69,13 @@ export default function EventWorld() {
   const [season, setSeason] = useState<"All" | EventSeason>("All");
   const [setting, setSetting] = useState<"All" | EventSetting>("All");
   const [localOnly, setLocalOnly] = useState(false);
+  const [newDesignsOnly, setNewDesignsOnly] = useState(false);
+  const [designQuery, setDesignQuery] = useState("");
+  const [designSetting, setDesignSetting] = useState<"All" | EventSetting>("All");
+  const [designCollection, setDesignCollection] = useState<"All" | EventCollectionId>("All");
+  const [designOccasion, setDesignOccasion] = useState("All");
+  const [reservePercent, setReservePercent] = useState(10);
+  const [scheduleGuestInput, setScheduleGuestInput] = useState("120");
   const [selectedEventIds, setSelectedEventIds] = useState<Record<EventCollectionId, string>>(() => Object.fromEntries(
     eventCollections.map((collection) => [collection.id, events.find((event) => event.title === collection.defaultEventTitle)?.id ?? eventsForCollection(collection)[0]?.id ?? ""]),
   ) as Record<EventCollectionId, string>);
@@ -183,7 +98,8 @@ export default function EventWorld() {
       try {
         const restored = JSON.parse(localStorage.getItem(BOARD_KEY) ?? localStorage.getItem(LEGACY_BOARD_KEY) ?? "[]") as unknown;
         if (Array.isArray(restored)) {
-          const valid = new Set(events.flatMap((event) => directionsForCollection(collectionForEvent(event)).map((direction) => sampleKey(event, direction))));
+          // Keep existing boards valid when the catalogue gains more specific occasion guidance.
+          const valid = new Set(events.flatMap((event) => inspirationDirections.map((direction) => sampleKey(event, direction))));
           const seenDirections = new Set<string>();
           setSavedLooks(restored.filter((value): value is string => {
             if (typeof value !== "string" || !valid.has(value)) return false;
@@ -267,6 +183,29 @@ export default function EventWorld() {
     });
   }, [category, localOnly, query, season, setting]);
 
+  const selectedDesignEvent = events.find((event) => event.id === designOccasion);
+  const visibleCollections = useMemo(() => eventCollections
+    .filter((collection) => designCollection === "All" || collection.id === designCollection)
+    .map((collection) => ({
+      collection,
+      directions: directionsForCollection(collection).filter((direction) => (!newDesignsOnly || NEW_DESIGN_IDS.has(direction.id)) && designMatchesFilters(direction, {
+        query: designQuery,
+        setting: designSetting === "All" ? undefined : designSetting,
+        occasionId: designOccasion === "All" ? undefined : designOccasion,
+      })),
+    }))
+    .filter(({ directions }) => directions.length > 0),
+  [designCollection, designOccasion, designQuery, designSetting, newDesignsOnly]);
+  const visibleDesignCount = visibleCollections.reduce((total, { directions }) => total + directions.length, 0);
+
+  const resetDesignFilters = () => {
+    setNewDesignsOnly(false);
+    setDesignQuery("");
+    setDesignSetting("All");
+    setDesignCollection("All");
+    setDesignOccasion("All");
+  };
+
   const matcherResults = useMemo(() => {
     const wantedScale = scaleFromGuests(matcherGuests);
     return [...events]
@@ -301,9 +240,14 @@ export default function EventWorld() {
   });
 
   const focusCollectionForEvent = (event: EventType) => {
+    setNewDesignsOnly(false);
     const collection = collectionForEvent(event);
     setSelectedEventIds((current) => ({ ...current, [collection.id]: event.id }));
-    const target = document.getElementById(`collection-${collection.id}`);
+    setDesignQuery("");
+    setDesignSetting("All");
+    setDesignCollection("All");
+    setDesignOccasion(event.id);
+    const target = document.getElementById("design-filters");
     if (!target) return;
     target.focus({ preventScroll: true });
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -314,6 +258,7 @@ export default function EventWorld() {
     previousScheduleFocus.current = document.activeElement as HTMLElement;
     setActiveEvent(event);
     setActiveDirection(direction);
+    setScheduleGuestInput(String(normalizeGuestCount(direction, matcherGuests)));
   };
 
   const closeSchedule = () => {
@@ -356,15 +301,34 @@ export default function EventWorld() {
   });
 
   const primaryBoardEvent = boardItems[0]?.event;
-  const plannerHref = (event: EventType, direction?: InspirationDirection, boardDirections: InspirationDirection[] = []) => {
+  const plannerHref = (event: EventType, direction?: InspirationDirection, boardDirections: InspirationDirection[] = [], guestCount = matcherGuests) => {
     const params = new URLSearchParams({ event: event.title });
-    if (direction) params.set("style", direction.title);
+    if (direction) { params.set("style", direction.title); params.set("design", direction.id); params.set("reserve", String(reservePercent)); }
     boardDirections.slice(0, 12).forEach((savedDirection) => params.append("look", savedDirection.title));
-    params.set("guests", String(Math.min(800, Math.max(10, Math.round(matcherGuests)))));
-    params.set("budget", String(direction?.startingAt ?? matcherBudget));
+    params.set("guests", String(direction ? normalizeGuestCount(direction, guestCount) : Math.min(800, Math.max(10, Math.round(guestCount)))));
+    if (!direction || direction.startingAt !== null) params.set("budget", String(direction?.startingAt ?? matcherBudget));
     params.set("venue", direction?.venue ?? event.venuePattern);
     return `/studio?${params.toString()}`;
   };
+
+  const designHref = (event: EventType, direction: InspirationDirection, guestCount = matcherGuests) => {
+    const params = new URLSearchParams({ event: event.id, guests: String(normalizeGuestCount(direction, guestCount)), reserve: String(reservePercent) });
+    return `/events/designs/${direction.id}?${params.toString()}`;
+  };
+
+  const downloadSchedule = (event: EventType, direction: InspirationDirection, guestCount: number) => {
+    const url = URL.createObjectURL(new Blob([scheduleCsv(event, direction, guestCount, reservePercent)], { type: "text/csv;charset=utf-8;" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `kingsperl-${direction.id}-${guestCount}-${profileForDirection(direction).capacityBasis === "concurrent" ? "users" : "guests"}.csv`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const activeProfile = activeDirection ? profileForDirection(activeDirection) : null;
+  const scheduleGuests = activeDirection ? normalizeGuestCount(activeDirection, Number(scheduleGuestInput)) : matcherGuests;
 
   return (
     <main className="event-world-page">
@@ -374,7 +338,7 @@ export default function EventWorld() {
         <div className="event-world-hero-copy">
           <p className="eyebrow light">THE KINGSPERL COLLECTIONS</p>
           <h1>A world of ideas.<br /><em>Your kind of occasion.</em></h1>
-          <p>Explore {events.length} occasions and six curated collections. Save what you love, find your direction and begin making it yours. Images are inspirational design concepts.</p>
+          <p>Explore {events.length} occasions and {eventCollections.length} curated collections. Save what you love, find your direction and begin making it yours. Images are inspirational design concepts.</p>
           <div className="event-world-stats" aria-label="Gallery coverage">
             <div><strong>{events.length}</strong><span>searchable occasions</span></div>
             <div><strong>{eventCollections.length}</strong><span>visual collections</span></div>
@@ -418,21 +382,48 @@ export default function EventWorld() {
 
       <section className="event-collections-section" id="visual-collections">
         <div className="event-world-shell event-collections-heading">
-          <div><p className="eyebrow">SIX COLLECTIONS. ENDLESS PERSONALITY.</p><h2>Find the look that feels like you.</h2></div>
-          <p>The catalogue has been tightened into six stronger collections. Choose the exact occasion inside a collection; quantities, measurements and the studio handoff remain specific to that selection.</p>
+          <div><p className="eyebrow">{eventCollections.length} COLLECTIONS. ENDLESS PERSONALITY.</p><h2>Find the look that feels like you.</h2></div>
+          <p>Explore every design by atmosphere, setting and occasion. Open a concept for its materials, layout and build sheet, then adapt it to your guest count.</p>
         </div>
 
+        <div className="event-world-shell catalogue-new-directions">
+          <div><p className="eyebrow">NEW PERSPECTIVES</p><h3>More ways to bring people together.</h3><p>Small home celebrations, quieter spaces, level-access ceremonies, indoor rain alternatives, hands-on workshops and connected meetings.</p></div>
+          <button aria-pressed={newDesignsOnly} onClick={() => { resetDesignFilters(); setNewDesignsOnly(!newDesignsOnly); }}>{newDesignsOnly ? "Show every design" : "Explore 6 new concepts"} <Arrow /></button>
+        </div>
+
+        <div className="event-world-shell design-filter-panel" id="design-filters" tabIndex={-1}>
+          <div className="design-filter-grid" role="search" aria-label="Find a design concept">
+            <label className="design-filter-search"><span>Search designs</span><input type="search" value={designQuery} onChange={(event) => setDesignQuery(event.target.value)} placeholder="Try sage, home, quiet or lantern…" /></label>
+            <label><span>Design setting</span><select value={designSetting} onChange={(event) => setDesignSetting(event.target.value as "All" | EventSetting)}>
+              <option value="All">Every setting</option><option>Indoor</option><option>Outdoor</option><option value="Hybrid">Indoor + outdoor</option>
+            </select></label>
+            <label><span>Collection</span><select value={designCollection} onChange={(event) => setDesignCollection(event.target.value as "All" | EventCollectionId)}>
+              <option value="All">Every collection</option>{eventCollections.map((collection) => <option value={collection.id} key={collection.id}>{collection.title}</option>)}
+            </select></label>
+            <label><span>Occasion</span><select value={designOccasion} onChange={(event) => setDesignOccasion(event.target.value)}>
+              <option value="All">Every occasion</option>{events.map((event) => <option value={event.id} key={event.id}>{event.title}</option>)}
+            </select></label>
+          </div>
+          <div className="design-filter-summary"><p role="status" aria-live="polite"><strong>{visibleDesignCount}</strong> of {inspirationDirections.length} design concepts{selectedDesignEvent ? ` for ${selectedDesignEvent.title.toLowerCase()}` : ""}</p><button type="button" onClick={resetDesignFilters}>Clear design filters</button></div>
+          <p className="design-filter-note">Settings describe the concept shown. Indoor + outdoor means a combined venue plan; remote participation is identified in the design details.</p>
+        </div>
+
+        {visibleDesignCount === 0 && <div className="event-world-shell design-empty-results"><h3>No designs match these filters.</h3><p>Try another setting or clear the filters to explore every concept.</p><button className="solid-button" onClick={resetDesignFilters}>Show all designs <Arrow /></button></div>}
         <div className="event-collections-list">
-          {eventCollections.map((collection) => {
+          {visibleCollections.map(({ collection, directions }) => {
             const collectionEvents = eventsForCollection(collection);
-            const selectedEvent = selectedEventForCollection(collection);
-            const directions = directionsForCollection(collection);
+            const selectedEvent = selectedDesignEvent ?? selectedEventForCollection(collection);
             if (!selectedEvent) return null;
             return <article className="event-collection" id={`collection-${collection.id}`} key={collection.id} tabIndex={-1}>
               <div className="event-world-shell event-collection-head">
-                <div><span>{collection.kicker}</span><h2>{collection.title}</h2><p>{collection.description}</p></div>
+                <div><span>{collection.kicker} · {directions.length} {directions.length === 1 ? "design" : "designs"}</span><h2>{collection.title}</h2><p>{collection.description}</p></div>
                 <label className="event-collection-select">Plan these scenes for
-                  <select value={selectedEvent.id} onChange={(event) => setSelectedEventIds((current) => ({ ...current, [collection.id]: event.target.value }))}>
+                  <select value={selectedEvent.id} onChange={(event) => {
+                    setDesignOccasion(event.target.value);
+                    setDesignCollection(collection.id);
+                    setSelectedEventIds((current) => ({ ...current, [collection.id]: event.target.value }));
+                  }}>
+                    {selectedDesignEvent && !collectionEvents.some((event) => event.id === selectedDesignEvent.id) && <option value={selectedDesignEvent.id}>{selectedDesignEvent.title}</option>}
                     {collectionEvents.map((event) => <option value={event.id} key={event.id}>{event.title}</option>)}
                   </select>
                   <small>{selectedEvent.season} · {selectedEvent.setting} · {selectedEvent.guestRange}</small>
@@ -440,15 +431,18 @@ export default function EventWorld() {
               </div>
               <div className="event-world-shell event-collection-note"><strong>Planning lens</strong><p>{collection.planningNote}</p></div>
               <div className="event-world-shell event-collection-grid">
-                {directions.map((direction, index) => {
-                  const saved = savedLooks.includes(sampleKey(selectedEvent, direction));
+                {directions.map((direction) => {
+                  const profile = profileForDirection(direction);
+                  const contextEvent = designMatchesFilters(direction, { occasionId: selectedEvent.id })
+                    ? selectedEvent : events.find((event) => profile.occasionIds.includes(event.id)) ?? selectedEvent;
+                  const saved = savedLooks.includes(sampleKey(contextEvent, direction));
                   return <article className="event-collection-card" key={direction.id}>
-                    <button className="event-collection-image" onClick={() => openSchedule(selectedEvent, direction)} aria-label={`Open item schedule for ${direction.title}, adapted to ${selectedEvent.title}`}>
+                    <button className="event-collection-image" onClick={() => openSchedule(contextEvent, direction)} aria-label={`Open item schedule for ${direction.title}, adapted to ${contextEvent.title}`}>
                       <Image unoptimized src={direction.image} alt={`${direction.title} event décor concept`} width={1536} height={1024} loading="lazy" decoding="async" sizes="(max-width: 840px) calc(100vw - 38px), (max-width: 1180px) 50vw, 33vw" />
-                      <span>{String(index + 1).padStart(2, "0")} / 07</span><b>See quantities + measurements <UIIcon name="arrow-right" /></b>
+                      <span className="design-concept-badge">Concept render</span><b>See quantities + measurements <UIIcon name="arrow-right" /></b>
                     </button>
-                    <div className="event-collection-copy"><p>{direction.venue}</p><h3>{direction.title}</h3><span>{direction.mood}</span><div className="event-direction-palette" aria-label={`${direction.title} palette`}>{direction.palette.map((color) => <i key={color} style={{ background: color }} />)}</div><small>Reference investment from {currency(direction.startingAt)}</small></div>
-                    <button className={saved ? "saved" : ""} onClick={() => toggleLook(selectedEvent, direction)} aria-pressed={saved}>{saved ? "Saved to board ✓" : `+ Save for ${selectedEvent.title}`}</button>
+                    <div className="event-collection-copy"><p>{direction.venue}</p><h3>{direction.title}</h3><span>{direction.mood}</span><div className="design-card-meta"><span>{profile.setting === "Hybrid" ? "Indoor + outdoor" : profile.setting}</span><span>{profile.settingLabel}</span></div><div className="event-direction-palette" aria-label={`${direction.title} palette`}>{direction.palette.map((color) => <i key={color} style={{ background: color }} />)}</div><small>{direction.startingAt !== null ? `Reference investment from ${currency(direction.startingAt)}` : "Quote after venue review"}</small><Link className="design-detail-link" href={designHref(contextEvent, direction)}>Explore design + build sheet <UIIcon name="arrow-right" /></Link></div>
+                    <button className={saved ? "saved" : ""} onClick={() => toggleLook(contextEvent, direction)} aria-pressed={saved}>{saved ? "Saved to board ✓" : `+ Save for ${contextEvent.title}`}</button>
                   </article>;
                 })}
               </div>
@@ -460,7 +454,7 @@ export default function EventWorld() {
       <section className="event-catalog-section" id="event-catalog">
         <div className="event-world-shell event-catalog-heading">
           <div><p className="eyebrow">EVERY REASON TO CELEBRATE</p><h2>Find any reason to gather.</h2></div>
-          <p>All {events.length} décor-relevant occasions remain searchable without duplicating photography. Choose one and we will take you to its strongest visual collection with the exact occasion already selected.</p>
+          <p>Explore all {events.length} occasions. Choose one to see the matching visual designs, with your exact occasion carried into each build sheet.</p>
         </div>
 
         <div className="event-world-shell event-filters">
@@ -484,7 +478,7 @@ export default function EventWorld() {
               <small>{event.season} · {event.setting} · {event.scale}</small>
               <strong>{event.title}</strong>
               <p>{collectionForEvent(event).title}</p>
-              <i>Open collection <UIIcon name="arrow-right" /></i>
+              <i>Find designs <UIIcon name="arrow-right" /></i>
             </button>)}
           </div>
         ) : (
@@ -495,7 +489,7 @@ export default function EventWorld() {
       <section className="event-intelligence-section">
         <div className="event-world-shell event-intelligence-heading"><p className="eyebrow light">FROM INSPIRATION TO SOMETHING REAL</p><h2>Beautiful ideas. Practical plans.</h2></div>
         <div className="event-world-shell event-intelligence-grid">
-          <article><span>01</span><h3>Room to imagine</h3><p>Explore forty-two distinctive concept scenes across six collections, each with its own atmosphere and details.</p></article>
+          <article><span>01</span><h3>Room to imagine</h3><p>Explore {inspirationDirections.length} distinctive concept scenes across {eventCollections.length} collections, each with its own atmosphere and details.</p></article>
           <article><span>02</span><h3>Made for your venue</h3><p>Weather, wind, access, venue class, guest flow and seasonal substitution logic travel with the visual direction.</p></article>
           <article><span>03</span><h3>Keep what you love</h3><p>Save a look once, attach it to the correct occasion and carry every selected signal into the design studio.</p></article>
           <article><span>04</span><h3>A clear next step</h3><p>Move from an event and direction into the design studio, then calculate inventory, quantities, measurements and scope.</p></article>
@@ -528,8 +522,8 @@ export default function EventWorld() {
             {boardItems.length ? <>
               <div className="event-board-summary"><strong>{boardItems.length}</strong><p>saved {boardItems.length === 1 ? "direction" : "directions"} across <b>{new Set(boardItems.map((item) => item.event.id)).size}</b> occasions.</p></div>
               <div className="event-board-items">{boardItems.map(({ key, event, direction }) => <article key={key}><div className="event-board-swatch" aria-hidden="true" style={{ background: `linear-gradient(135deg, ${direction.palette[0]} 0 38%, ${direction.palette[1]} 38% 70%, ${direction.palette[2]} 70%)` }} /><div><small>{event.title}</small><strong>{direction.title}</strong><span>{direction.mood}</span></div><button onClick={() => setSavedLooks((current) => current.filter((value) => value !== key))} aria-label={`Remove ${direction.title} for ${event.title}`}>×</button></article>)}</div>
-              <div className="event-board-footer"><p>Palette temperature, venue geometry, light and density can now seed your exact design brief without duplicating gallery photography.</p>{primaryBoardEvent && <a className="solid-button" href={plannerHref(primaryBoardEvent, boardItems[0].direction, boardItems.map((item) => item.direction))}>Build from this board <Arrow /></a>}<button onClick={() => setSavedLooks([])}>Clear board</button></div>
-            </> : <div className="event-board-empty"><span>♡</span><h3>No directions saved yet.</h3><p>Save the one-use scenes that catch your eye. Each selection keeps its exact occasion context.</p><button className="solid-button" onClick={closeOverlay}>Explore collections</button></div>}
+              <div className="event-board-footer"><p>Palette temperature, venue geometry, light and density can now seed your exact design brief with the occasion preserved.</p>{primaryBoardEvent && <a className="solid-button" href={plannerHref(primaryBoardEvent, boardItems[0].direction, boardItems.map((item) => item.direction))}>Build from this board <Arrow /></a>}<button onClick={() => setSavedLooks([])}>Clear board</button></div>
+            </> : <div className="event-board-empty"><span>♡</span><h3>No directions saved yet.</h3><p>Save the concepts that catch your eye. Each selection keeps its exact occasion context.</p><button className="solid-button" onClick={closeOverlay}>Explore collections</button></div>}
           </aside>
         </div>
       )}
@@ -542,19 +536,26 @@ export default function EventWorld() {
             <div className="event-schedule-visual event-schedule-material" style={{ background: `linear-gradient(120deg, ${activeDirection.palette[0]} 0 36%, ${activeDirection.palette[1]} 36% 68%, ${activeDirection.palette[2]} 68%)` }}><span>Reference build sheet · {activeDirection.title}</span></div>
             <div className="event-schedule-title"><p>{activeEvent.title}</p><h2 id="event-schedule-title">{activeDirection.title}</h2><span>{activeDirection.mood}</span></div>
             <div className="event-schedule-summary">
-              <div><span>Reference guests</span><strong>{Math.min(800, Math.max(10, Math.round(matcherGuests)))}</strong></div>
-              <div><span>Starting investment</span><strong>{currency(activeDirection.startingAt)}</strong></div>
+              <div><span>{activeProfile?.capacityBasis === "concurrent" ? "Concurrent users" : "Reference guests"}</span><strong>{scheduleGuests}</strong></div>
+              <div><span>Reference investment</span><strong>{activeDirection.startingAt !== null ? currency(activeDirection.startingAt) : "Quote after venue review"}</strong></div>
               <div><span>Venue signal</span><strong>{activeDirection.venue}</strong></div>
             </div>
-            <div className="event-schedule-heading"><div><span>Quantity + measurement schedule</span><h3>What it takes to build this direction.</h3></div><p>Reference quantities update from the guest count in your Event Compass. Final inventory follows a measured floor plan, venue rules and an approved production design.</p></div>
+            <div className="event-schedule-heading"><div><span>Quantity + measurement schedule</span><h3>What it takes to build this direction.</h3></div><p>Adjust the guests and spare allowance below. Quantities are planning references; final stock and specialist installations are confirmed after venue review.</p></div>
+            <div className="design-schedule-controls">
+              <label>{activeProfile?.capacityBasis === "concurrent" ? "Concurrent users" : "Reference guests"}<input type="number" min={activeProfile?.minGuests ?? 10} max={activeProfile?.maxGuests ?? 800} step="1" value={scheduleGuestInput} onChange={(event) => setScheduleGuestInput(event.target.value)} onBlur={() => setScheduleGuestInput(String(scheduleGuests))} /></label>
+              <label>Spare allowance<select value={reservePercent} onChange={(event) => setReservePercent(Number(event.target.value))}>{[0, 5, 10, 15].map((value) => <option key={value} value={value}>{value}%</option>)}</select></label>
+              <button className="outline-button" onClick={() => downloadSchedule(activeEvent, activeDirection, scheduleGuests)}>Download CSV</button>
+              <Link className="outline-button" href={`${designHref(activeEvent, activeDirection, scheduleGuests)}#build-sheet`}>Open printable build sheet <Arrow /></Link>
+            </div>
+            <p className="design-capacity-note">{activeProfile?.capacityNote}</p>
             <div className="event-schedule-table-wrap">
               <table className="event-schedule-table">
-                <thead><tr><th>Zone / item</th><th>Qty</th><th>Reference measurement</th><th>Production note</th></tr></thead>
-                <tbody>{referenceSchedule(activeEvent, activeDirection, matcherGuests).map((item) => <tr key={`${item.zone}-${item.item}`}><td data-label="Zone / item"><small>{item.zone}</small><strong>{item.item}</strong></td><td data-label="Quantity">{item.quantity}</td><td data-label="Reference measurement">{item.measurement}</td><td data-label="Production note">{item.note}</td></tr>)}</tbody>
+                <thead><tr><th>Zone / item</th><th>Base</th><th>Spare</th><th>Total</th><th>Reference measurement</th><th>Production note</th></tr></thead>
+                <tbody>{referenceSchedule(activeEvent, activeDirection, scheduleGuests, reservePercent).map((item) => <tr key={`${item.zone}-${item.item}`}><td data-label="Zone / item"><small>{item.zone}</small><strong>{item.item}</strong></td><td data-label="Base quantity">{item.quantity}</td><td data-label="Spare quantity">{item.spare}</td><td data-label="Total quantity"><strong>{item.totalQuantity}</strong></td><td data-label="Reference measurement">{item.measurement}</td><td data-label="Production note">{item.note}</td></tr>)}</tbody>
               </table>
             </div>
             <div className="event-schedule-note"><strong>Planning note</strong><p>This is a transparent reference schedule, not a final quote or engineering document. {BRAND.name} confirms real stock, fabrication, rigging, fire-rating, weather and labour after venue review.</p></div>
-            <div className="event-schedule-actions"><a className="solid-button" href={plannerHref(activeEvent, activeDirection)}>Adapt this direction in the studio <Arrow /></a><button className="outline-button" onClick={() => toggleLook(activeEvent, activeDirection)} aria-pressed={savedLooks.includes(sampleKey(activeEvent, activeDirection))}>{savedLooks.includes(sampleKey(activeEvent, activeDirection)) ? "Saved to board ✓" : "+ Save to planning board"}</button></div>
+            <div className="event-schedule-actions"><a className="solid-button" href={plannerHref(activeEvent, activeDirection, [], scheduleGuests)}>Adapt this direction in the studio <Arrow /></a><button className="outline-button" onClick={() => toggleLook(activeEvent, activeDirection)} aria-pressed={savedLooks.includes(sampleKey(activeEvent, activeDirection))}>{savedLooks.includes(sampleKey(activeEvent, activeDirection)) ? "Saved to board ✓" : "+ Save to planning board"}</button></div>
           </aside>
         </div>
       )}

@@ -37,7 +37,7 @@ export type InspirationDirection = {
   palette: string[];
   mood: string;
   venue: string;
-  startingAt: number;
+  startingAt: number | null;
   bestFor: EventCategory[];
 };
 
@@ -357,6 +357,13 @@ export const inspirationDirections: InspirationDirection[] = [
   { id: "moss-brass-social", title: "Moss & Brass Social", image: "/event-world/22-moss-brass-social.webp", palette: ["#314d36", "#eee1c5", "#806044"], mood: "Heritage · convivial · sophisticated", venue: "Historic stone-and-timber hall", startingAt: 6900, bestFor: ["Seasonal", "Culture & faith", "Arts & entertainment"] },
   { id: "icefire-new-year", title: "Icefire Midnight", image: "/event-world/23-icefire-new-year.webp", palette: ["#b8cfdf", "#343536", "#c68e50"], mood: "Dramatic · luminous · architectural", venue: "Tall-windowed ballroom", startingAt: 11800, bestFor: ["Seasonal", "Corporate", "Life & love"] },
   { id: "festival-light", title: "Festival Light Courtyard", image: "/event-world/24-festival-light-courtyard.webp", palette: ["#dd6c22", "#a61d64", "#4a213e"], mood: "Radiant · respectful · communal", venue: "Sheltered contemporary courtyard", startingAt: 8600, bestFor: ["Culture & faith", "Community & civic", "Seasonal"] },
+  { id: "apartment-atelier", title: "Apartment Atelier", image: "/catalogue-expansion/apartment-atelier.webp", palette: ["#e99882", "#b9a0bd", "#c5a47e"], mood: "Intimate · considered · personal", venue: "Apartment or private dining room", startingAt: null, bestFor: ["Life & love", "Seasonal"] },
+  { id: "quiet-cove", title: "Quiet Cove", image: "/catalogue-expansion/quiet-cove.webp", palette: ["#7f8d75", "#d8caba", "#eee7d9"], mood: "Gentle · uncluttered · restorative", venue: "Separate quiet room", startingAt: null, bestFor: ["Life & love", "Corporate", "Community & civic", "Education & youth", "Sport & wellness"] },
+  { id: "rain-garden", title: "Rain Garden", image: "/catalogue-expansion/rain-garden.webp", palette: ["#667554", "#f0eee1", "#c6b69d"], mood: "Botanical · sheltered · adaptable", venue: "Indoor garden-room alternative", startingAt: null, bestFor: ["Life & love", "Seasonal", "Community & civic", "Culture & faith"] },
+  { id: "open-circle", title: "Open Circle", image: "/catalogue-expansion/open-circle.webp", palette: ["#d99b7c", "#b9a0bc", "#f1ecdf"], mood: "Welcoming · grounded · connected", venue: "Level community ceremony room", startingAt: null, bestFor: ["Life & love", "Culture & faith", "Community & civic"] },
+  { id: "makers-workshop", title: "Makers’ Workshop", image: "/catalogue-expansion/makers-workshop.webp", palette: ["#dda17b", "#486d59", "#c8a67d"], mood: "Tactile · collaborative · colourful", venue: "Hands-on workshop studio", startingAt: null, bestFor: ["Corporate", "Education & youth", "Arts & entertainment", "Community & civic"] },
+  { id: "screen-salon", title: "Screen & Salon", image: "/catalogue-expansion/screen-salon.webp", palette: ["#624753", "#c8bba6", "#b59e7b"], mood: "Connected · composed · conversational", venue: "Hybrid meeting room", startingAt: null, bestFor: ["Corporate", "Education & youth"] },
+
 ];
 
 export const eventCollections: EventCollection[] = [
@@ -364,8 +371,8 @@ export const eventCollections: EventCollection[] = [
     id: "ceremony-romance",
     title: "Ceremony & Romance",
     kicker: "Collection 01",
-    description: "Seven distinct rooms for proposals, ceremonies, receptions and private promises—from Atlantic restraint to after-dark drama.",
-    directionIds: ["pearl-sage", "nocturne", "clay-rose", "afterglow", "orchard-vow", "harbour-engagement", "edge-ocean"],
+    description: "Distinct rooms for proposals, ceremonies, receptions and private promises—from Atlantic restraint to an open, level ceremony layout.",
+    directionIds: ["pearl-sage", "nocturne", "clay-rose", "afterglow", "orchard-vow", "harbour-engagement", "edge-ocean", "open-circle"],
     defaultEventTitle: "Wedding ceremony & reception",
     planningNote: "Ceremony sightlines, guest comfort and a weather-ready reveal lead the plan.",
   },
@@ -374,7 +381,7 @@ export const eventCollections: EventCollection[] = [
     title: "Family & Milestones",
     kicker: "Collection 02",
     description: "Warm, expressive environments for arrivals, birthdays, reunions, remembrance and the meaningful days between them.",
-    directionIds: ["cloud-nine", "lavender-tea", "little-atlantis", "still-garden", "amber-farewell", "linen-welcome", "team-table"],
+    directionIds: ["cloud-nine", "lavender-tea", "little-atlantis", "still-garden", "amber-farewell", "linen-welcome", "team-table", "apartment-atelier", "quiet-cove"],
     defaultEventTitle: "Milestone birthday",
     planningNote: "Age, accessibility, family flow and the emotional tone of the gathering shape every adaptation.",
   },
@@ -383,7 +390,7 @@ export const eventCollections: EventCollection[] = [
     title: "Business & Academia",
     kicker: "Collection 03",
     description: "Architectural, brand-aware settings for conferences, launches, awards, research and academic achievement.",
-    directionIds: ["winter-chrome", "north-star", "coral-lab", "convocation", "future-forum", "open-exchange", "research-salon"],
+    directionIds: ["winter-chrome", "north-star", "coral-lab", "convocation", "future-forum", "open-exchange", "research-salon", "makers-workshop", "screen-salon"],
     defaultEventTitle: "Conference or convention",
     planningNote: "Screen visibility, production access, sponsor hierarchy and measurable guest flow remain non-negotiable.",
   },
@@ -410,7 +417,7 @@ export const eventCollections: EventCollection[] = [
     title: "Atlantic, Outdoor & Seasonal",
     kicker: "Collection 06",
     description: "Weather-aware rooms and public formats for sport, waterfront hospitality, winter gatherings and calendar moments.",
-    directionIds: ["harbour-blue", "winter-social", "fogline-mixer", "lakeside-regatta", "red-white-summer", "moss-brass-social", "icefire-new-year"],
+    directionIds: ["harbour-blue", "winter-social", "fogline-mixer", "lakeside-regatta", "red-white-summer", "moss-brass-social", "icefire-new-year", "rain-garden"],
     defaultEventTitle: "Rowing regatta",
     planningNote: "Wind, wet ground, ballast, accessible routes, shortened daylight and seasonal substitutions drive the specification.",
   },
@@ -462,7 +469,7 @@ if (
   || new Set(assignedDirectionIds).size !== inspirationDirections.length
   || assignedDirectionIds.some((id) => !knownDirectionIds.has(id))
 ) {
-  throw new Error("Every Event World photograph must belong to exactly one visual collection.");
+  throw new Error("Every Event World concept must belong to exactly one visual collection.");
 }
 
 export const currency = (value: number) => new Intl.NumberFormat("en-CA", {

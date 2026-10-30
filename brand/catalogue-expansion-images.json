@@ -1,0 +1,47 @@
+{
+  "created": "2026-10-30",
+  "generator": "Built-in image_gen",
+  "kind": "Original AI-generated design concept renders",
+  "disclosure": "Concept imagery; not completed client events, confirmed venue layouts, engineered plans or stock availability.",
+  "format": "WebP",
+  "width": 1536,
+  "height": 1024,
+  "assets": [
+    {
+      "id": "apartment-atelier",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Apartment Atelier: a compact but gracious Canadian townhouse dining and living room, a real residential scale with tall windows and a kitchen visible beyond. A 12-seat elongated existing oak dining table is carefully set for an intimate milestone dinner with cream ceramic plates, folded pale lilac napkins, clear glassware and tiny low coral seasonal flowers in bud vases. Mismatched elegant existing dining chairs. Small pastel lilac freestanding curved panel beside a console holding a small unbranded cake, no towering structure. Coral and lilac accents against cream walls and natural oak. Soft late afternoon daylight. Clear route around table. Show an ordinary tasteful home beautifully transformed, not a ballroom.",
+      "source": "../generated_images/exec-70cec5f8-c4e4-4ce7-a383-c817ec2acdde.png",
+      "asset": "/catalogue-expansion/apartment-atelier.webp"
+    },
+    {
+      "id": "quiet-cove",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Quiet Cove: a sensory-considerate retreat lounge beside a larger event, in a refined quiet room with tall sheer-curtained windows and warm oak floor. Six generously spaced comfortable armchairs in small companion pairs, muted sage and taupe upholstery, simple small round side tables, softly lit matte table lamps, one very understated potted plant. One open space next to a companion chair, generous clear routes and uncluttered level floor. Soft indirect natural daylight. Low visual complexity and a peaceful refined atmosphere. No screens, decorative neon, patterned carpets, floral fragrance cues, stage, bright effects or balloons. It must read as an intentionally welcoming calm side room, not a hotel reception.",
+      "source": "../generated_images/exec-ade29339-58da-4e1c-81f5-e1ea16397283.png",
+      "asset": "/catalogue-expansion/quiet-cove.webp"
+    },
+    {
+      "id": "rain-garden",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Rain Garden: an attractive indoor alternative to an outdoor garden ceremony, in an elegant bright garden room with tall windows visibly streaked with light rain and a softly wet green garden beyond. The indoor event is warm and serene. A portable modest asymmetrical freestanding botanical arch made from two independent grounded white frames with potted fern and white seasonal flowers, no overhead suspended structures. Four short rows of ivory chairs face the focal area across a wide clear aisle on a dry level pale wood floor. Small botanical pots repeated at row ends, all outside walkways. Cream and moss-green palette, diffused rainy daylight and tiny warm LED votives on protected side surfaces. No text, no tent indoors.",
+      "source": "../generated_images/exec-faadfdaa-f4c5-47aa-8161-e38fa086eebd.png",
+      "asset": "/catalogue-expansion/rain-garden.webp"
+    },
+    {
+      "id": "open-circle",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Open Circle: a contemporary level-access ceremony in a beautiful simple community-room event space with high windows, clean light oak floor, cream walls. White and natural oak chairs arranged in two broad gently curved fan-shaped blocks, a generous wide central aisle and two noticeably open companion seating gaps integrated in middle rows, with level continuous circulation paths. The ceremony focal point is a modest asymmetric grouping of freestanding arched panels in matte pale violet and soft coral, low floral clusters of coral and ivory at outer edges, absolutely no objects intruding into the aisle. A beautifully restrained welcoming celebration, daytime window light, architectural precision. No raised stage, stairs or decorative ramps. Wide view from back lets viewer understand the full seating arrangement.",
+      "source": "../generated_images/exec-b0af03ef-8333-4603-b408-a1cb9aa33ec2.png",
+      "asset": "/catalogue-expansion/open-circle.webp"
+    },
+    {
+      "id": "makers-workshop",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Makers' Workshop: a sophisticated hands-on creative workshop in a bright converted studio with large industrial windows. Three sturdy pale wooden worktables, each with six simple ergonomic chairs. Each work place has an orderly tray with watercolor palette, brushes, small blank cotton paper and a glass water cup; modest unbranded supply trolleys stand against a wall. Warm peach freestanding display panels with blank clipped swatches, a teal-painted cabinet, a few grounded peach flowers away from work surfaces. Wide clear circulation routes around tables and one workstation with chair pulled aside for flexible access. Soft clear natural daylight, airy, tactile, calm yet creative. Do not turn it into a banquet: no plates, wine glasses or dining cutlery. No writing or logos.",
+      "source": "../generated_images/exec-84b5a31d-3fe5-4021-891a-11f342545885.png",
+      "asset": "/catalogue-expansion/makers-workshop.webp"
+    },
+    {
+      "id": "screen-salon",
+      "prompt": "Use case: photorealistic-natural. Asset: premium event design catalogue concept render, not a completed client event. Generate one single editorial interior photograph-style scene, landscape 3:2, exceptionally realistic materials and architectural proportions, sharp yet natural, premium event styling achievable with rental furniture. Show the full layout in a wide eye-level architectural camera angle. No people, logos, writing, watermarks, split panels or collage. Screen & Salon: an intimate hybrid business meeting in a refined modern boardroom for twelve people, a single oval pale oak conference table with twelve comfortable plum upholstered chairs, modest unbranded notepads and water glasses. At one end, a large display screen shows only a tasteful abstract ivory and muted violet gradient, with a small professional video camera mounted directly above it and a neat conference speaker at table center. Pale ivory acoustic wall panels, discreet plum fabric curtains, natural daylight with soft even face-level lighting, concealed cables. Clear camera sightline down the table, no floral obstruction, no banquet decor. A small quiet technical console at the rear side. Elegant professional scale, warm contemporary architecture, wide three-quarter view.",
+      "source": "../generated_images/exec-8065a717-d49b-45b2-a26d-dedd61b205ee.png",
+      "asset": "/catalogue-expansion/screen-salon.webp"
+    }
+  ]
+}

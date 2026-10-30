@@ -152,10 +152,12 @@
     "acceptance_threshold": 85,
     "critical_failures": [],
     "review_notes": [
-      "Production build and 15 automated planning/security checks passed during development.",
-      "All visible supporting text is at least 14px; body text and controls use larger legible sizes.",
-      "Final rendered review in progress."
-    ]
+      "Production build and all 15 automated planning/security checks passed.",
+      "Live homepage verified with self-hosted Plus Jakarta Sans, no horizontal overflow and no visible text smaller than 14px.",
+      "Live checks passed for category filters, 18-look expansion, six-look collapse, item detail dialog and consultation dialog.",
+      "Live studio readiness panel and customer workspace verified; checklist persisted after reload. Temporary local test draft removed."
+    ],
+    "verification_status": "verified"
   },
   "gates": [],
   "assumptions": [

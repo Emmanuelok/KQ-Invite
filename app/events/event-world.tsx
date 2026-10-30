@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { designMatchesFilters, profileForDirection } from "./design-profiles";
-import { normalizeGuestCount, referenceSchedule, scheduleCsv } from "./reference-schedule";
+import { normalizeGuestCount, referenceSchedule } from "./reference-schedule";
 import SiteHeader from "../site-header";
 import MobileActionBar from "../mobile-action-bar";
 import { BRAND, BrandLockup } from "../brand";
@@ -316,15 +316,9 @@ export default function EventWorld() {
     return `/events/designs/${direction.id}?${params.toString()}`;
   };
 
-  const downloadSchedule = (event: EventType, direction: InspirationDirection, guestCount: number) => {
-    const url = URL.createObjectURL(new Blob([scheduleCsv(event, direction, guestCount, reservePercent)], { type: "text/csv;charset=utf-8;" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `kingsperl-${direction.id}-${guestCount}-${profileForDirection(direction).capacityBasis === "concurrent" ? "users" : "guests"}.csv`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const downloadScheduleHref = (event: EventType, direction: InspirationDirection, guestCount: number) => {
+    const params = new URLSearchParams({ event: event.id, guests: String(normalizeGuestCount(direction, guestCount)), reserve: String(reservePercent) });
+    return `/events/designs/${direction.id}/build-sheet.csv?${params.toString()}`;
   };
 
   const activeProfile = activeDirection ? profileForDirection(activeDirection) : null;
@@ -544,7 +538,7 @@ export default function EventWorld() {
             <div className="design-schedule-controls">
               <label>{activeProfile?.capacityBasis === "concurrent" ? "Concurrent users" : "Reference guests"}<input type="number" min={activeProfile?.minGuests ?? 10} max={activeProfile?.maxGuests ?? 800} step="1" value={scheduleGuestInput} onChange={(event) => setScheduleGuestInput(event.target.value)} onBlur={() => setScheduleGuestInput(String(scheduleGuests))} /></label>
               <label>Spare allowance<select value={reservePercent} onChange={(event) => setReservePercent(Number(event.target.value))}>{[0, 5, 10, 15].map((value) => <option key={value} value={value}>{value}%</option>)}</select></label>
-              <button className="outline-button" onClick={() => downloadSchedule(activeEvent, activeDirection, scheduleGuests)}>Download CSV</button>
+              <a className="outline-button" href={downloadScheduleHref(activeEvent, activeDirection, scheduleGuests)} download>Download CSV</a>
               <Link className="outline-button" href={`${designHref(activeEvent, activeDirection, scheduleGuests)}#build-sheet`}>Open printable build sheet <Arrow /></Link>
             </div>
             <p className="design-capacity-note">{activeProfile?.capacityNote}</p>

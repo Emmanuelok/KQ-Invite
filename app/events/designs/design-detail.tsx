@@ -6,7 +6,7 @@ import SiteHeader from "../../site-header";
 import { BRAND, BrandLockup } from "../../brand";
 import { currency, inspirationDirections, type EventCollection, type EventType, type InspirationDirection } from "../event-catalog";
 import type { DesignProfile } from "../design-profiles";
-import { referenceSchedule, scheduleCsv, normalizeGuestCount } from "../reference-schedule";
+import { referenceSchedule, normalizeGuestCount } from "../reference-schedule";
 import styles from "./design-detail.module.css";
 
 type Props = {
@@ -44,17 +44,7 @@ export default function DesignDetail({ direction, profile, collection, compatibl
     setGuestInput(String(safe));
     updateAddress(eventId, safe, reserve);
   };
-  const download = () => {
-    const blob = new Blob([scheduleCsv(event, direction, guests, reserve)], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `kingsperl-${direction.id}-${guests}-${profile.capacityBasis === "concurrent" ? "users" : "guests"}.csv`;
-    document.body.append(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  };
+  const downloadHref = `/events/designs/${direction.id}/build-sheet.csv?${new URLSearchParams({ event: event.id, guests: String(guests), reserve: String(reserve) })}`;
   const copyLink = async () => {
     updateAddress(eventId, guests, reserve);
     try {
@@ -101,7 +91,7 @@ export default function DesignDetail({ direction, profile, collection, compatibl
           <label>Spare allowance<select value={reserve} onChange={(e) => { const value = Number(e.target.value); setReserve(value); updateAddress(eventId, guests, value); }}>{[0, 5, 10, 15].map((value) => <option value={value} key={value}>{value}% reserve</option>)}</select></label>
         </div>
         <p className={styles.scheduleStatus} role="status">{event.title} · {guests} {profile.capacityBasis === "concurrent" ? "concurrent lounge users" : "reference guests"} · {reserve}% allowance on eligible items. Specialist structures and labour are scoped separately. {profile.capacityNote}</p>
-        <div className={styles.exportActions}><button onClick={download}>Download build sheet (CSV) <span aria-hidden="true">↓</span></button><button onClick={() => window.print()}>Print / save as PDF <span aria-hidden="true">↗</span></button></div>
+        <div className={styles.exportActions}><a href={downloadHref} download>Download build sheet (CSV) <span aria-hidden="true">↓</span></a><button onClick={() => window.print()}>Print / save as PDF <span aria-hidden="true">↗</span></button></div>
         <div className={styles.tableWrap}><table><caption className="sr-only">{direction.title} planning items for {event.title}, {guests} {profile.capacityBasis === "concurrent" ? "concurrent lounge users" : "reference guests"}</caption><thead><tr><th scope="col">Zone / item</th><th scope="col">Base</th><th scope="col">Spare</th><th scope="col">Total</th><th scope="col">Measurement &amp; planning note</th></tr></thead><tbody>{schedule.map((item, index) => <tr key={`${item.zone}-${item.item}-${index}`}><th scope="row"><small>{item.zone}</small><strong>{item.item}</strong></th><td data-label="Base">{item.quantity}</td><td data-label="Spare">{item.spare}</td><td data-label="Total" className={styles.total}>{item.totalQuantity}</td><td className={styles.specification}><span>{item.measurement}</span><p>{item.note}</p></td></tr>)}</tbody></table></div>
         <aside className={styles.planningNote}><strong>A practical starting point</strong><p>Confirm measurements, access and final quantities against your venue plan. Large tents, glass shelters, rigging and ceiling installations need qualified review and installation. Materials may be rented, sourced or fabricated; pictured items are not a promise of owned stock.</p></aside>
         <div className={styles.nextStep}><div><p className={styles.eyebrow}>Make room for your own ideas</p><h3>Make this direction yours.</h3><p>Take this occasion, design and guest count into your event brief.</p></div><a className={styles.primary} href={studioHref}>Adapt in the design studio <span aria-hidden="true">↗</span></a></div>

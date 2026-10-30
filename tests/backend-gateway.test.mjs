@@ -22,7 +22,7 @@ test("customer submissions preserve upstream validation and never forward visito
     return Response.json({ error: { code: "INVALID_PROJECT", message: "Missing fields" } }, { status: 400 });
   });
   assert.equal(forwarded.url, `${EVENTS_BACKEND}/api/projects`);
-  assert.equal(forwarded.options.headers.get("OAI-Sites-Authorization"), "test-only-service-credential");
+  assert.equal(forwarded.options.headers.get("OAI-Sites-Authorization"), "Bearer test-only-service-credential");
   for (const key of ["cookie", "authorization", "oai-authenticated-user-email", "oai-authenticated-user-full-name"]) {
     assert.equal(forwarded.options.headers.get(key), null);
   }

@@ -49,7 +49,7 @@ export async function forwardToKingsperl(
     return apiError(path, 404, "NOT_FOUND", "This endpoint is not available.");
   }
 
-  const token = process.env.KINGSPERL_BACKEND_TOKEN;
+  const token = process.env.KINGSPERL_BACKEND_TOKEN?.trim().replace(/^Bearer\s+/i, "");
   if (!token) {
     return apiError(path, 503, "SERVICE_UNAVAILABLE", "The event service is temporarily unavailable. Please try again shortly.");
   }
@@ -58,7 +58,7 @@ export async function forwardToKingsperl(
   // headers. A service credential must not turn a public caller into staff.
   const headers = new Headers({
     accept: "application/json",
-    "OAI-Sites-Authorization": token,
+    "OAI-Sites-Authorization": `Bearer ${token}`,
   });
   const projectToken = request.headers.get("x-kingsperl-project-token") ?? request.headers.get("x-tideglass-project-token");
   if (projectToken && /^[a-f0-9]{64}$/i.test(projectToken)) {
